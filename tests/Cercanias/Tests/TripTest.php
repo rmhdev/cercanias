@@ -8,48 +8,48 @@ class TripTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetDepartureTime()
     {
-        $dateTime = new \DateTime("now");
-        $trip = new Trip($dateTime);
+        $departure = new \DateTime("now");
+        $trip = new Trip($departure);
 
         $this->assertEquals($dateTime, $trip->getDepartureTime());
 
-        $dateTime2 = new \DateTime("tomorrow");
-        $trip2 = new Trip($dateTime2);
+        $departure2 = new \DateTime("tomorrow");
+        $trip2 = new Trip($departure2);
 
-        $this->assertEquals($dateTime2, $trip2->getDepartureTime());
+        $this->assertEquals($departure2, $trip2->getDepartureTime());
     }
 
     public function testGetArrivalTimeWhenNotDefined()
     {
-        $dateTime = new \DateTime("now");
-        $trip = new Trip($dateTime);
+        $departure = new \DateTime("now");
+        $trip = new Trip($departure);
 
-        $this->assertEquals($dateTime, $trip->getArrivalTime());
+        $this->assertEquals($departure, $trip->getArrivalTime());
     }
 
     public function testGetArrivalTime()
     {
-        $tripTime = new \DateTime("+1 day 5 hours");
+        $departureTime = new \DateTime("+1 day 5 hours");
         $arrivalTime = new \DateTime("+1 day 6 hours");
-        $trip = new Trip($tripTime, $arrivalTime);
+        $trip = new Trip($departureTime, $arrivalTime);
 
         $this->assertEquals($arrivalTime, $trip->getArrivalTime());
     }
 
     public function testGetDurationWithoutDefiningArrivalTime()
     {
-        $tripTime = new \DateTime("now");
+        $departureTime = new \DateTime("now");
         $interval = new \DateInterval("PT0H");
-        $trip = new Trip($tripTime);
+        $trip = new Trip($departureTime);
 
         $this->assertEquals($interval, $trip->getDuration());
     }
 
     public function testGetDuration()
     {
-        $tripTime = new \DateTime("+1 day 5 hours");
+        $departureTime = new \DateTime("+1 day 5 hours");
         $arrivalTime = new \DateTime("+1 day 6 hours");
-        $trip = new Trip($tripTime, $arrivalTime);
+        $trip = new Trip($departureTime, $arrivalTime);
         $duration = new \DateInterval("PT1H");
 
         $this->assertEquals($duration, $trip->getDuration());
