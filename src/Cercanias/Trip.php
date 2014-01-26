@@ -14,9 +14,14 @@ class Trip
     {
         $this->departureTime = $departureTime;
         $this->arrivalTime = $arrivalTime;
-        if ($this->getArrivalTime()->getTimestamp() < $this->getDepartureTime()->getTimestamp()) {
+        if ($this->isArrivalTimeOutOfBounds()) {
             throw new OutOfBoundsException();
         }
+    }
+
+    protected function isArrivalTimeOutOfBounds()
+    {
+        return ($this->getArrivalTime()->getTimestamp() < $this->getDepartureTime()->getTimestamp());
     }
 
     public function getDepartureTime()
