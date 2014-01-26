@@ -27,6 +27,6 @@ class Departure
 
     public function getDuration()
     {
-        return new \DateInterval("PT0H");
+        return $this->getDepartureTime()->diff($this->getArrivalTime());
     }
 }

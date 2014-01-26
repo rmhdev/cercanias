@@ -44,4 +44,14 @@ class DepartureTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($interval, $departure->getDuration());
     }
+
+    public function testGetDuration()
+    {
+        $departureTime = new \DateTime("+1 day 5 hours");
+        $arrivalTime = new \DateTime("+1 day 6 hours");
+        $departure = new Departure($departureTime, $arrivalTime);
+        $duration = new \DateInterval("PT1H");
+
+        $this->assertEquals($duration, $departure->getDuration());
+    }
 }
