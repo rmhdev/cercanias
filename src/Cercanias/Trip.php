@@ -2,6 +2,8 @@
 
 namespace Cercanias;
 
+use Cercanias\Exception\OutOfBoundsException;
+
 class Trip
 {
     protected
@@ -12,6 +14,9 @@ class Trip
     {
         $this->departureTime = $departureTime;
         $this->arrivalTime = $arrivalTime;
+        if ($this->getArrivalTime()->getTimestamp() < $this->getDepartureTime()->getTimestamp()) {
+            throw new OutOfBoundsException();
+        }
     }
 
     public function getDepartureTime()

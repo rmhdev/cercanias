@@ -3,6 +3,7 @@
 namespace Cercanias\Tests\Trip;
 
 use Cercanias\Trip;
+use Cercanias\Exception\OutOfBoundsException;
 
 class TripTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,5 +54,15 @@ class TripTest extends \PHPUnit_Framework_TestCase
         $duration = new \DateInterval("PT1H");
 
         $this->assertEquals($duration, $trip->getDuration());
+    }
+
+    /**
+     * @expectedException \Cercanias\Exception\OutOfBoundsException
+     */
+    public function testArrivalTimeOutOfBounds()
+    {
+        $departureTime = new \DateTime("+1 day 6 hours");
+        $arrivalTime = new \DateTime("+1 day 3 hours");
+        $trip = new Trip($departureTime, $arrivalTime);
     }
 }
