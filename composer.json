@@ -1,0 +1,23 @@
+{
+    "name": "rmhdev/cercanias",
+    "description": "Retrieve train timetables",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rober Martín H",
+            "email": "rmh.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Cercanias\\": "src/"
+        }
+    }
+}
