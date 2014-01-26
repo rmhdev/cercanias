@@ -15,4 +15,9 @@ class Departure
     {
         return $this->departureTime;
     }
+
+    public function getArrivalTime()
+    {
+        return $this->getDepartureTime();
+    }
 }

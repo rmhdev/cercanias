@@ -18,4 +18,12 @@ class DepartureTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($dateTime2, $departure2->getDepartureTime());
     }
+
+    public function testGetArrivalTimeWhenNotDefined()
+    {
+        $dateTime = new \DateTime("now");
+        $departure = new Departure($dateTime);
+
+        $this->assertEquals($dateTime, $departure->getArrivalTime());
+    }
 }
