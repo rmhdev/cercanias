@@ -11,7 +11,7 @@ class TripTest extends \PHPUnit_Framework_TestCase
         $departure = new \DateTime("now");
         $trip = new Trip($departure);
 
-        $this->assertEquals($dateTime, $trip->getDepartureTime());
+        $this->assertEquals($departure, $trip->getDepartureTime());
 
         $departure2 = new \DateTime("tomorrow");
         $trip2 = new Trip($departure2);
