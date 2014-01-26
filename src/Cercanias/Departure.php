@@ -4,11 +4,14 @@ namespace Cercanias;
 
 class Departure
 {
-    protected $departureTime;
+    protected
+        $departureTime,
+        $arrivalTime;
 
-    public function __construct(\DateTime $departureTime)
+    public function __construct(\DateTime $departureTime, \DateTime $arrivalTime = NULL)
     {
         $this->departureTime = $departureTime;
+        $this->arrivalTime = $arrivalTime;
     }
 
     public function getDepartureTime()
@@ -18,6 +21,7 @@ class Departure
 
     public function getArrivalTime()
     {
-        return $this->getDepartureTime();
+        return is_null($this->arrivalTime) ?
+            $this->getDepartureTime() : $this->arrivalTime;
     }
 }

@@ -13,7 +13,7 @@ class DepartureTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($dateTime, $departure->getDepartureTime());
 
-        $dateTime2 = new \DateTime("tomorrow +5 hours");
+        $dateTime2 = new \DateTime("tomorrow");
         $departure2 = new Departure($dateTime2);
 
         $this->assertEquals($dateTime2, $departure2->getDepartureTime());
@@ -25,5 +25,14 @@ class DepartureTest extends \PHPUnit_Framework_TestCase
         $departure = new Departure($dateTime);
 
         $this->assertEquals($dateTime, $departure->getArrivalTime());
+    }
+
+    public function testGetArrivalTime()
+    {
+        $departureTime = new \DateTime("+1 day 5 hours");
+        $arrivalTime = new \DateTime("+1 day 6 hours");
+        $departure = new Departure($departureTime, $arrivalTime);
+
+        $this->assertEquals($arrivalTime, $departure->getArrivalTime());
     }
 }
