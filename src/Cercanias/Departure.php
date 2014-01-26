@@ -24,4 +24,9 @@ class Departure
         return is_null($this->arrivalTime) ?
             $this->getDepartureTime() : $this->arrivalTime;
     }
+
+    public function getDuration()
+    {
+        return new \DateInterval("PT0H");
+    }
 }
