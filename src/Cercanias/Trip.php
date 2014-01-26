@@ -2,7 +2,7 @@
 
 namespace Cercanias;
 
-class Departure
+class Trip
 {
     protected
         $departureTime,
