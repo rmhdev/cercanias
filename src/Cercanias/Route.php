@@ -9,7 +9,8 @@ class Route
 
     protected
         $id,
-        $name;
+        $name,
+        $stations = array();
 
     public function __construct($id, $name)
     {
@@ -43,8 +44,13 @@ class Route
         return $this->name;
     }
 
+    public function countStations()
+    {
+        return sizeof($this->stations);
+    }
+
     public function addStation(Station $station)
     {
-
+        $this->stations[] = $station;
     }
 }

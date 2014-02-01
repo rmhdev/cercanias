@@ -88,8 +88,11 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     public function testAddStation()
     {
         $route = $this->createRoute("My route");
+        $this->assertEquals(0, $route->countStations());
+
         $station1 = $this->createDefaultStation(1);
         $route->addStation($station1);
+        $this->assertEquals(1, $route->countStations());
     }
 
     protected function createDefaultStation($id)
