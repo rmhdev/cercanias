@@ -60,6 +60,6 @@ class Route
 
     public function getStations()
     {
-        return new \ArrayIterator();
+        return new \ArrayIterator($this->stations);
     }
 }

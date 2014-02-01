@@ -115,5 +115,16 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     {
         $route = $this->createRoute("My Route");
         $this->assertInstanceOf("ArrayIterator", $route->getStations());
+        $this->assertEquals(0, $route->getStations()->count());
+    }
+
+    public function testGetStationsInNormalRoute()
+    {
+        $route = $this->createRoute("My Route");
+        $station1 = $this->createDefaultStation(1);
+        $route->addStation($station1);
+        $station2 = $this->createDefaultStation(2);
+        $route->addStation($station2);
+        $this->assertEquals(2, $route->getStations()->count());
     }
 }
