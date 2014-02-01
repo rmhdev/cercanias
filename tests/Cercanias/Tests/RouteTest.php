@@ -8,32 +8,32 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @dataProvider getSlugProvider
+     * @dataProvider getNameProvider
      */
-    public function testGetSlug($slug, $expected)
+    public function testGetName($name, $expected)
     {
-        $route = new Route($slug);
-        $this->assertEquals($expected, $route->getSlug());
+        $route = new Route($name);
+        $this->assertEquals($expected, $route->getName());
     }
 
-    public function getSlugProvider()
+    public function getNameProvider()
     {
         return array(
-            array("sansebastian", "sansebastian"),
-            array("asturias", "asturias"),
+            array("San Sebastián", "San Sebastián"),
+            array("Asturias", "Asturias"),
         );
     }
 
     /**
-     * @dataProvider getInvalidSlugProvider
+     * @dataProvider getInvalidNameProvider
      * @expectedException \Cercanias\Exception\InvalidArgumentException
      */
-    public function testInvalidSlug($invalidSlug)
+    public function testInvalidName($invalidName)
     {
-        new Route($invalidSlug);
+        new Route($invalidName);
     }
 
-    public function getInvalidSlugProvider()
+    public function getInvalidNameProvider()
     {
         return array(
             array(""),

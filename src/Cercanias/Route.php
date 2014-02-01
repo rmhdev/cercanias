@@ -7,23 +7,23 @@ use Cercanias\Exception\InvalidArgumentException;
 class Route
 {
 
-    protected $slug;
+    protected $name;
 
-    public function __construct($slug)
+    public function __construct($name)
     {
-        if ($this->isInvalidSlug($slug)) {
-            throw new InvalidArgumentException("Invalid slug");
+        if ($this->isInvalidName($name)) {
+            throw new InvalidArgumentException("Invalid name");
         }
-        $this->slug = $slug;
+        $this->name = $name;
     }
 
-    protected function isInvalidSlug($slug)
+    protected function isInvalidName($name)
     {
-        return (!is_string($slug) || strlen($slug) <= 0);
+        return (!is_string($name) || strlen($name) <= 0);
     }
 
-    public function getSlug()
+    public function getName()
     {
-        return $this->slug;
+        return $this->name;
     }
 }
