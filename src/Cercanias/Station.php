@@ -4,7 +4,7 @@ namespace Cercanias;
 
 use Cercanias\Exception\InvalidArgumentException;
 
-class City
+class Station
 {
     protected
         $id,

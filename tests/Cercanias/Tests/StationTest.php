@@ -1,10 +1,10 @@
 <?php
 
-namespace Cercanias\Tests\City;
+namespace Cercanias\Tests\Station;
 
-use Cercanias\City;
+use Cercanias\Station;
 
-class CityTest extends \PHPUnit_Framework_TestCase
+class StationTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -12,7 +12,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetId($id)
     {
-        $city = new City($id, "Irún");
+        $city = new Station($id, "Irún");
 
         $this->assertEquals($id, $city->getId());
     }
@@ -31,7 +31,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidId($invalidId)
     {
-        new City($invalidId, "Irún");
+        new Station($invalidId, "Irún");
     }
 
     public function getInvalidIdProvider()
@@ -48,7 +48,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName($name, $expected)
     {
-        $city = new City(1, $name);
+        $city = new Station(1, $name);
 
         $this->assertEquals($expected, $city->getName());
     }
@@ -67,7 +67,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function testNameShouldNotBeAnEmptyString($name)
     {
-        new City(1, $name);
+        new Station(1, $name);
     }
 
     public function getInvalidNameProvider()
