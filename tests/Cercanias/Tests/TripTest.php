@@ -81,6 +81,6 @@ class TripTest extends \PHPUnit_Framework_TestCase
     {
         $departureTime = new \DateTime("+1 day 6 hours");
         $arrivalTime = new \DateTime("+1 day 3 hours");
-        $trip = new Trip("C1", $departureTime, $arrivalTime);
+        new Trip("C1", $departureTime, $arrivalTime);
     }
 }
