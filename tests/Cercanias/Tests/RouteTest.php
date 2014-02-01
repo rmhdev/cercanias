@@ -3,6 +3,7 @@
 namespace Cercanias\Tests\Route;
 
 use Cercanias\Route;
+use Cercanias\Station;
 
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
@@ -82,5 +83,17 @@ class RouteTest extends \PHPUnit_Framework_TestCase
             array(""),
             array(123),
         );
+    }
+
+    public function testAddStation()
+    {
+        $route = $this->createRoute("My route");
+        $station1 = $this->createDefaultStation(1);
+        $route->addStation($station1);
+    }
+
+    protected function createDefaultStation($id)
+    {
+        return new Station($id, "Default Station {$id}");
     }
 }

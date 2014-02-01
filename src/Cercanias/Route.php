@@ -42,4 +42,9 @@ class Route
     {
         return $this->name;
     }
+
+    public function addStation(Station $station)
+    {
+
+    }
 }
