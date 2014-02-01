@@ -10,9 +10,17 @@ class TripTest extends \PHPUnit_Framework_TestCase
     public function testGetLine()
     {
         $departure = new \DateTime("now");
+        $trip = new Trip("c1", $departure);
+
+        $this->assertEquals("c1", $trip->getLine());
+    }
+
+    public function testGetLineIsCaseInsensitive()
+    {
+        $departure = new \DateTime("now");
         $trip = new Trip("C1", $departure);
 
-        $this->assertEquals("C1", $trip->getLine());
+        $this->assertEquals("c1", $trip->getLine());
     }
 
     public function testGetDepartureTime()
