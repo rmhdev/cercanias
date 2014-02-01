@@ -26,19 +26,20 @@ class CityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider getInvalidNameProvider
      * @expectedException \Cercanias\Exception\InvalidArgumentException
      */
-    public function testNameShouldNotBeAnEmptyString()
+    public function testNameShouldNotBeAnEmptyString($name)
     {
-        new City("");
+        new City($name);
     }
 
-    /**
-     * @expectedException \Cercanias\Exception\InvalidArgumentException
-     */
-    public function testNameShouldBeString()
+    public function getInvalidNameProvider()
     {
-        new City(123);
+        return array(
+            array(""),
+            array(123),
+        );
     }
 
 }
