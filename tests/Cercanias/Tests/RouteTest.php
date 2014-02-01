@@ -99,4 +99,15 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     {
         return new Station($id, "Default Station {$id}");
     }
+
+    /**
+     * @expectedException \Cercanias\Exception\DuplicateKeyException
+     */
+    public function testAddRepeatedStation()
+    {
+        $route = $this->createRoute("My route");
+        $station = $this->createDefaultStation(1);
+        $route->addStation($station);
+        $route->addStation($station);
+    }
 }

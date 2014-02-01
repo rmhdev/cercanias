@@ -2,6 +2,7 @@
 
 namespace Cercanias;
 
+use Cercanias\Exception\DuplicateKeyException;
 use Cercanias\Exception\InvalidArgumentException;
 
 class Route
@@ -51,6 +52,9 @@ class Route
 
     public function addStation(Station $station)
     {
-        $this->stations[] = $station;
+        if (isset($this->stations[$station->getId()])) {
+            throw new DuplicateKeyException("Station id already exists");
+        }
+        $this->stations[$station->getId()] = $station;
     }
 }
