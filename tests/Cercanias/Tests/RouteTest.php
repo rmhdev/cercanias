@@ -25,10 +25,19 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider getInvalidSlugProvider
      * @expectedException \Cercanias\Exception\InvalidArgumentException
      */
-    public function testInvalidSlug()
+    public function testInvalidSlug($invalidSlug)
     {
-        new Route("");
+        new Route($invalidSlug);
+    }
+
+    public function getInvalidSlugProvider()
+    {
+        return array(
+            array(""),
+            array(123),
+        );
     }
 }

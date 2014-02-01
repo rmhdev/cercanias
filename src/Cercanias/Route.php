@@ -11,7 +11,7 @@ class Route
 
     public function __construct($slug)
     {
-        if (strlen($slug) <= 0) {
+        if (!is_string($slug) || strlen($slug) <= 0) {
             throw new InvalidArgumentException("Invalid slug");
         }
         $this->slug = $slug;
