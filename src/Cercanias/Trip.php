@@ -7,11 +7,13 @@ use Cercanias\Exception\OutOfBoundsException;
 class Trip
 {
     protected
+        $line,
         $departureTime,
         $arrivalTime;
 
-    public function __construct(\DateTime $departureTime, \DateTime $arrivalTime = NULL)
+    public function __construct($line, \DateTime $departureTime, \DateTime $arrivalTime = NULL)
     {
+        $this->line = $line;
         $this->departureTime = $departureTime;
         $this->arrivalTime = $arrivalTime;
         if ($this->isArrivalTimeOutOfBounds()) {
@@ -22,6 +24,11 @@ class Trip
     protected function isArrivalTimeOutOfBounds()
     {
         return ($this->getArrivalTime()->getTimestamp() < $this->getDepartureTime()->getTimestamp());
+    }
+
+    public function getLine()
+    {
+        return $this->line;
     }
 
     public function getDepartureTime()
