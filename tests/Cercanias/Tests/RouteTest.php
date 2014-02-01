@@ -23,4 +23,12 @@ class RouteTest extends \PHPUnit_Framework_TestCase
             array("asturias", "asturias"),
         );
     }
+
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     */
+    public function testInvalidSlug()
+    {
+        new Route("");
+    }
 }
