@@ -7,13 +7,25 @@ use Cercanias\Route;
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function testGetId()
+    {
+        $route = new Route(61, "San Sebastián");
+
+        $this->assertEquals(61, $route->getId());
+    }
+
     /**
      * @dataProvider getNameProvider
      */
     public function testGetName($name, $expected)
     {
-        $route = new Route($name);
+        $route = $this->createRoute($name);
         $this->assertEquals($expected, $route->getName());
+    }
+
+    protected function createRoute($name)
+    {
+        return new Route(123, $name);
     }
 
     public function getNameProvider()
@@ -30,7 +42,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidName($invalidName)
     {
-        new Route($invalidName);
+        $this->createRoute($invalidName);
     }
 
     public function getInvalidNameProvider()

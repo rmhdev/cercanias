@@ -7,10 +7,13 @@ use Cercanias\Exception\InvalidArgumentException;
 class Route
 {
 
-    protected $name;
+    protected
+        $id,
+        $name;
 
-    public function __construct($name)
+    public function __construct($id, $name)
     {
+        $this->id = $id;
         if ($this->isInvalidName($name)) {
             throw new InvalidArgumentException("Invalid name");
         }
@@ -20,6 +23,11 @@ class Route
     protected function isInvalidName($name)
     {
         return (!is_string($name) || strlen($name) <= 0);
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getName()
