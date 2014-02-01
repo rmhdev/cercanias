@@ -57,4 +57,9 @@ class Route
         }
         $this->stations[$station->getId()] = $station;
     }
+
+    public function getStations()
+    {
+        return new \ArrayIterator();
+    }
 }

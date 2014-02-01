@@ -110,4 +110,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $route->addStation($station);
         $route->addStation($station);
     }
+
+    public function testGetStationsInEmptyRoute()
+    {
+        $route = $this->createRoute("My Route");
+        $this->assertInstanceOf("ArrayIterator", $route->getStations());
+    }
 }
