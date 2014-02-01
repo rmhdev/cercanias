@@ -25,7 +25,7 @@ class Route
 
     protected function isInvalidId($id)
     {
-        return ($id <= 0);
+        return (!is_integer($id) || $id <= 0);
     }
 
     protected function isInvalidName($name)

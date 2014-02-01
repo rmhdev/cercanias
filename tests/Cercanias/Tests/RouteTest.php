@@ -26,11 +26,21 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider getInvalidIdProvider
      * @expectedException \Cercanias\Exception\InvalidArgumentException
      */
-    public function testInvalidId()
+    public function testInvalidId($invalidId)
     {
-        new Route(-1, "San Sebastián");
+        new Route($invalidId, "San Sebastián");
+    }
+
+    public function getInvalidIdProvider()
+    {
+        return array(
+            array(-1),
+            array(0),
+            array("123"),
+        );
     }
 
 
