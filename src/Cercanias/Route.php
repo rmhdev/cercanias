@@ -13,11 +13,19 @@ class Route
 
     public function __construct($id, $name)
     {
+        if ($this->isInvalidId($id)) {
+            throw new InvalidArgumentException("Invalid Id");
+        }
         $this->id = $id;
         if ($this->isInvalidName($name)) {
             throw new InvalidArgumentException("Invalid name");
         }
         $this->name = $name;
+    }
+
+    protected function isInvalidId($id)
+    {
+        return ($id <= 0);
     }
 
     protected function isInvalidName($name)

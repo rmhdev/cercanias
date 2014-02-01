@@ -25,6 +25,14 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     */
+    public function testInvalidId()
+    {
+        new Route(-1, "San Sebastián");
+    }
+
 
 
     /**
