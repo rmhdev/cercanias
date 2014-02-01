@@ -11,18 +11,19 @@ class Route
     protected
         $id,
         $name,
-        $stations = array();
+        $stations;
 
     public function __construct($id, $name)
     {
         if ($this->isInvalidId($id)) {
             throw new InvalidArgumentException("Invalid Id");
         }
-        $this->id = $id;
         if ($this->isInvalidName($name)) {
             throw new InvalidArgumentException("Invalid name");
         }
+        $this->id = $id;
         $this->name = $name;
+        $this->stations = array();
     }
 
     protected function isInvalidId($id)
@@ -32,7 +33,7 @@ class Route
 
     protected function isInvalidName($name)
     {
-        return (!is_string($name) || strlen($name) <= 0);
+        return (!is_string($name) || strlen($name) === 0);
     }
 
     public function getId()
