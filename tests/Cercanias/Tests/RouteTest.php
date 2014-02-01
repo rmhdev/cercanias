@@ -7,12 +7,25 @@ use Cercanias\Route;
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testGetId()
+    /**
+     * @dataProvider getIdProvider
+     */
+    public function testGetId($id)
     {
-        $route = new Route(61, "San Sebastián");
+        $route = new Route($id, "San Sebastián");
 
-        $this->assertEquals(61, $route->getId());
+        $this->assertEquals($id, $route->getId());
     }
+
+    public function getIdProvider()
+    {
+        return array(
+            array(61),
+            array(10),
+        );
+    }
+
+
 
     /**
      * @dataProvider getNameProvider
