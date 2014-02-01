@@ -6,12 +6,21 @@ use Cercanias\Route;
 
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetSlug()
-    {
-        $route = new Route("sansebastian");
-        $this->assertEquals("sansebastian", $route->getSlug());
 
-        $route2 = new Route("asturias");
-        $this->assertEquals("asturias", $route2->getSlug());
+    /**
+     * @dataProvider getSlugProvider
+     */
+    public function testGetSlug($slug, $expected)
+    {
+        $route = new Route($slug);
+        $this->assertEquals($expected, $route->getSlug());
+    }
+
+    public function getSlugProvider()
+    {
+        return array(
+            array("sansebastian", "sansebastian"),
+            array("asturias", "asturias"),
+        );
     }
 }
