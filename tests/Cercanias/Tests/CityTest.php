@@ -7,15 +7,22 @@ use Cercanias\City;
 class CityTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testGetName()
+    /**
+     * @dataProvider getNameProvider
+     */
+    public function testGetName($name, $expected)
     {
-        $city = new City("Irún");
+        $city = new City($name);
 
-        $this->assertEquals("Irún", $city->getName());
+        $this->assertEquals($expected, $city->getName());
+    }
 
-        $city2 = new City("Brinkola");
-
-        $this->assertEquals("Brinkola", $city2->getName());
+    public function getNameProvider()
+    {
+        return array(
+            array("Irún", "Irún"),
+            array("Brinkola", "Brinkola"),
+        );
     }
 
 }
