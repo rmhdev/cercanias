@@ -6,21 +6,23 @@ use Cercanias\Trip;
 
 class TripTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testGetLine()
+    /**
+     * @dataProvider getLineProvider
+     */
+    public function testGetLine($line, $expected)
     {
         $departure = new \DateTime("now");
-        $trip = new Trip("c1", $departure);
+        $trip = new Trip($line, $departure);
 
-        $this->assertEquals("c1", $trip->getLine());
+        $this->assertEquals($expected, $trip->getLine());
     }
 
-    public function testGetLineIsCaseInsensitive()
+    public function getLineProvider()
     {
-        $departure = new \DateTime("now");
-        $trip = new Trip("C1", $departure);
-
-        $this->assertEquals("c1", $trip->getLine());
+        return array(
+            array("c1", "c1"),
+            array("C1", "c1"),
+        );
     }
 
     public function testGetDepartureTime()
