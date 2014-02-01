@@ -10,10 +10,15 @@ class City
 
     public function __construct($name)
     {
-        if (!is_string($name) || strlen($name) <= 0) {
+        if ($this->isInvalidName($name)) {
             throw new InvalidArgumentException("Name can't be empty");
         }
         $this->name = $name;
+    }
+
+    protected function isInvalidName($name)
+    {
+        return (!is_string($name) || strlen($name) <= 0);
     }
 
     public function getName()

@@ -11,10 +11,15 @@ class Route
 
     public function __construct($slug)
     {
-        if (!is_string($slug) || strlen($slug) <= 0) {
+        if ($this->isInvalidSlug($slug)) {
             throw new InvalidArgumentException("Invalid slug");
         }
         $this->slug = $slug;
+    }
+
+    protected function isInvalidSlug($slug)
+    {
+        return (!is_string($slug) || strlen($slug) <= 0);
     }
 
     public function getSlug()
