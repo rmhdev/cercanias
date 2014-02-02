@@ -66,6 +66,6 @@ class Route
 
     public function hasStation($stationId)
     {
-        return true;
+        return isset($this->stations[$stationId]);
     }
 }

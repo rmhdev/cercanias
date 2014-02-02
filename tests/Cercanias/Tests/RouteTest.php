@@ -135,5 +135,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $route->addStation($station1);
 
         $this->assertTrue($route->hasStation(1));
+        $this->assertFalse($route->hasStation(2));
     }
 }
