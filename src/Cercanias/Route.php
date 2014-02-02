@@ -68,4 +68,9 @@ class Route
     {
         return isset($this->stations[$stationId]);
     }
+
+    public function getStation($stationId)
+    {
+        return $this->stations[$stationId];
+    }
 }
