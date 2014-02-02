@@ -53,7 +53,7 @@ class Route
 
     public function addStation(Station $station)
     {
-        if (!$this->hasStation($station->getId())) {
+        if ($this->hasStation($station->getId())) {
             throw new DuplicateKeyException("Station id already exists");
         }
         $this->stations[$station->getId()] = $station;
