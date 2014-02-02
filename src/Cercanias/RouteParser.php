@@ -10,11 +10,11 @@ class RouteParser
 
     public function __construct($html)
     {
-        libxml_use_internal_errors(true);
+        $previousState = libxml_use_internal_errors(true);
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
-        $path = new \DOMXPath($domDocument);
-        $this->route = $this->createRoute($path);
+        $this->route = $this->createRoute(new \DOMXPath($domDocument));
+        libxml_use_internal_errors($previousState);
     }
 
     protected function createRoute(\DOMXPath $path)
