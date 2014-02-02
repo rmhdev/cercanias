@@ -15,11 +15,17 @@ class Station
         if ($this->isInvalidId($id)) {
             throw new InvalidArgumentException("Invalid Id");
         }
-        $this->id = $id;
+        $name = $this->cleanName($name);
         if ($this->isInvalidName($name)) {
             throw new InvalidArgumentException("Name can't be empty");
         }
+        $this->id = $id;
         $this->name = $name;
+    }
+
+    protected function cleanName($name)
+    {
+        return trim($name);
     }
 
     protected function isInvalidId($id)

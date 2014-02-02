@@ -31,6 +31,8 @@ class RouteParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(30, $route->countStations());
 
         $this->assertTrue($route->hasStation(11409));
+        $station = $route->getStation(11409);
+        $this->assertEquals("Alegia de Oria", $station->getName());
     }
 
 }

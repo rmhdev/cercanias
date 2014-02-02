@@ -58,24 +58,16 @@ class StationTest extends \PHPUnit_Framework_TestCase
         return array(
             array("Irún", "Irún"),
             array("Brinkola", "Brinkola"),
+            array("Alegia de Oria                          ", "Alegia de Oria"),
         );
     }
 
     /**
-     * @dataProvider getInvalidNameProvider
      * @expectedException \Cercanias\Exception\InvalidArgumentException
      */
-    public function testNameShouldNotBeAnEmptyString($name)
+    public function testNameShouldNotBeAnEmptyString()
     {
-        new Station(1, $name);
-    }
-
-    public function getInvalidNameProvider()
-    {
-        return array(
-            array(""),
-            array(123),
-        );
+        new Station(1, "");
     }
 
 }

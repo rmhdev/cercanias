@@ -70,6 +70,11 @@ class Route
         return isset($this->stations[$stationId]);
     }
 
+    /**
+     * @param $stationId
+     * @return Station
+     * @throws Exception\NotFoundException
+     */
     public function getStation($stationId)
     {
         if (!$this->hasStation($stationId)) {
