@@ -29,6 +29,8 @@ class RouteParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(61, $route->getId());
         $this->assertEquals("San Sebastián", $route->getName());
         $this->assertEquals(30, $route->countStations());
+
+        $this->assertTrue($route->hasStation(11409));
     }
 
 }
