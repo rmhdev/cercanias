@@ -75,4 +75,14 @@ class RouteParserTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetRouteMadrid()
+    {
+        $routeParser = $this->getRouteParser("route-madrid.html");
+
+        $route = $routeParser->getRoute();
+        $this->assertEquals(10, $route->getId());
+        $this->assertEquals("Madrid", $route->getName());
+        $this->assertEquals(92, $route->countStations());
+    }
+
 }
