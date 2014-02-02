@@ -63,4 +63,9 @@ class Route
     {
         return new \ArrayIterator($this->stations);
     }
+
+    public function hasStation($stationId)
+    {
+        return true;
+    }
 }

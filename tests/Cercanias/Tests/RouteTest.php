@@ -127,4 +127,13 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $route->addStation($station2);
         $this->assertEquals(2, $route->getStations()->count());
     }
+
+    public function testHasStation()
+    {
+        $route = $this->createRoute("My Route");
+        $station1 = $this->createDefaultStation(1);
+        $route->addStation($station1);
+
+        $this->assertTrue($route->hasStation(1));
+    }
 }
