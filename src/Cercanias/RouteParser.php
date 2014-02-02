@@ -6,6 +6,11 @@ class RouteParser
 {
     public function getRoute()
     {
-        return new Route(123, "Default Route");
+        $route = new Route(61, "San Sebastián");
+        for ($i = 1; $i <= 30; $i += 1) {
+            $route->addStation(new Station($i, "Default Station {$i}"));
+        }
+
+        return $route;
     }
 }
