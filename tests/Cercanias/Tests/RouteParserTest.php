@@ -9,16 +9,21 @@ class RouteParserTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRoute()
     {
-        $html = file_get_contents(__DIR__ . "/../Fixtures/route-sansebastian.html");
-        $routeParser = new RouteParser($html);
+        $routeParser = $this->getRouteParser("route-sansebastian.html");
 
         $this->assertInstanceOf("Cercanias\Route", $routeParser->getRoute());
     }
 
+    protected function getRouteParser($filename)
+    {
+        $html = file_get_contents(__DIR__ . "/../Fixtures/" . $filename);
+
+        return new RouteParser($html);
+    }
+
     public function testGetRouteSanSebastian()
     {
-        $html = file_get_contents(__DIR__ . "/../Fixtures/route-sansebastian.html");
-        $routeParser = new RouteParser($html);
+        $routeParser = $this->getRouteParser("route-sansebastian.html");
 
         $route = $routeParser->getRoute();
         $this->assertEquals(61, $route->getId());
