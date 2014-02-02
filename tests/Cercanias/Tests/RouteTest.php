@@ -138,12 +138,23 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($route->hasStation(2));
     }
 
-    public function testStation()
+    public function testGetStation()
     {
         $route = $this->createRoute("My Route");
         $station1 = $this->createDefaultStation(1);
         $route->addStation($station1);
 
         $this->assertEquals($station1, $route->getStation(1));
+    }
+
+    /**
+     * @expectedException \Cercanias\Exception\NotFoundException
+     */
+    public function testGetUnknownStation()
+    {
+        $route = $this->createRoute("My Route");
+        $station1 = $this->createDefaultStation(1);
+        $route->addStation($station1);
+        $route->getStation(2);
     }
 }

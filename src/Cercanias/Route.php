@@ -4,6 +4,7 @@ namespace Cercanias;
 
 use Cercanias\Exception\DuplicateKeyException;
 use Cercanias\Exception\InvalidArgumentException;
+use Cercanias\Exception\NotFoundException;
 
 class Route
 {
@@ -71,6 +72,10 @@ class Route
 
     public function getStation($stationId)
     {
+        if (!$this->hasStation($stationId)) {
+            throw new NotFoundException("Station {$stationId} not found in Route");
+        }
+
         return $this->stations[$stationId];
     }
 }
