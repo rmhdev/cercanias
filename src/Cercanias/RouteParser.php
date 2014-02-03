@@ -48,7 +48,6 @@ class RouteParser
         return utf8_decode($titleParts[1]);
     }
 
-
     protected function parseStations(\DOMXPath $path)
     {
         $stations = array();
@@ -62,14 +61,6 @@ class RouteParser
         }
 
         return $stations;
-    }
-
-    protected function prepareFakeRoute()
-    {
-        for ($i = 1; $i <= 29; $i += 1) {
-            $this->route->addStation(new Station($i, "Default Station {$i}"));
-        }
-        $this->route->addStation(new Station(11409, "Default Station 11409"));
     }
 
     public function getRoute()
