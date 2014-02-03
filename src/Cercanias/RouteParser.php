@@ -14,6 +14,7 @@ class RouteParser
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
         $this->route = $this->createRoute(new \DOMXPath($domDocument));
+        libxml_clear_errors();
         libxml_use_internal_errors($previousState);
     }
 
