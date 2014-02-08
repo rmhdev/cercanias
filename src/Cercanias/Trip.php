@@ -49,13 +49,28 @@ class Trip
 
     public function compareWith(Trip $trip)
     {
-        if (($trip->getDepartureTime()->getTimestamp() - $this->getDepartureTime()->getTimestamp()) === 0) {
-            return (($trip->getArrivalTime()->getTimestamp() - $this->getArrivalTime()->getTimestamp()) > 0) ? 1 : -1;
-        }
-        if (($trip->getDepartureTime()->getTimestamp() - $this->getDepartureTime()->getTimestamp()) > 0) {
-            return 1;
+        if ($this->isDepartureTimeEqual($trip)) {
+            return $this->compareDateTimes($this->getArrivalTime(), $trip->getArrivalTime());
         }
 
-        return -1;
+        return $this->compareDateTimes($this->getDepartureTime(), $trip->getDepartureTime());
     }
+
+    protected function isDepartureTimeEqual(Trip $trip)
+    {
+        return  0 === (
+            $trip->getDepartureTime()->getTimestamp() -
+            $this->getDepartureTime()->getTimestamp()
+        );
+    }
+
+    protected function compareDateTimes(\DateTime $first, \DateTime $second)
+    {
+        if ($first->getTimestamp() === $second->getTimestamp()) {
+            return 0;
+        }
+
+        return ($first->getTimestamp() - $second->getTimestamp() < 0) ? -1 : 1;
+    }
+
 }

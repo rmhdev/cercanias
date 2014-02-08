@@ -95,7 +95,7 @@ class TripTest extends \PHPUnit_Framework_TestCase
             new \DateTime("2014-01-10 12:30:00")
         );
 
-        $this->assertEquals(1, $trip->compareWith($tripLater));
+        $this->assertEquals(-1, $trip->compareWith($tripLater));
     }
 
     public function testCompareWithAPreviousTrip()
@@ -109,7 +109,7 @@ class TripTest extends \PHPUnit_Framework_TestCase
             new \DateTime("2014-01-10 10:30:00")
         );
 
-        $this->assertEquals(-1, $trip->compareWith($tripBefore));
+        $this->assertEquals(1, $trip->compareWith($tripBefore));
     }
 
     public function testCompareWithASameDepartureTimeAndLaterArrival()
@@ -123,7 +123,7 @@ class TripTest extends \PHPUnit_Framework_TestCase
             new \DateTime("2014-01-10 11:45:00")
         );
 
-        $this->assertEquals(1, $trip->compareWith($tripBefore));
+        $this->assertEquals(-1, $trip->compareWith($tripBefore));
     }
 
     public function testCompareWithASameDepartureTimeAndBeforeArrival()
@@ -137,6 +137,16 @@ class TripTest extends \PHPUnit_Framework_TestCase
             new \DateTime("2014-01-10 11:25:00")
         );
 
-        $this->assertEquals(-1, $trip->compareWith($tripBefore));
+        $this->assertEquals(1, $trip->compareWith($tripBefore));
+    }
+
+    public function testCompareWithSameDepartureAndArrivalTimes()
+    {
+        $trip = new Trip("C1",
+            new \DateTime("2014-01-10 11:00:00"),
+            new \DateTime("2014-01-10 11:30:00")
+        );
+
+        $this->assertEquals(0, $trip->compareWith($trip));
     }
 }
