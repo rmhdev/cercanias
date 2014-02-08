@@ -97,4 +97,18 @@ class TripTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $trip->compareWith($tripLater));
     }
+
+    public function testCompareWithAPreviousTrip()
+    {
+        $trip = new Trip("C1",
+            new \DateTime("2014-01-10 11:00:00"),
+            new \DateTime("2014-01-10 11:30:00")
+        );
+        $tripBefore = new Trip("C1",
+            new \DateTime("2014-01-10 10:00:00"),
+            new \DateTime("2014-01-10 10:30:00")
+        );
+
+        $this->assertEquals(-1, $trip->compareWith($tripBefore));
+    }
 }

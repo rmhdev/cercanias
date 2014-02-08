@@ -49,6 +49,10 @@ class Trip
 
     public function compareWith(Trip $trip)
     {
-        return 1;
+        if (($trip->getDepartureTime()->getTimestamp() - $this->getDepartureTime()->getTimestamp()) > 0) {
+            return 1;
+        }
+
+        return -1;
     }
 }
