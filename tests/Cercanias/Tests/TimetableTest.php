@@ -9,30 +9,41 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetDeparture()
     {
-        $departure = new Station(1, "My station");
-        $destination = new Station(2, "My destination");
-        $timetable = new Timetable($departure, $destination);
+        $timetable = $this->createTimetable();
 
-        $this->assertEquals($departure, $timetable->getDeparture());
+        $this->assertEquals($this->createDepartureStation(), $timetable->getDeparture());
     }
 
     public function testGetDestination()
     {
-        $departure = new Station(1, "My departure");
-        $destination = new Station(2, "My destination");
-        $timetable = new Timetable($departure, $destination);
+        $timetable = $this->createTimetable();
 
-        $this->assertEquals($destination, $timetable->getDestination());
+        $this->assertEquals($this->createDestinationStation(), $timetable->getDestination());
     }
 
     public function testGetTrips()
     {
-        $departure = new Station(1, "My departure");
-        $destination = new Station(2, "My destination");
-        $timetable = new Timetable($departure, $destination);
+        $timetable = $this->createTimetable();
         $empty = new \ArrayIterator();
 
         $this->assertEquals($empty, $timetable->getTrips());
     }
 
+    protected function createTimetable()
+    {
+        return new Timetable(
+            $this->createDepartureStation(),
+            $this->createDestinationStation()
+        );
+    }
+
+    protected function createDepartureStation()
+    {
+        return new Station(1, "My departure");
+    }
+
+    protected function createDestinationStation()
+    {
+        return new Station(2, "My destination");
+    }
 }
