@@ -23,5 +23,9 @@ class Timetable
         return $this->destination;
     }
 
+    public function getTrips()
+    {
+        return new \ArrayIterator();
+    }
 
 }
