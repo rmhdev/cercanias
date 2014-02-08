@@ -4,6 +4,7 @@ namespace Cercanias\Tests\Timetable;
 
 use Cercanias\Station;
 use Cercanias\Timetable;
+use Cercanias\Trip;
 
 class TimetableTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,5 +46,14 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
     protected function createDestinationStation()
     {
         return new Station(2, "My destination");
+    }
+
+    public function testAddTrip()
+    {
+        $timetable = $this->createTimetable();
+        $trip = new Trip("C1", new \DateTime("now -1 hour"), new \DateTime("now"));
+        $timetable->addTrip($trip);
+
+        $this->assertEquals(1, $timetable->getTrips()->count());
     }
 }
