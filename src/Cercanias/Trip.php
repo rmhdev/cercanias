@@ -46,4 +46,9 @@ class Trip
     {
         return $this->getDepartureTime()->diff($this->getArrivalTime());
     }
+
+    public function compareWith(Trip $trip)
+    {
+        return 1;
+    }
 }

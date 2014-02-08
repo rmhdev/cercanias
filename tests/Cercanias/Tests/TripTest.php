@@ -83,4 +83,18 @@ class TripTest extends \PHPUnit_Framework_TestCase
         $arrivalTime = new \DateTime("+1 day 3 hours");
         new Trip("C1", $departureTime, $arrivalTime);
     }
+
+    public function testCompareWithALaterTrip()
+    {
+        $trip = new Trip("C1",
+            new \DateTime("2014-01-10 11:00:00"),
+            new \DateTime("2014-01-10 11:30:00")
+        );
+        $tripLater = new Trip("C1",
+            new \DateTime("2014-01-10 12:00:00"),
+            new \DateTime("2014-01-10 12:30:00")
+        );
+
+        $this->assertEquals(1, $trip->compareWith($tripLater));
+    }
 }
