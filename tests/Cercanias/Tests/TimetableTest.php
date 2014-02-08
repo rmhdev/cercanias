@@ -15,21 +15,6 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->createDepartureStation(), $timetable->getDeparture());
     }
 
-    public function testGetDestination()
-    {
-        $timetable = $this->createTimetable();
-
-        $this->assertEquals($this->createDestinationStation(), $timetable->getDestination());
-    }
-
-    public function testGetTrips()
-    {
-        $timetable = $this->createTimetable();
-        $empty = new \ArrayIterator();
-
-        $this->assertEquals($empty, $timetable->getTrips());
-    }
-
     protected function createTimetable()
     {
         return new Timetable(
@@ -46,6 +31,21 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
     protected function createDestinationStation()
     {
         return new Station(2, "My destination");
+    }
+
+    public function testGetDestination()
+    {
+        $timetable = $this->createTimetable();
+
+        $this->assertEquals($this->createDestinationStation(), $timetable->getDestination());
+    }
+
+    public function testGetTrips()
+    {
+        $timetable = $this->createTimetable();
+        $empty = new \ArrayIterator();
+
+        $this->assertEquals($empty, $timetable->getTrips());
     }
 
     public function testAddTrip()
