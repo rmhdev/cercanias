@@ -29,7 +29,7 @@ class Timetable
     {
         $trips = $this->trips;
         usort($trips, function (Trip $a, Trip $b) {
-            return $a->getDepartureTime()->getTimestamp() - $b->getDepartureTime()->getTimestamp();
+            return $a->compareWith($b);
         });
 
         return new \ArrayIterator($trips);
