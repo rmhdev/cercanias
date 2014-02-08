@@ -27,7 +27,12 @@ class Timetable
 
     public function getTrips()
     {
-        return new \ArrayIterator($this->trips);
+        $trips = $this->trips;
+        usort($trips, function (Trip $a, Trip $b) {
+            return $a->getDepartureTime()->getTimestamp() - $b->getDepartureTime()->getTimestamp();
+        });
+
+        return new \ArrayIterator($trips);
     }
 
     public function addTrip(Trip $trip)

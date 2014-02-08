@@ -56,4 +56,29 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $timetable->getTrips()->count());
     }
+
+    public function testGetTripsShouldReturnOrderedList()
+    {
+        $timetable = $this->createTimetable();
+        $tripA = new Trip("C1", new \DateTime("2014-01-20 11:00:00"), new \DateTime("2014-01-20 12:00:00"));
+        $tripB = new Trip("C1", new \DateTime("2014-01-20 11:15:00"), new \DateTime("2014-01-20 12:15:00"));
+        $tripC = new Trip("C1", new \DateTime("2014-01-20 11:30:00"), new \DateTime("2014-01-20 12:30:00"));
+        $timetable->addTrip($tripA);
+        $timetable->addTrip($tripC);
+        $timetable->addTrip($tripB);
+
+        /* @var Trip $trip */
+        /* @var \DateTime $previousDepartureTime */
+        $previousDepartureTime = NULL;
+        foreach ($timetable->getTrips() as $trip) {
+            if (!is_null($previousDepartureTime)) {
+                $this->assertTrue(
+                    $previousDepartureTime->getTimestamp() <= $trip->getDepartureTime()->getTimestamp(),
+                    "Trip " . $trip->getDepartureTime()->format("Y-m-d H:i:s") . " is after " .
+                    "Trip " . $previousDepartureTime->format("Y-m-d H:i:s") . "."
+                );
+            }
+            $previousDepartureTime = $trip->getDepartureTime();
+        }
+    }
 }
