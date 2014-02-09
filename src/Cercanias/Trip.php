@@ -13,12 +13,17 @@ class Trip
 
     public function __construct($line, \DateTime $departureTime, \DateTime $arrivalTime = NULL)
     {
-        $this->line = strtolower(trim($line));
+        $this->setLine($line);
         $this->departureTime = $departureTime;
         $this->arrivalTime = $arrivalTime;
         if ($this->isArrivalTimeOutOfBounds()) {
             throw new OutOfBoundsException();
         }
+    }
+
+    protected function setLine($line)
+    {
+        $this->line = strtolower(trim($line));
     }
 
     protected function isArrivalTimeOutOfBounds()
