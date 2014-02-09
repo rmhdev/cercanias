@@ -40,4 +40,34 @@ class Timetable
         $this->trips[] = $trip;
     }
 
+    public function nextDeparture(\DateTime $dateTime)
+    {
+        $nextDepartures = new NextDeparturesFilterIterator($this->getTrips(), $dateTime);
+        foreach ($nextDepartures as $nextDeparture) {
+            return $nextDeparture;
+        }
+
+        return null;
+    }
+
+}
+
+
+class NextDeparturesFilterIterator extends \FilterIterator
+{
+    protected $dateTime;
+
+    public function __construct($iterator, \DateTime $dateTime)
+    {
+        parent::__construct($iterator);
+        $this->dateTime = $dateTime;
+    }
+
+    public function accept()
+    {
+        /* @var Trip $trip */
+        $trip = parent::current();
+
+        return $trip->getDepartureTime()->getTimestamp() > $this->dateTime->getTimestamp();
+    }
 }
