@@ -5,6 +5,7 @@ namespace Cercanias\Tests\TimetableParser;
 use Cercanias\Station;
 use Cercanias\Timetable;
 use Cercanias\TimetableParser;
+use Cercanias\Trip;
 
 class TimetableParserTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,8 +49,11 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
     {
         $parser = $this->createTimetableParserSanSebastian();
         $timetable = $parser->getTimetable();
-
         $this->assertEquals(20, $timetable->getTrips()->count());
+
+        $expectedTrip = new Trip("c1", new \DateTime("2014-02-10 05:53"), new \DateTime("2014-02-10 07:23"));
+        $trip = $timetable->nextDeparture(new \DateTime("2014-02-10 05:50"));
+        $this->assertEquals($expectedTrip, $trip);
     }
 
 }

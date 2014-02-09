@@ -55,7 +55,11 @@ class TimetableParser
 
     protected function createDateTime($string)
     {
-        return new \DateTime();
+        $date = clone $this->getDate();
+        list($hour, $minute) = explode(".", trim($string));
+        $date->setTime((int) $hour, (int) $minute, 0);
+
+        return $date;
     }
 
     public function getTimetable()
