@@ -16,6 +16,14 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Cercanias\Timetable', $parser->getTimetable());
     }
 
+    public function testGetDate()
+    {
+        $parser = $this->createTimetableParserSanSebastian();
+        $expected = new \DateTime("2014-02-10 00:00:00");
+
+        $this->assertEquals($expected, $parser->getDate());
+    }
+
     public function testGetTimetableCheckBasicData()
     {
         $parser = $this->createTimetableParserSanSebastian();

@@ -23,6 +23,11 @@ class TimetableParser
         libxml_use_internal_errors($previousState);
     }
 
+    public function getDate()
+    {
+        return new \DateTime("2014-02-10 00:00:00");
+    }
+
     protected function updateTimetable(\DOMXPath $path)
     {
         $allRows = $path->query('//table/tbody/tr');
