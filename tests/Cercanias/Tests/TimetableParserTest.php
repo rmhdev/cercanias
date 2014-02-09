@@ -22,14 +22,14 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTimetableCheckBasicData()
     {
-        $timetable = new Timetable(
-            new Station(123, "Brincola"),
-            new Station(456, "Irun")
-        );
         $parser = new TimetableParser(
-            $timetable,
+            new Timetable(
+                new Station(123, "Brincola"),
+                new Station(456, "Irun")
+            ),
             file_get_contents(__DIR__ . "/../Fixtures/timetable-sansebastian.html")
         );
+        $timetable = $parser->getTimetable();
 
         $this->assertEquals("Brincola", $timetable->getDeparture()->getName());
         $this->assertEquals("Irun", $timetable->getDestination()->getName());
