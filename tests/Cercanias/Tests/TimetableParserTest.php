@@ -20,7 +20,7 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Cercanias\Timetable', $parser->getTimetable());
     }
 
-    public function testGetTimetableSanSebastianCheckBasicData()
+    public function testGetTimetableCheckBasicData()
     {
         $timetable = new Timetable(
             new Station(123, "Brincola"),
