@@ -4,11 +4,17 @@ namespace Cercanias;
 
 class TimetableParser
 {
+
+    protected $timetable;
+
+    public function __construct(Timetable $timetable, $html)
+    {
+        $this->timetable = $timetable;
+    }
+
     public function getTimetable()
     {
-        $departure = new Station(1, "Departure Station");
-        $arrival = new Station(2, "Arrival Station");
-
-        return new Timetable($departure, $arrival);
+        return $this->timetable;
     }
+
 }
