@@ -22,6 +22,7 @@ class TripTest extends \PHPUnit_Framework_TestCase
         return array(
             array("c1", "c1"),
             array("C1", "c1"),
+            array("C1     ", "c1"),
         );
     }
 
