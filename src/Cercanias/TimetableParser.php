@@ -6,10 +6,12 @@ class TimetableParser
 {
 
     protected $timetable;
+    protected $date;
 
     public function __construct(Timetable $timetable, $html)
     {
         $this->timetable = $timetable;
+        $this->date = new \DateTime();
         $this->processHTML($html);
     }
 
@@ -18,14 +20,20 @@ class TimetableParser
         $previousState = libxml_use_internal_errors(true);
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
-        $this->updateTimetable(new \DOMXPath($domDocument));
+        $path = new \DOMXPath($domDocument);
+        $this->updateDate($path);
+        $this->updateTimetable($path);
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
     }
 
-    public function getDate()
+    protected function updateDate(\DOMXPath $path)
     {
-        return new \DateTime("2014-02-10 00:00:00");
+        $firstB = $path->query('//h4/b')->item(0);
+        $textDate = trim($firstB->textContent);
+        list($day, $month, $year) = explode("-", $textDate);
+        $this->date->setDate($year, $month, $day);
+        $this->date->setTime(0, 0, 0);
     }
 
     protected function updateTimetable(\DOMXPath $path)
@@ -39,6 +47,11 @@ class TimetableParser
             $trip = new Trip($line, $departureTime, $arrivalTime);
             $this->timetable->addTrip($trip);
         }
+    }
+
+    public function getDate()
+    {
+        return $this->date;
     }
 
     protected function createDateTime($string)
