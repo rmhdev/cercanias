@@ -31,8 +31,7 @@ class TimetableParser
     {
         $firstB = $path->query('//h4/b')->item(0);
         $textDate = trim($firstB->textContent);
-        list($day, $month, $year) = explode("-", $textDate);
-        $this->date->setDate($year, $month, $day);
+        $this->date = \DateTime::createFromFormat("d-m-Y", $textDate);
         $this->date->setTime(0, 0, 0);
     }
 
