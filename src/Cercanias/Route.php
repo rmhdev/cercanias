@@ -19,12 +19,18 @@ class Route
         if ($this->isInvalidId($id)) {
             throw new InvalidArgumentException("Invalid Id");
         }
+        $this->id = $id;
+        $this->setName($name);
+        $this->stations = array();
+    }
+
+    protected function setName($name)
+    {
+        $name = trim($name);
         if ($this->isInvalidName($name)) {
             throw new InvalidArgumentException("Invalid name");
         }
-        $this->id = $id;
         $this->name = $name;
-        $this->stations = array();
     }
 
     protected function isInvalidId($id)

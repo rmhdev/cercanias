@@ -65,6 +65,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         return array(
             array("San Sebastián", "San Sebastián"),
             array("Asturias", "Asturias"),
+            array("Madrid     ", "Madrid"),
         );
     }
 
@@ -81,7 +82,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(""),
-            array(123),
+            array("   "),
         );
     }
 
