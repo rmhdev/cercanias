@@ -16,12 +16,17 @@ class Route
 
     public function __construct($id, $name)
     {
+        $this->setId($id);
+        $this->setName($name);
+        $this->stations = array();
+    }
+
+    protected function setId($id)
+    {
         if ($this->isInvalidId($id)) {
             throw new InvalidArgumentException("Invalid Id");
         }
         $this->id = $id;
-        $this->setName($name);
-        $this->stations = array();
     }
 
     protected function setName($name)
