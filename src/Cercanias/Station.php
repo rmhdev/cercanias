@@ -6,31 +6,35 @@ use Cercanias\Exception\InvalidArgumentException;
 
 class Station
 {
-    protected
-        $id,
-        $name;
+    protected $id;
+    protected $name;
 
     public function __construct($id, $name)
+    {
+        $this->setId($id);
+        $this->setName($name);
+    }
+
+    protected function setId($id)
     {
         if ($this->isInvalidId($id)) {
             throw new InvalidArgumentException("Invalid Id");
         }
-        $name = $this->cleanName($name);
-        if ($this->isInvalidName($name)) {
-            throw new InvalidArgumentException("Name can't be empty");
-        }
         $this->id = $id;
-        $this->name = $name;
-    }
-
-    protected function cleanName($name)
-    {
-        return trim($name);
     }
 
     protected function isInvalidId($id)
     {
         return (!is_integer($id) || $id <= 0);
+    }
+
+    protected function setName($name)
+    {
+        $name = trim($name);
+        if ($this->isInvalidName($name)) {
+            throw new InvalidArgumentException("Name can't be empty");
+        }
+        $this->name = $name;
     }
 
     protected function isInvalidName($name)
