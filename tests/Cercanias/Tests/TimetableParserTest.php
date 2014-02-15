@@ -56,4 +56,10 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedTrip, $trip);
     }
 
+    public function testGetTimetableForNoResults()
+    {
+        $this->assertTrue(false);
+        // TODO: continue here.
+    }
+
 }
