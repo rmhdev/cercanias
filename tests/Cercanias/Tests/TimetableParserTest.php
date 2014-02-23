@@ -58,8 +58,23 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTimetableForNoResults()
     {
-        $this->assertTrue(false);
-        // TODO: continue here.
+        $parser = $this->createTimetableParserWithNoResults();
+        $expected = new \DateTime("2014-02-15 00:00:00");
+        $this->assertEquals($expected, $parser->getDate());
+
+        $timetable = $parser->getTimetable();
+        $this->assertEquals(0, $timetable->getTrips()->count());
+    }
+
+    protected function createTimetableParserWithNoResults()
+    {
+        return new TimetableParser(
+            new Timetable(
+                new Station(123, "Departure station"),
+                new Station(456, "Arrival station")
+            ),
+            file_get_contents(__DIR__ . "/../Fixtures/timetable-no-results.html")
+        );
     }
 
 }
