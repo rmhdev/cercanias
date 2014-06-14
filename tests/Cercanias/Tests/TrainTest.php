@@ -1,6 +1,6 @@
 <?php
 
-namespace Cercanias\Tests\Trip;
+namespace Cercanias\Tests\Train;
 
 use Cercanias\Train;
 
@@ -85,7 +85,7 @@ class TrainTest extends \PHPUnit_Framework_TestCase
         new Train("C1", $departureTime, $arrivalTime);
     }
 
-    public function testCompareWithALaterTrip()
+    public function testCompareWithALaterTrain()
     {
         $train = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
@@ -99,7 +99,7 @@ class TrainTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-1, $train->compareWith($trainLater));
     }
 
-    public function testCompareWithAPreviousTrip()
+    public function testCompareWithAPreviousTrain()
     {
         $train = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
