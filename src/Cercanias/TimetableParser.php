@@ -7,6 +7,7 @@ class TimetableParser
 
     protected $timetable;
     protected $date;
+    protected $transferStationName;
     /**
      * @var \DateTime
      */
@@ -16,6 +17,7 @@ class TimetableParser
     {
         $this->timetable = $timetable;
         $this->date = new \DateTime();
+        $this->transferStationName = "";
         $this->firstDateTime = null;
         $this->processHTML($html);
     }
@@ -58,6 +60,7 @@ class TimetableParser
     protected function updateTimetable(\DOMXPath $path)
     {
         if ($this->isTimetableWithTransfers($path)) {
+            $this->updateTransferStationName($path);
             $this->updateTimetableWithTransfers($path);
         } else {
             $this->updateTimetableSimple($path);
@@ -110,6 +113,13 @@ class TimetableParser
         }
     }
 
+    protected function updateTransferStationName(\DOMXPath $path)
+    {
+        $allRows = $path->query('//table/tbody/tr');
+        $tds = $path->query(".//td", $allRows->item(2));
+        $this->transferStationName = strtolower(trim($tds->item(0)->textContent));
+    }
+
     protected function parseTransferTrain(\DOMNodeList $tds)
     {
         $line = $tds->item(4)->textContent;
@@ -150,6 +160,11 @@ class TimetableParser
     public function getTimetable()
     {
         return $this->timetable;
+    }
+
+    public function getTransferStationName()
+    {
+        return $this->transferStationName;
     }
 
 }
