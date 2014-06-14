@@ -6,10 +6,25 @@ class Trip
 {
 
     protected $departureTrain;
+    protected $transferTrains;
 
-    public function __construct(Train $departureTrain)
+    public function __construct(Train $departureTrain, $transferTrains = null)
     {
         $this->departureTrain = $departureTrain;
+        $this->transferTrains = new \ArrayIterator();
+        $this->addTransferTrains($transferTrains);
+    }
+
+    protected function addTransferTrains($transferTrains = null)
+    {
+        if (!is_null($transferTrains)) {
+            $this->addTransferTrain($transferTrains);
+        }
+    }
+
+    protected function addTransferTrain(Train $train)
+    {
+        $this->transferTrains->append($train);
     }
 
     public function getDepartureTrain()
@@ -19,7 +34,7 @@ class Trip
 
     public function hasTransfer()
     {
-        return false;
+        return $this->getTransferTrains()->count() > 0;
     }
 
     public function getDepartureTime()
@@ -30,6 +45,11 @@ class Trip
     public function compareWith(Trip $trip)
     {
         return $this->getDepartureTrain()->compareWith($trip->getDepartureTrain());
+    }
+
+    public function getTransferTrains()
+    {
+        return $this->transferTrains;
     }
 
 }
