@@ -57,20 +57,20 @@ class TimetableParser
 
     protected function updateTimetable(\DOMXPath $path)
     {
-        if ($this->isTimetableSimple($path)) {
-            $this->updateTimetableSimple($path);
+        if ($this->isTimetableWithTransfers($path)) {
+            $this->updateTimetableWithTransfers($path);
         } else {
-            $this->updateTimetableComplex($path);
+            $this->updateTimetableSimple($path);
         }
     }
 
-    protected function isTimetableSimple(\DOMXPath $path)
+    protected function isTimetableWithTransfers(\DOMXPath $path)
     {
-        $isSimple = true;
+        $isSimple = false;
         $allRows = $path->query('//table/tbody/tr');
         if ($allRows->length) {
             if ($path->query(".//td", $allRows->item(1))->length > 5) {
-                $isSimple = false;
+                $isSimple = true;
             }
         }
 
@@ -99,7 +99,7 @@ class TimetableParser
         return new Train($line, $departureTime, $arrivalTime);
     }
 
-    protected function updateTimetableComplex(\DOMXPath $path)
+    protected function updateTimetableWithTransfers(\DOMXPath $path)
     {
         $allRows = $path->query('//table/tbody/tr');
         for ($i = 5; $i < $allRows->length; $i += 1) {
