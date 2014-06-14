@@ -2,9 +2,9 @@
 
 namespace Cercanias\Tests\Trip;
 
-use Cercanias\Trip;
+use Cercanias\Train;
 
-class TripTest extends \PHPUnit_Framework_TestCase
+class TrainTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getLineProvider
@@ -12,9 +12,9 @@ class TripTest extends \PHPUnit_Framework_TestCase
     public function testGetLine($line, $expected)
     {
         $departure = new \DateTime("now");
-        $trip = new Trip($line, $departure);
+        $train = new Train($line, $departure);
 
-        $this->assertEquals($expected, $trip->getLine());
+        $this->assertEquals($expected, $train->getLine());
     }
 
     public function getLineProvider()
@@ -29,50 +29,50 @@ class TripTest extends \PHPUnit_Framework_TestCase
     public function testGetDepartureTime()
     {
         $departure = new \DateTime("now");
-        $trip = new Trip("C1", $departure);
+        $train = new Train("C1", $departure);
 
-        $this->assertEquals($departure, $trip->getDepartureTime());
+        $this->assertEquals($departure, $train->getDepartureTime());
 
         $departure2 = new \DateTime("tomorrow");
-        $trip2 = new Trip("C1", $departure2);
+        $train2 = new Train("C1", $departure2);
 
-        $this->assertEquals($departure2, $trip2->getDepartureTime());
+        $this->assertEquals($departure2, $train2->getDepartureTime());
     }
 
     public function testGetArrivalTimeWhenNotDefined()
     {
         $departure = new \DateTime("now");
-        $trip = new Trip("C1", $departure);
+        $train = new Train("C1", $departure);
 
-        $this->assertEquals($departure, $trip->getArrivalTime());
+        $this->assertEquals($departure, $train->getArrivalTime());
     }
 
     public function testGetArrivalTime()
     {
         $departureTime = new \DateTime("+1 day 5 hours");
         $arrivalTime = new \DateTime("+1 day 6 hours");
-        $trip = new Trip("C1", $departureTime, $arrivalTime);
+        $train = new Train("C1", $departureTime, $arrivalTime);
 
-        $this->assertEquals($arrivalTime, $trip->getArrivalTime());
+        $this->assertEquals($arrivalTime, $train->getArrivalTime());
     }
 
     public function testGetDurationWithoutDefiningArrivalTime()
     {
         $departureTime = new \DateTime("now");
         $interval = new \DateInterval("PT0H");
-        $trip = new Trip("C1", $departureTime);
+        $train = new Train("C1", $departureTime);
 
-        $this->assertEquals($interval, $trip->getDuration());
+        $this->assertEquals($interval, $train->getDuration());
     }
 
     public function testGetDuration()
     {
         $departureTime = new \DateTime("+1 day 5 hours");
         $arrivalTime = new \DateTime("+1 day 6 hours");
-        $trip = new Trip("C1", $departureTime, $arrivalTime);
+        $train = new Train("C1", $departureTime, $arrivalTime);
         $duration = new \DateInterval("PT1H");
 
-        $this->assertEquals($duration, $trip->getDuration());
+        $this->assertEquals($duration, $train->getDuration());
     }
 
     /**
@@ -82,72 +82,72 @@ class TripTest extends \PHPUnit_Framework_TestCase
     {
         $departureTime = new \DateTime("+1 day 6 hours");
         $arrivalTime = new \DateTime("+1 day 3 hours");
-        new Trip("C1", $departureTime, $arrivalTime);
+        new Train("C1", $departureTime, $arrivalTime);
     }
 
     public function testCompareWithALaterTrip()
     {
-        $trip = new Trip("C1",
+        $train = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $tripLater = new Trip("C1",
+        $trainLater = new Train("C1",
             new \DateTime("2014-01-10 12:00:00"),
             new \DateTime("2014-01-10 12:30:00")
         );
 
-        $this->assertEquals(-1, $trip->compareWith($tripLater));
+        $this->assertEquals(-1, $train->compareWith($trainLater));
     }
 
     public function testCompareWithAPreviousTrip()
     {
-        $trip = new Trip("C1",
+        $train = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $tripBefore = new Trip("C1",
+        $trainBefore = new Train("C1",
             new \DateTime("2014-01-10 10:00:00"),
             new \DateTime("2014-01-10 10:30:00")
         );
 
-        $this->assertEquals(1, $trip->compareWith($tripBefore));
+        $this->assertEquals(1, $train->compareWith($trainBefore));
     }
 
     public function testCompareWithASameDepartureTimeAndLaterArrival()
     {
-        $trip = new Trip("C1",
+        $train = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $tripBefore = new Trip("C1",
+        $trainBefore = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:45:00")
         );
 
-        $this->assertEquals(-1, $trip->compareWith($tripBefore));
+        $this->assertEquals(-1, $train->compareWith($trainBefore));
     }
 
     public function testCompareWithASameDepartureTimeAndBeforeArrival()
     {
-        $trip = new Trip("C1",
+        $train = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $tripBefore = new Trip("C1",
+        $trainBefore = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:25:00")
         );
 
-        $this->assertEquals(1, $trip->compareWith($tripBefore));
+        $this->assertEquals(1, $train->compareWith($trainBefore));
     }
 
     public function testCompareWithSameDepartureAndArrivalTimes()
     {
-        $trip = new Trip("C1",
+        $train = new Train("C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
 
-        $this->assertEquals(0, $trip->compareWith($trip));
+        $this->assertEquals(0, $train->compareWith($train));
     }
 }

@@ -58,8 +58,8 @@ class TimetableParser
             $line = $tds->item(0)->textContent;
             $departureTime = $this->createDateTime($tds->item(1)->textContent);
             $arrivalTime = $this->createDateTime($tds->item(2)->textContent);
-            $trip = new Trip($line, $departureTime, $arrivalTime);
-            $this->timetable->addTrip($trip);
+            $train = new Train($line, $departureTime, $arrivalTime);
+            $this->timetable->addTrip($train);
         }
     }
 

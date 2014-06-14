@@ -4,7 +4,7 @@ namespace Cercanias;
 
 use Cercanias\Exception\OutOfBoundsException;
 
-class Trip
+class Train
 {
     protected
         $line,
@@ -52,19 +52,19 @@ class Trip
         return $this->getDepartureTime()->diff($this->getArrivalTime());
     }
 
-    public function compareWith(Trip $trip)
+    public function compareWith(Train $train)
     {
-        if ($this->isDepartureTimeEqual($trip)) {
-            return $this->compareDateTimes($this->getArrivalTime(), $trip->getArrivalTime());
+        if ($this->isDepartureTimeEqual($train)) {
+            return $this->compareDateTimes($this->getArrivalTime(), $train->getArrivalTime());
         }
 
-        return $this->compareDateTimes($this->getDepartureTime(), $trip->getDepartureTime());
+        return $this->compareDateTimes($this->getDepartureTime(), $train->getDepartureTime());
     }
 
-    protected function isDepartureTimeEqual(Trip $trip)
+    protected function isDepartureTimeEqual(Train $train)
     {
         return  0 === (
-            $trip->getDepartureTime()->getTimestamp() -
+            $train->getDepartureTime()->getTimestamp() -
             $this->getDepartureTime()->getTimestamp()
         );
     }
