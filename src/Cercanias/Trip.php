@@ -17,4 +17,9 @@ class Trip
         return $this->departureTrain;
     }
 
+    public function hasTransfer()
+    {
+        return false;
+    }
+
 }
