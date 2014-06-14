@@ -6,13 +6,13 @@ class Timetable
 {
     protected $departure;
     protected $destination;
-    protected $trains;
+    protected $trips;
 
     public function __construct(Station $departure, Station $destination)
     {
         $this->departure = $departure;
         $this->destination = $destination;
-        $this->trains = array();
+        $this->trips = array();
     }
 
     public function getDeparture()
@@ -25,24 +25,24 @@ class Timetable
         return $this->destination;
     }
 
-    public function getTrains()
+    public function getTrips()
     {
-        $trains = $this->trains;
-        usort($trains, function (Train $a, Train $b) {
+        $trips = $this->trips;
+        usort($trips, function (Trip $a, Trip $b) {
             return $a->compareWith($b);
         });
 
-        return new \ArrayIterator($trains);
+        return new \ArrayIterator($trips);
     }
 
-    public function addTrip(Train $trip)
+    public function addTrip(Trip $trip)
     {
-        $this->trains[] = $trip;
+        $this->trips[] = $trip;
     }
 
     public function nextDeparture(\DateTime $dateTime)
     {
-        $nextDepartures = new NextDeparturesFilterIterator($this->getTrains(), $dateTime);
+        $nextDepartures = new NextDeparturesFilterIterator($this->getTrips(), $dateTime);
         foreach ($nextDepartures as $nextDeparture) {
             return $nextDeparture;
         }
@@ -65,7 +65,7 @@ class NextDeparturesFilterIterator extends \FilterIterator
 
     public function accept()
     {
-        /* @var Train $trip */
+        /* @var Trip $trip */
         $trip = parent::current();
 
         return $trip->getDepartureTime()->getTimestamp() > $this->dateTime->getTimestamp();

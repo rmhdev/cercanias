@@ -33,6 +33,13 @@ class TripTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($train->getDepartureTime(), $trip->getDepartureTime());
     }
 
+    public function testCompareWith()
+    {
+        $trip = new Trip($this->createSimpleTrain());
+        $trip2 = new Trip($this->createSimpleTrain());
+        $this->assertEquals(0, $trip->compareWith($trip2));
+    }
+
 
 
 }

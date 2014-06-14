@@ -5,6 +5,7 @@ namespace Cercanias\Tests\Timetable;
 use Cercanias\Station;
 use Cercanias\Timetable;
 use Cercanias\Train;
+use Cercanias\Trip;
 
 class TimetableTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,33 +46,33 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $timetable = $this->createTimetable();
         $empty = new \ArrayIterator();
 
-        $this->assertEquals($empty, $timetable->getTrains());
+        $this->assertEquals($empty, $timetable->getTrips());
     }
 
     public function testAddTrip()
     {
         $timetable = $this->createTimetable();
         $train = new Train("C1", new \DateTime("now -1 hour"), new \DateTime("now"));
-        $timetable->addTrip($train);
+        $timetable->addTrip(new Trip($train));
 
-        $this->assertEquals(1, $timetable->getTrains()->count());
+        $this->assertEquals(1, $timetable->getTrips()->count());
     }
 
     public function testGetTripsShouldReturnOrderedList()
     {
         $timetable = $this->createTimetableAddingUnorderedTrips();
-        /* @var Train $train */
+        /* @var Trip $trip */
         /* @var \DateTime $previousDepartureTime */
         $previousDepartureTime = NULL;
-        foreach ($timetable->getTrains() as $train) {
+        foreach ($timetable->getTrips() as $trip) {
             if (!is_null($previousDepartureTime)) {
                 $this->assertTrue(
-                    $previousDepartureTime->getTimestamp() <= $train->getDepartureTime()->getTimestamp(),
-                    "Train " . $train->getDepartureTime()->format("Y-m-d H:i:s") . " is after " .
+                    $previousDepartureTime->getTimestamp() <= $trip->getDepartureTime()->getTimestamp(),
+                    "Train " . $trip->getDepartureTime()->format("Y-m-d H:i:s") . " is after " .
                     "Train " . $previousDepartureTime->format("Y-m-d H:i:s") . "."
                 );
             }
-            $previousDepartureTime = $train->getDepartureTime();
+            $previousDepartureTime = $trip->getDepartureTime();
         }
     }
 
@@ -81,9 +82,9 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $trainA = new Train("C1", new \DateTime("2014-01-20 11:00:00"), new \DateTime("2014-01-20 12:00:00"));
         $trainB = new Train("C1", new \DateTime("2014-01-20 11:15:00"), new \DateTime("2014-01-20 12:15:00"));
         $trainC = new Train("C1", new \DateTime("2014-01-20 11:30:00"), new \DateTime("2014-01-20 12:30:00"));
-        $timetable->addTrip($trainA);
-        $timetable->addTrip($trainC);
-        $timetable->addTrip($trainB);
+        $timetable->addTrip(new Trip($trainA));
+        $timetable->addTrip(new Trip($trainC));
+        $timetable->addTrip(new Trip($trainB));
 
         return $timetable;
     }
@@ -93,12 +94,14 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $timetable = $this->createTimetable();
         $trainA = new Train("C1", new \DateTime("2014-01-20 11:00:00"), new \DateTime("2014-01-20 12:00:00"));
         $trainB = new Train("C1", new \DateTime("2014-01-20 11:15:00"), new \DateTime("2014-01-20 12:15:00"));
-        $timetable->addTrip($trainA);
-        $timetable->addTrip($trainB);
+        $tripA = new Trip($trainA);
+        $tripB = new Trip($trainB);
+        $timetable->addTrip($tripA);
+        $timetable->addTrip($tripB);
 
-        $this->assertEquals($trainA, $timetable->nextDeparture(new \DateTime("2014-01-20 10:55:00")));
-        $this->assertEquals($trainB, $timetable->nextDeparture(new \DateTime("2014-01-20 11:00:00")));
-        $this->assertEquals($trainB, $timetable->nextDeparture(new \DateTime("2014-01-20 11:10:00")));
+        $this->assertEquals($tripA, $timetable->nextDeparture(new \DateTime("2014-01-20 10:55:00")));
+        $this->assertEquals($tripB, $timetable->nextDeparture(new \DateTime("2014-01-20 11:00:00")));
+        $this->assertEquals($tripB, $timetable->nextDeparture(new \DateTime("2014-01-20 11:10:00")));
         $this->assertNull($timetable->nextDeparture(new \DateTime("2014-01-20 12:00:00")));
     }
 }

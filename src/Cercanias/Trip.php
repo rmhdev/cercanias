@@ -27,4 +27,9 @@ class Trip
         return $this->getDepartureTrain()->getDepartureTime();
     }
 
+    public function compareWith(Trip $trip)
+    {
+        return $this->getDepartureTrain()->compareWith($trip->getDepartureTrain());
+    }
+
 }
