@@ -26,6 +26,13 @@ class TripTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($trip->hasTransfer());
     }
 
+    public function testGetDepartureTime()
+    {
+        $train = $this->createSimpleTrain();
+        $trip = new Trip($train);
+        $this->assertEquals($train->getDepartureTime(), $trip->getDepartureTime());
+    }
+
 
 
 }

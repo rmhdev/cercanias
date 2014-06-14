@@ -22,4 +22,9 @@ class Trip
         return false;
     }
 
+    public function getDepartureTime()
+    {
+        return $this->getDepartureTrain()->getDepartureTime();
+    }
+
 }
