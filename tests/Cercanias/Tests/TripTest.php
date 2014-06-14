@@ -64,6 +64,16 @@ class TripTest extends \PHPUnit_Framework_TestCase
         return new Train($train->getLine(), $departureTransferDateTime, $arrivalTransferDateTime);
     }
 
+    public function testGetTransferTrainsInTripWithMultipleTransfers()
+    {
+        $departureTrain = $this->createSimpleTrain();
+        $transfer1 = $this->createTransferTrain($departureTrain);
+        $transfer2 = $this->createTransferTrain($transfer1);
+        $transfers = array($transfer1, $transfer2);
+        $trip = new Trip($departureTrain, $transfers);
+        $this->assertEquals(2, $trip->getTransferTrains()->count());
+    }
+
 
 
 }

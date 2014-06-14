@@ -17,8 +17,14 @@ class Trip
 
     protected function addTransferTrains($transferTrains = null)
     {
-        if (!is_null($transferTrains)) {
-            $this->addTransferTrain($transferTrains);
+        if (is_null($transferTrains)) {
+            return;
+        }
+        if ($transferTrains instanceof Train) {
+            $transferTrains = array($transferTrains);
+        }
+        foreach ($transferTrains as $transferTrain) {
+            $this->addTransferTrain($transferTrain);
         }
     }
 
