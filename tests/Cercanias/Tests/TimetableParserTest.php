@@ -79,11 +79,12 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-//    public function testGetTimetableWithSimpleTransfer()
-//    {
-//        $parser = $this->createTimetableParser("timetable-transfer-simple.html");
-//        $timetable = $parser->getTimetable();
-//        $this->assertEquals(35, $timetable->getTrips()->count());
-//    }
+    public function testGetTimetableWithSimpleTransfer()
+    {
+        $parser = $this->createTimetableParser("timetable-transfer-simple.html");
+        $timetable = $parser->getTimetable();
+        $this->assertEquals(34, $timetable->getTrips()->count());
+    }
 
 }
+

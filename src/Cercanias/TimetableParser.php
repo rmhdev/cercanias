@@ -7,11 +7,16 @@ class TimetableParser
 
     protected $timetable;
     protected $date;
+    /**
+     * @var \DateTime
+     */
+    protected $firstDateTime;
 
     public function __construct(Timetable $timetable, $html)
     {
         $this->timetable = $timetable;
         $this->date = new \DateTime();
+        $this->firstDateTime = null;
         $this->processHTML($html);
     }
 
@@ -52,15 +57,66 @@ class TimetableParser
 
     protected function updateTimetable(\DOMXPath $path)
     {
+        if ($this->isTimetableSimple($path)) {
+            $this->updateTimetableSimple($path);
+        } else {
+            $this->updateTimetableComplex($path);
+        }
+    }
+
+    protected function isTimetableSimple(\DOMXPath $path)
+    {
+        $isSimple = true;
+        $allRows = $path->query('//table/tbody/tr');
+        if ($allRows->length) {
+            if ($path->query(".//td", $allRows->item(1))->length > 5) {
+                $isSimple = false;
+            }
+        }
+
+        return $isSimple;
+    }
+
+    protected function updateTimetableSimple(\DOMXPath $path)
+    {
         $allRows = $path->query('//table/tbody/tr');
         for ($i = 2; $i < $allRows->length; $i += 1) {
             $tds = $path->query(".//td", $allRows->item($i));
-            $line = $tds->item(0)->textContent;
-            $departureTime = $this->createDateTime($tds->item(1)->textContent);
-            $arrivalTime = $this->createDateTime($tds->item(2)->textContent);
-            $train = new Train($line, $departureTime, $arrivalTime);
+            $train = $this->parseDepartureTrain($tds);
             $this->timetable->addTrip(new Trip($train));
         }
+    }
+
+    protected function parseDepartureTrain(\DOMNodeList $tds)
+    {
+        $line = $tds->item(0)->textContent;
+        $departureTime = $this->createDateTime($tds->item(1)->textContent);
+        if (!$this->firstDateTime) {
+            $this->firstDateTime = clone $departureTime;
+        }
+        $arrivalTime = $this->createDateTime($tds->item(2)->textContent);
+
+        return new Train($line, $departureTime, $arrivalTime);
+    }
+
+    protected function updateTimetableComplex(\DOMXPath $path)
+    {
+        $allRows = $path->query('//table/tbody/tr');
+        for ($i = 5; $i < $allRows->length; $i += 1) {
+            $tds = $path->query(".//td", $allRows->item($i));
+            $train = $this->parseDepartureTrain($tds);
+            $transferTrain = $this->parseTransferTrain($tds);
+            $this->timetable->addTrip(new Trip($train, $transferTrain));
+        }
+    }
+
+    protected function parseTransferTrain(\DOMNodeList $tds)
+    {
+        $line = $tds->item(4)->textContent;
+        $departureTime = $this->createDateTime($tds->item(3)->textContent);
+        $arrivalTime = $this->createDateTime($tds->item(5)->textContent);
+
+        return new Train($line, $departureTime, $arrivalTime);
     }
 
     public function getDate()
@@ -73,8 +129,22 @@ class TimetableParser
         $date = clone $this->getDate();
         list($hour, $minute) = explode(".", trim($string));
         $date->setTime((int) $hour, (int) $minute, 0);
+        if ($this->isHourInNextDay($hour, $minute)) {
+            $date = $date->add(new \DateInterval("P1D"));
+        }
 
         return $date;
+    }
+
+    protected function isHourInNextDay($hour, $minute)
+    {
+        if (!$this->firstDateTime) {
+            return false;
+        }
+        /* @var \DateTime $testDate */
+        $testDate = clone $this->getDate();
+        $testDate->setTime($hour, $minute, 0);
+        return ($this->firstDateTime > $testDate);
     }
 
     public function getTimetable()
