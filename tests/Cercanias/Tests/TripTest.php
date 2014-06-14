@@ -57,9 +57,10 @@ class TripTest extends \PHPUnit_Framework_TestCase
 
     protected function createTransferTrain(Train $train)
     {
-        $date = $train->getArrivalTime();
-        $departureTransferDateTime = $date->add(new \DateInterval("P10M"));
-        $arrivalTransferDateTime = $departureTransferDateTime->add(new \DateInterval("P55M"));
+        $departureTransferDateTime = clone $train->getArrivalTime();
+        $departureTransferDateTime = $departureTransferDateTime->add(new \DateInterval("PT10M"));
+        $arrivalTransferDateTime = clone $departureTransferDateTime;
+        $arrivalTransferDateTime = $arrivalTransferDateTime->add(new \DateInterval("PT55M"));
 
         return new Train($train->getLine(), $departureTransferDateTime, $arrivalTransferDateTime);
     }
@@ -72,6 +73,20 @@ class TripTest extends \PHPUnit_Framework_TestCase
         $transfers = array($transfer1, $transfer2);
         $trip = new Trip($departureTrain, $transfers);
         $this->assertEquals(2, $trip->getTransferTrains()->count());
+    }
+
+    /**
+     * @expectedException \Cercanias\Exception\OutOfBoundsException
+     */
+    public function testTransferTrainOutOfBounds()
+    {
+        $departureTrain = $this->createSimpleTrain();
+        $transferDepartureTime = clone $departureTrain->getArrivalTime();
+        $transferDepartureTime = $transferDepartureTime->sub(new \DateInterval("PT10M"));
+        $transferArrivalTime = clone $transferDepartureTime;
+        $transferArrivalTime = $transferArrivalTime->add(new \DateInterval("PT55M"));
+        $transferTrain = new Train($departureTrain->getLine(), $transferDepartureTime, $transferArrivalTime);
+        $trip = new Trip($departureTrain, $transferTrain);
     }
 
 

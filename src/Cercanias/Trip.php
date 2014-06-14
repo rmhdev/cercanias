@@ -2,6 +2,8 @@
 
 namespace Cercanias;
 
+use Cercanias\Exception\OutOfBoundsException;
+
 class Trip
 {
 
@@ -30,6 +32,9 @@ class Trip
 
     protected function addTransferTrain(Train $train)
     {
+        if ($this->getDepartureTrain()->getArrivalTime() > $train->getDepartureTime()) {
+            throw new OutOfBoundsException("Transfer train departs before first train arrives");
+        }
         $this->transferTrains->append($train);
     }
 
