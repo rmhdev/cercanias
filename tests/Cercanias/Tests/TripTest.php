@@ -49,13 +49,19 @@ class TripTest extends \PHPUnit_Framework_TestCase
     public function testGetTransferTrainsInTripWithOneTransfer()
     {
         $train = $this->createSimpleTrain();
-        $date = $train->getArrivalTime();
-        $departureTransferDateTime = $date->add(new \DateInterval("P10M"));
-        $arrivalTransferDateTime = $departureTransferDateTime->add(new \DateInterval("P55M"));
-        $expectedTransferTrain = new Train($train->getLine(), $departureTransferDateTime, $arrivalTransferDateTime);
+        $expectedTransferTrain = $this->createTransferTrain($train);
         $trip = new Trip($train, $expectedTransferTrain);
         $this->assertEquals(1, $trip->getTransferTrains()->count());
         $this->assertEquals($expectedTransferTrain, $trip->getTransferTrains()->offsetGet(0));
+    }
+
+    protected function createTransferTrain(Train $train)
+    {
+        $date = $train->getArrivalTime();
+        $departureTransferDateTime = $date->add(new \DateInterval("P10M"));
+        $arrivalTransferDateTime = $departureTransferDateTime->add(new \DateInterval("P55M"));
+
+        return new Train($train->getLine(), $departureTransferDateTime, $arrivalTransferDateTime);
     }
 
 
