@@ -28,7 +28,7 @@ class Train
 
     protected function isArrivalTimeOutOfBounds()
     {
-        return ($this->getArrivalTime()->getTimestamp() < $this->getDepartureTime()->getTimestamp());
+        return ($this->getArrivalTime() < $this->getDepartureTime());
     }
 
     public function getLine()
@@ -63,19 +63,16 @@ class Train
 
     protected function isDepartureTimeEqual(Train $train)
     {
-        return  0 === (
-            $train->getDepartureTime()->getTimestamp() -
-            $this->getDepartureTime()->getTimestamp()
-        );
+        return ($train->getDepartureTime() == $this->getDepartureTime());
     }
 
     protected function compareDateTimes(\DateTime $first, \DateTime $second)
     {
-        if ($first->getTimestamp() === $second->getTimestamp()) {
+        if ($first == $second) {
             return 0;
         }
 
-        return ($first->getTimestamp() - $second->getTimestamp() < 0) ? -1 : 1;
+        return ($first < $second) ? -1 : 1;
     }
 
 }

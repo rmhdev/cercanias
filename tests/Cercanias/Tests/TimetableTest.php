@@ -67,7 +67,7 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         foreach ($timetable->getTrips() as $trip) {
             if (!is_null($previousDepartureTime)) {
                 $this->assertTrue(
-                    $previousDepartureTime->getTimestamp() <= $trip->getDepartureTime()->getTimestamp(),
+                    $previousDepartureTime <= $trip->getDepartureTime(),
                     "Train " . $trip->getDepartureTime()->format("Y-m-d H:i:s") . " is after " .
                     "Train " . $previousDepartureTime->format("Y-m-d H:i:s") . "."
                 );

@@ -68,6 +68,6 @@ class NextDeparturesFilterIterator extends \FilterIterator
         /* @var Trip $trip */
         $trip = parent::current();
 
-        return $trip->getDepartureTime()->getTimestamp() > $this->dateTime->getTimestamp();
+        return $trip->getDepartureTime() > $this->dateTime;
     }
 }
