@@ -92,20 +92,6 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedTrip, $trip);
     }
 
-    public function testGetTransferStationNameInTimetableWithoutTransfers()
-    {
-        $parser = $this->createTimetableParserSanSebastian();
-
-        $this->assertEmpty($parser->getTransferStationName());
-    }
-
-    public function testGetTransferStationNameInTimetableWithTransfers()
-    {
-        $parser = $this->createTimetableParser("timetable-transfer-simple.html");
-
-        $this->assertEquals("Chamartin", $parser->getTransferStationName());
-    }
-
     public function testGetTimetableWithMultipleTransfers()
     {
         $parser = $this->createTimetableParser("timetable-transfer-complete.html");
@@ -122,19 +108,22 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedTrip, $trip);
     }
 
-    public function testGetTransferStationNameWithSpecialCharacters()
-    {
-        $this->markTestSkipped("Some problems with utf-8");
-        $parser = $this->createTimetableParser("timetable-transfer-complete.html");
-
-        $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
-    }
-
-    public function testGetDepartureArrivalStationNames()
+    public function testStationNames()
     {
         $parser = $this->createTimetableParserSanSebastian();
         $this->assertEquals("Brincola", $parser->getDepartureStationName());
         $this->assertEquals("Irun", $parser->getArrivalStationName());
+        $this->assertEmpty($parser->getTransferStationName());
+    }
+
+    public function testStationNamesWithSpecialCharacters()
+    {
+        $this->markTestSkipped("Some problems with utf-8");
+        $parser = $this->createTimetableParser("timetable-transfer-complete.html");
+
+        $this->assertEquals("Arenys de Mar", $parser->getDepartureStationName());
+        $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getArrivalStationName());
+        $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
     }
 
 }
