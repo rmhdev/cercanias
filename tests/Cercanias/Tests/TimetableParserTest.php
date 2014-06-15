@@ -106,5 +106,12 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("chamartin", $parser->getTransferStationName());
     }
 
+    public function testGetTimetableWithMultipleTransfers()
+    {
+        $parser = $this->createTimetableParser("timetable-transfer-complete.html");
+        $timetable = $parser->getTimetable();
+        $this->assertEquals(32, $timetable->getTrips()->count());
+    }
+
 }
 

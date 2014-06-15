@@ -104,13 +104,30 @@ class TimetableParser
 
     protected function updateTimetableWithTransfers(\DOMXPath $path)
     {
+        $train = null;
+        $transferTrains = array();
         $allRows = $path->query('//table/tbody/tr');
         for ($i = 5; $i < $allRows->length; $i += 1) {
             $tds = $path->query(".//td", $allRows->item($i));
-            $train = $this->parseDepartureTrain($tds);
-            $transferTrain = $this->parseTransferTrain($tds);
-            $this->timetable->addTrip(new Trip($train, $transferTrain));
+            if ($this->hasLine($tds)) {
+                if ($transferTrains && $train) {
+                    $this->timetable->addTrip(new Trip($train, $transferTrains));
+                }
+                $train = $this->parseDepartureTrain($tds);
+                $transferTrains = array();
+            }
+            $transferTrains[] = $this->parseTransferTrain($tds);
         }
+        if ($transferTrains && $train) {
+            $this->timetable->addTrip(new Trip($train, $transferTrains));
+        }
+    }
+
+    protected function hasLine(\DOMNodeList $tds)
+    {
+        $line = trim($tds->item(0)->textContent);
+
+        return strlen($line) > 0;
     }
 
     protected function updateTransferStationName(\DOMXPath $path)
