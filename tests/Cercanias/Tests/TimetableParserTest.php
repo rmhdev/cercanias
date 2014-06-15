@@ -103,14 +103,31 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
     {
         $parser = $this->createTimetableParser("timetable-transfer-simple.html");
 
-        $this->assertEquals("chamartin", $parser->getTransferStationName());
+        $this->assertEquals("Chamartin", $parser->getTransferStationName());
     }
 
     public function testGetTimetableWithMultipleTransfers()
     {
         $parser = $this->createTimetableParser("timetable-transfer-complete.html");
         $timetable = $parser->getTimetable();
-        $this->assertEquals(32, $timetable->getTrips()->count());
+        $this->assertEquals(33, $timetable->getTrips()->count());
+
+        $train = new Train("r1", new \DateTime("2014-06-15 21:03"), new \DateTime("2014-06-15 21:49"));
+        $transferTrains = array(
+            new Train("r2", new \DateTime("2014-06-15 21:56"), new \DateTime("2014-06-15 22:01")),
+            new Train("r2", new \DateTime("2014-06-15 22:09"), new \DateTime("2014-06-15 22:14"))
+        );
+        $expectedTrip = new Trip($train, $transferTrains);
+        $trip = $timetable->nextDeparture(new \DateTime("2014-06-15 21:00"));
+        $this->assertEquals($expectedTrip, $trip);
+    }
+
+    public function testGetTransferStationNameWithSpecialCharacters()
+    {
+        $this->markTestSkipped("Some problems with utf-8");
+        $parser = $this->createTimetableParser("timetable-transfer-complete.html");
+
+        $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
     }
 
 }

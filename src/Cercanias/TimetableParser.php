@@ -134,7 +134,7 @@ class TimetableParser
     {
         $allRows = $path->query('//table/tbody/tr');
         $tds = $path->query(".//td", $allRows->item(2));
-        $this->transferStationName = strtolower(trim($tds->item(0)->textContent));
+        $this->transferStationName = trim($tds->item(0)->textContent);
     }
 
     protected function parseTransferTrain(\DOMNodeList $tds)
