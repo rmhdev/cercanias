@@ -8,6 +8,8 @@ class TimetableParser
     protected $timetable;
     protected $date;
     protected $transferStationName;
+    protected $departureStationName;
+    protected $arrivalStationName;
     /**
      * @var \DateTime
      */
@@ -59,11 +61,23 @@ class TimetableParser
 
     protected function updateTimetable(\DOMXPath $path)
     {
+        $this->updateDepartureArrivalStationNames($path);
         if ($this->isTimetableWithTransfers($path)) {
             $this->updateTransferStationName($path);
             $this->updateTimetableWithTransfers($path);
         } else {
             $this->updateTimetableSimple($path);
+        }
+    }
+
+    protected function updateDepartureArrivalStationNames(\DOMXPath $path)
+    {
+        $spans = $path->query('//span[@class="titulo_negro"]');
+        $this->departureStationName = "";
+        $this->arrivalStationName = "";
+        if ($spans->length) {
+            $this->departureStationName = trim($spans->item(0)->textContent);
+            $this->arrivalStationName = trim($spans->item(1)->textContent);
         }
     }
 
@@ -182,6 +196,16 @@ class TimetableParser
     public function getTransferStationName()
     {
         return $this->transferStationName;
+    }
+
+    public function getDepartureStationName()
+    {
+        return $this->departureStationName;
+    }
+
+    public function getArrivalStationName()
+    {
+        return $this->arrivalStationName;
     }
 
 }

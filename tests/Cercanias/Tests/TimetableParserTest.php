@@ -130,5 +130,12 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
     }
 
+    public function testGetDepartureArrivalStationNames()
+    {
+        $parser = $this->createTimetableParserSanSebastian();
+        $this->assertEquals("Brincola", $parser->getDepartureStationName());
+        $this->assertEquals("Irun", $parser->getArrivalStationName());
+    }
+
 }
 
