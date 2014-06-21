@@ -4,6 +4,7 @@ namespace Cercanias\Tests\Provider;
 
 use Cercanias\Provider\WebProvider;
 use Cercanias\HttpAdapter\HttpAdapterInterface;
+use Cercanias\Route;
 use Cercanias\Station;
 
 class WebProviderTest extends \PHPUnit_Framework_TestCase
@@ -78,15 +79,15 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
-    /**
-     * @expectedException \Cercanias\Exception\InvalidArgumentException
-     */
-    public function testGetTimetableForNullId()
+    public function testGetTimetableSanSebastian()
     {
-        $this->markTestSkipped("preparing code");
-        $provider = new WebProvider($this->getMockAdapter($this->never()));
-        $from = new Station(1, "Irun", 61);
-        $to = new Station(2, "Brincola", 61);
-        //$provider->getTimetable();
+        $provider = new WebProvider($this->getMockAdapterReturnsFixtureContent("timetable-sansebastian.html"));
+        $route = new Route(1, "Default route");
+        $route->addNewStation(1, "Irun");
+        $route->addNewStation(2, "Brincola");
+        $date = new \DateTime("2014-02-10");
+        $timetable = $provider->getTimetable($route->getStation(1), $route->getStation(2), $date);
+
+        $this->assertEquals(20, $timetable->getTrips()->count());
     }
 }

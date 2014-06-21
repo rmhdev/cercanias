@@ -5,10 +5,14 @@ namespace Cercanias\Provider;
 use Cercanias\Exception\InvalidArgumentException;
 use Cercanias\HttpAdapter\HttpAdapterInterface;
 use Cercanias\RouteParser;
+use Cercanias\Station;
+use Cercanias\Timetable;
+use Cercanias\TimetableParser;
 
 class WebProvider
 {
     const URL_ROUTE = "http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
+    const URL_TIMETABLE = "http://horarios.renfe.com/cer/hjcer310.jsp?nucleo=%s&i=s&cp=NO&o=%s&d=%s&df=%s&ho=00&hd=26&TXTInfo=";
 
     const ROUTE_ASTURIAS = 20;
     const ROUTE_BARCELONA = 50;
@@ -37,7 +41,7 @@ class WebProvider
 
     public function getRoute($id)
     {
-        $query = $this->buildQuery(array("route_id" => $id));
+        $query = $this->buildRouteQuery(array("route_id" => $id));
         if (is_null($id) || !is_int($id)) {
             throw new InvalidArgumentException(sprintf("Could not execute query %s", $query));
         }
@@ -46,12 +50,48 @@ class WebProvider
         return $routeParser->getRoute();
     }
 
-    protected function buildQuery($parameters = array())
+    protected function buildRouteQuery($parameters = array())
     {
         if (!isset($parameters["route_id"])) {
             $parameters["route_id"] = "";
         }
 
         return sprintf(self::URL_ROUTE, $parameters["route_id"]);
+    }
+
+    public function getTimetable(Station $from, Station $to, \DateTime $dateTime)
+    {
+        $query = $this->buildTimetableQuery(array(
+            "date" => $this->formatDate($dateTime),
+            "from_station_id" => $from->getId(),
+            "to_station_id" => $to->getId(),
+            "route_id" => $from->getRouteId()
+        ));
+        $timetable = new Timetable($from, $to);
+        $parser = new TimetableParser($timetable, $this->httpAdapter->getContent($query));
+
+        return $parser->getTimetable();
+    }
+
+    protected function buildTimetableQuery($parameters = array())
+    {
+        if (!isset($parameters["date"]) || (!$parameters["date"])) {
+            $parameters["date"] = $this->formatDate();
+        }
+
+        return sprintf(self::URL_TIMETABLE,
+            $parameters["date"],
+            $parameters["from_station_id"],
+            $parameters["to_station_id"],
+            $parameters["route_id"]
+        );
+    }
+
+    protected function formatDate(\DateTime $date = NULL)
+    {
+        if (is_null($date)) {
+            $date = new \DateTime("now");
+        }
+        return $date->format("Ymd");
     }
 }
