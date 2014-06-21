@@ -4,6 +4,7 @@ namespace Cercanias\Provider;
 
 use Cercanias\Exception\InvalidArgumentException;
 use Cercanias\HttpAdapter\HttpAdapterInterface;
+use Cercanias\RouteParser;
 
 class WebProvider
 {
@@ -27,6 +28,9 @@ class WebProvider
         if (is_null($id) || !is_int($id)) {
             throw new InvalidArgumentException(sprintf("Could not execute query %s", $query));
         }
+        $routeParser = new RouteParser($this->httpAdapter->getContent($query));
+
+        return $routeParser->getRoute();
     }
 
     protected function buildQuery($parameters = array())
