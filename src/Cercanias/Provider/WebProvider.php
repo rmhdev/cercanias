@@ -7,6 +7,8 @@ use Cercanias\HttpAdapter\HttpAdapterInterface;
 
 class WebProvider
 {
+    const ROUTE_URL = "http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
+
     protected $httpAdapter;
 
     public function __construct(HttpAdapterInterface $httpAdapter)
@@ -21,8 +23,18 @@ class WebProvider
 
     public function getRoute($id)
     {
+        $query = $this->buildQuery(array("route_id" => $id));
         if (is_null($id)) {
-            throw new InvalidArgumentException("Route id must be defined");
+            throw new InvalidArgumentException(sprintf("Could not execute query %s", $query));
         }
+    }
+
+    protected function buildQuery($parameters = array())
+    {
+        if (!isset($parameters["route_id"])) {
+            $parameters["route_id"] = "";
+        }
+
+        return sprintf(self::ROUTE_URL, $parameters["route_id"]);
     }
 }
