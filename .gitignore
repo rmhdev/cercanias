@@ -9,3 +9,8 @@ phpunit.xml
 
 # IDE
 .idea/*
+
+# temp files
+.DS_Store
+._*
+Thumbs.db
