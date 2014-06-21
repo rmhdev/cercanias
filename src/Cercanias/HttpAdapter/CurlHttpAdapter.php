@@ -12,13 +12,11 @@ use Cercanias\Exception\ExtensionNotLoadedException;
 class CurlHttpAdapter implements HttpAdapterInterface
 {
 
-    private $timeout;
-    private $connectTimeout;
+    private $curlOptions;
 
-    public function __construct($timeout = null, $connectTimeout = null)
+    public function __construct($curlOptions = array())
     {
-        $this->timeout = $timeout;
-        $this->connectTimeout = $connectTimeout;
+        $this->curlOptions = $curlOptions;
     }
 
     /**
@@ -30,24 +28,21 @@ class CurlHttpAdapter implements HttpAdapterInterface
            throw new ExtensionNotLoadedException("cURL has to be enabled");
         }
         $c = curl_init();
-        curl_setopt_array($c, $this->getCurlOptions($url));
+        curl_setopt_array($c, $this->prepareCurlOptions($url));
         $content = curl_exec($c);
         curl_close($c);
 
         return (false === $content) ? null : $content;
     }
 
-    protected function getCurlOptions($url)
+    protected function prepareCurlOptions($url)
     {
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_URL => $url
         );
-        if ($this->timeout) {
-            $options[CURLOPT_TIMEOUT] = $this->timeout;
-        }
-        if ($this->connectTimeout) {
-            $options[CURLOPT_CONNECTTIMEOUT] = $this->connectTimeout;
+        if ($this->curlOptions) {
+            $options = array_merge($options, $this->curlOptions);
         }
 
         return $options;
