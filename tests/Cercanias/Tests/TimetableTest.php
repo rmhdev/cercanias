@@ -104,4 +104,14 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($tripB, $timetable->nextDeparture(new \DateTime("2014-01-20 11:10:00")));
         $this->assertNull($timetable->nextDeparture(new \DateTime("2014-01-20 12:00:00")));
     }
+
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     */
+    public function testStationsMustHaveSameRouteId()
+    {
+        $departure = new Station(1, "Irun", 61);
+        $arrival = new Station(2, "Brincola", 20);
+        new Timetable($departure, $arrival);
+    }
 }

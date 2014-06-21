@@ -25,7 +25,7 @@ class RouteParser
         $route = new Route($id, $name);
         $stations = $this->parseStations($path);
         foreach ($stations as $stationId => $stationName) {
-            $route->addStation(new Station($stationId, $stationName, $id));
+            $route->addNewStation($stationId, $stationName);
         }
 
         return $route;

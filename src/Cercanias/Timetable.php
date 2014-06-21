@@ -2,6 +2,8 @@
 
 namespace Cercanias;
 
+use Cercanias\Exception\InvalidArgumentException;
+
 class Timetable
 {
     protected $departure;
@@ -10,6 +12,9 @@ class Timetable
 
     public function __construct(Station $departure, Station $destination)
     {
+        if ($departure->getRouteId() != $destination->getRouteId()) {
+            throw new InvalidArgumentException("Stations must have the same RouteId");
+        }
         $this->departure = $departure;
         $this->destination = $destination;
         $this->trips = array();

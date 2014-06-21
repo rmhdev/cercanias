@@ -63,7 +63,12 @@ class Route
         return sizeof($this->stations);
     }
 
-    public function addStation(Station $station)
+    public function addNewStation($id, $name)
+    {
+        $this->addStation(new Station($id, $name, $this->getId()));
+    }
+
+    protected function addStation(Station $station)
     {
         if ($this->hasStation($station->getId())) {
             throw new DuplicateKeyException("Station id already exists");
