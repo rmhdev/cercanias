@@ -5,7 +5,6 @@ namespace Cercanias\Provider\Web;
 use Cercanias\Exception\InvalidArgumentException;
 use Cercanias\Station;
 use Cercanias\Timetable;
-use Cercanias\TimetableParser;
 use Cercanias\Provider\AbstractProvider;
 use Cercanias\Provider\ProviderInterface;
 

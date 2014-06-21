@@ -1,14 +1,15 @@
 <?php
 
-namespace Cercanias\Tests\TimetableParser;
+namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Station;
+use Cercanias\Tests\Provider\AbstractTimetableParser;
 use Cercanias\Timetable;
-use Cercanias\TimetableParser;
+use Cercanias\Provider\Web\TimetableParser;
 use Cercanias\Train;
 use Cercanias\Trip;
 
-class TimetableParserTest extends \PHPUnit_Framework_TestCase
+class TimetableParserTest extends AbstractTimetableParser
 {
 
     public function testGetTimetable()
@@ -42,7 +43,7 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
                 new Station(123, "Brincola", 61),
                 new Station(456, "Irun", 61)
             ),
-            file_get_contents(__DIR__ . "/../Fixtures/timetable-sansebastian.html")
+            $this->getContentHtml("timetable-sansebastian.html")
         );
     }
 
@@ -75,7 +76,7 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
                 new Station(123, "Departure station", 61),
                 new Station(456, "Arrival station", 61)
             ),
-            file_get_contents(__DIR__ . "/../Fixtures/" . $filename)
+            $this->getContentHtml($filename)
         );
     }
 

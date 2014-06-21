@@ -1,26 +1,18 @@
 <?php
 
-namespace Cercanias;
+namespace Cercanias\Provider\Web;
 
-class TimetableParser
+use Cercanias\Provider\AbstractTimetableParser;
+use Cercanias\Timetable;
+use Cercanias\Train;
+use Cercanias\Trip;
+
+class TimetableParser extends AbstractTimetableParser
 {
-
-    protected $timetable;
-    protected $date;
-    protected $transferStationName;
-    protected $departureStationName;
-    protected $arrivalStationName;
-    /**
-     * @var \DateTime
-     */
-    protected $firstDateTime;
 
     public function __construct(Timetable $timetable, $html)
     {
-        $this->timetable = $timetable;
-        $this->date = new \DateTime();
-        $this->transferStationName = "";
-        $this->firstDateTime = null;
+        parent::__construct($timetable, $html);
         $this->processHTML($html);
     }
 
@@ -39,8 +31,8 @@ class TimetableParser
     protected function updateDate(\DOMXPath $path)
     {
         $textDate = $this->retrieveDateString($path);
-        $this->date = \DateTime::createFromFormat("d-m-Y", $textDate);
-        $this->date->setTime(0, 0, 0);
+        $date = \DateTime::createFromFormat("d-m-Y", $textDate);
+        $this->setDate($date);
     }
 
     protected function retrieveDateString(\DOMXPath $path)
@@ -73,12 +65,14 @@ class TimetableParser
     protected function updateDepartureArrivalStationNames(\DOMXPath $path)
     {
         $spans = $path->query('//span[@class="titulo_negro"]');
-        $this->departureStationName = "";
-        $this->arrivalStationName = "";
+        $departureStationName = "";
+        $arrivalStationName = "";
         if ($spans->length) {
-            $this->departureStationName = trim($spans->item(0)->textContent);
-            $this->arrivalStationName = trim($spans->item(1)->textContent);
+            $departureStationName = $spans->item(0)->textContent;
+            $arrivalStationName = $spans->item(1)->textContent;
         }
+        $this->setDepartureStationName($departureStationName);
+        $this->setArrivalStationName($arrivalStationName);
     }
 
     protected function isTimetableWithTransfers(\DOMXPath $path)
@@ -108,9 +102,7 @@ class TimetableParser
     {
         $line = $tds->item(0)->textContent;
         $departureTime = $this->createDateTime($tds->item(1)->textContent);
-        if (!$this->firstDateTime) {
-            $this->firstDateTime = clone $departureTime;
-        }
+        $this->setFirstDateTimeIfFirst($departureTime);
         $arrivalTime = $this->createDateTime($tds->item(2)->textContent);
 
         return new Train($line, $departureTime, $arrivalTime);
@@ -148,7 +140,7 @@ class TimetableParser
     {
         $allRows = $path->query('//table/tbody/tr');
         $tds = $path->query(".//td", $allRows->item(2));
-        $this->transferStationName = trim($tds->item(0)->textContent);
+        $this->setTransferStationName($tds->item(0)->textContent);
     }
 
     protected function parseTransferTrain(\DOMNodeList $tds)
@@ -158,11 +150,6 @@ class TimetableParser
         $arrivalTime = $this->createDateTime($tds->item(5)->textContent);
 
         return new Train($line, $departureTime, $arrivalTime);
-    }
-
-    public function getDate()
-    {
-        return $this->date;
     }
 
     protected function createDateTime($string)
@@ -175,37 +162,6 @@ class TimetableParser
         }
 
         return $date;
-    }
-
-    protected function isHourInNextDay($hour, $minute)
-    {
-        if (!$this->firstDateTime) {
-            return false;
-        }
-        /* @var \DateTime $testDate */
-        $testDate = clone $this->getDate();
-        $testDate->setTime($hour, $minute, 0);
-        return ($this->firstDateTime > $testDate);
-    }
-
-    public function getTimetable()
-    {
-        return $this->timetable;
-    }
-
-    public function getTransferStationName()
-    {
-        return $this->transferStationName;
-    }
-
-    public function getDepartureStationName()
-    {
-        return $this->departureStationName;
-    }
-
-    public function getArrivalStationName()
-    {
-        return $this->arrivalStationName;
     }
 
 }
