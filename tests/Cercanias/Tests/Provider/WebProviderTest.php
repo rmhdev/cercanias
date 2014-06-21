@@ -53,9 +53,7 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRouteSanSebastian()
     {
-        $mockAdapter = $this->getMockAdapterReturns(
-            file_get_contents(__DIR__ . "/../../Fixtures/" . "route-sansebastian.html")
-        );
+        $mockAdapter = $this->getMockAdapterReturnsFixtureContent("route-sansebastian.html");
         $provider = new WebProvider($mockAdapter);
         $route = $provider->getRoute(61);
 
@@ -65,15 +63,15 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $returnValue
+     * @param string $filename
      * @return HttpAdapterInterface
      */
-    protected function getMockAdapterReturns($returnValue)
+    protected function getMockAdapterReturnsFixtureContent($filename)
     {
         $mock = $this->getMock('Cercanias\HttpAdapter\HttpAdapterInterface');
         $mock->expects($this->once())
             ->method('getContent')
-            ->willReturn($returnValue)
+            ->willReturn(file_get_contents(__DIR__ . "/../../Fixtures/" . $filename))
         ;
 
         return $mock;
