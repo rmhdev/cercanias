@@ -1,10 +1,11 @@
 <?php
 
-namespace Cercanias\Tests\RouteParser;
+namespace Cercanias\Tests\RouteParser\Web;
 
-use Cercanias\RouteParser;
+use Cercanias\Provider\Web\RouteParser;
+use Cercanias\Tests\Provider\AbstractRouteParserTest;
 
-class RouteParserTest extends \PHPUnit_Framework_TestCase
+class RouteParserTest extends AbstractRouteParserTest
 {
 
     public function testGetRoute()
@@ -16,9 +17,7 @@ class RouteParserTest extends \PHPUnit_Framework_TestCase
 
     protected function getRouteParser($filename)
     {
-        $html = file_get_contents(__DIR__ . "/../Fixtures/" . $filename);
-
-        return new RouteParser($html);
+        return new RouteParser($this->getContentHtml($filename));
     }
 
     public function testGetRouteSanSebastian()

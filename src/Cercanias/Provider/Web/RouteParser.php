@@ -1,19 +1,22 @@
 <?php
 
-namespace Cercanias;
+namespace Cercanias\Provider\Web;
 
-class RouteParser
+use Cercanias\Route;
+use Cercanias\Provider\AbstractRouteParser;
+use Cercanias\Provider\RouteParserInterface;
+
+class RouteParser extends AbstractRouteParser implements RouteParserInterface
 {
-
-    protected
-        $route;
 
     public function __construct($html)
     {
         $previousState = libxml_use_internal_errors(true);
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
-        $this->route = $this->createRoute(new \DOMXPath($domDocument));
+        $this->setRoute(
+            $this->createRoute(new \DOMXPath($domDocument))
+        );
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
     }
@@ -63,8 +66,4 @@ class RouteParser
         return $stations;
     }
 
-    public function getRoute()
-    {
-        return $this->route;
-    }
 }
