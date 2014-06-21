@@ -24,7 +24,7 @@ class WebProvider
     public function getRoute($id)
     {
         $query = $this->buildQuery(array("route_id" => $id));
-        if (is_null($id)) {
+        if (is_null($id) || !is_int($id)) {
             throw new InvalidArgumentException(sprintf("Could not execute query %s", $query));
         }
     }

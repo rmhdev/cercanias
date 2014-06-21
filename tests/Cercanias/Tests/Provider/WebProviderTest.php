@@ -41,4 +41,13 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     */
+    public function testGetRouteForNotNumberId()
+    {
+        $provider = new WebProvider($this->getMockAdapter($this->never()));
+        $provider->getRoute("hi");
+    }
+
 }
