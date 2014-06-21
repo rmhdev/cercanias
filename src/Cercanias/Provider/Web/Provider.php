@@ -1,51 +1,39 @@
 <?php
 
-namespace Cercanias\Provider;
+namespace Cercanias\Provider\Web;
 
 use Cercanias\Exception\InvalidArgumentException;
-use Cercanias\HttpAdapter\HttpAdapterInterface;
 use Cercanias\RouteParser;
 use Cercanias\Station;
 use Cercanias\Timetable;
 use Cercanias\TimetableParser;
+use Cercanias\Provider\AbstractProvider;
+use Cercanias\Provider\ProviderInterface;
 
-class WebProvider
+class Provider extends AbstractProvider implements ProviderInterface
 {
+
     const URL_ROUTE = "http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
     const URL_TIMETABLE = "http://horarios.renfe.com/cer/hjcer310.jsp?nucleo=%s&i=s&cp=NO&o=%s&d=%s&df=%s&ho=00&hd=26&TXTInfo=";
 
-    const ROUTE_ASTURIAS = 20;
-    const ROUTE_BARCELONA = 50;
-    const ROUTE_BILBAO = 60;
-    const ROUTE_CADIZ = 31;
-    const ROUTE_MADRID = 10;
-    const ROUTE_MALAGA = 32;
-    const ROUTE_MURCIA_ALICANTE = 41;
-    const ROUTE_SAN_SEBASTIAN = 61;
-    const ROUTE_SANTANDER = 62;
-    const ROUTE_SEVILLA = 30;
-    const ROUTE_VALENCIA = 40;
-    const ROUTE_ZARAGOZA = 70;
-
-    protected $httpAdapter;
-
-    public function __construct(HttpAdapterInterface $httpAdapter)
-    {
-        $this->httpAdapter = $httpAdapter;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     public function getName()
     {
         return 'web_provider';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRoute($id)
     {
         $query = $this->buildRouteQuery(array("route_id" => $id));
         if (is_null($id) || !is_int($id)) {
             throw new InvalidArgumentException(sprintf("Could not execute query %s", $query));
         }
-        $routeParser = new RouteParser($this->httpAdapter->getContent($query));
+        $routeParser = new RouteParser($this->getHttpAdapter()->getContent($query));
 
         return $routeParser->getRoute();
     }
@@ -59,6 +47,9 @@ class WebProvider
         return sprintf(self::URL_ROUTE, $parameters["route_id"]);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getTimetable(Station $from, Station $to, \DateTime $dateTime)
     {
         $query = $this->buildTimetableQuery(array(
@@ -68,7 +59,7 @@ class WebProvider
             "route_id" => $from->getRouteId()
         ));
         $timetable = new Timetable($from, $to);
-        $parser = new TimetableParser($timetable, $this->httpAdapter->getContent($query));
+        $parser = new TimetableParser($timetable, $this->getHttpAdapter()->getContent($query));
 
         return $parser->getTimetable();
     }

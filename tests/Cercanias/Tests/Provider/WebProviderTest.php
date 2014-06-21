@@ -2,16 +2,15 @@
 
 namespace Cercanias\Tests\Provider;
 
-use Cercanias\Provider\WebProvider;
+use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\HttpAdapterInterface;
 use Cercanias\Route;
-use Cercanias\Station;
 
 class WebProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetName()
     {
-        $provider = new WebProvider($this->getMockAdapter($this->never()));
+        $provider = new Provider($this->getMockAdapter($this->never()));
         $this->assertEquals("web_provider", $provider->getName());
     }
 
@@ -21,7 +20,7 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRouteForNullId()
     {
-        $provider = new WebProvider($this->getMockAdapter($this->never()));
+        $provider = new Provider($this->getMockAdapter($this->never()));
         $provider->getRoute(null);
     }
 
@@ -49,17 +48,17 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRouteForNotNumberId()
     {
-        $provider = new WebProvider($this->getMockAdapter($this->never()));
+        $provider = new Provider($this->getMockAdapter($this->never()));
         $provider->getRoute("hi");
     }
 
     public function testGetRouteSanSebastian()
     {
         $mockAdapter = $this->getMockAdapterReturnsFixtureContent("route-sansebastian.html");
-        $provider = new WebProvider($mockAdapter);
-        $route = $provider->getRoute(WebProvider::ROUTE_SAN_SEBASTIAN);
+        $provider = new Provider($mockAdapter);
+        $route = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN);
 
-        $this->assertEquals(WebProvider::ROUTE_SAN_SEBASTIAN, $route->getId());
+        $this->assertEquals(Provider::ROUTE_SAN_SEBASTIAN, $route->getId());
         $this->assertEquals("San Sebastián", $route->getName());
         $this->assertEquals(30, $route->countStations());
     }
@@ -81,7 +80,7 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTimetableSanSebastian()
     {
-        $provider = new WebProvider($this->getMockAdapterReturnsFixtureContent("timetable-sansebastian.html"));
+        $provider = new Provider($this->getMockAdapterReturnsFixtureContent("timetable-sansebastian.html"));
         $route = new Route(1, "Default route");
         $route->addNewStation(1, "Irun");
         $route->addNewStation(2, "Brincola");
