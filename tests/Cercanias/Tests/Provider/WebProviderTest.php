@@ -43,6 +43,7 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Could not execute query http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=hi&CP=NO&I=s
      */
     public function testGetRouteForNotNumberId()
     {
