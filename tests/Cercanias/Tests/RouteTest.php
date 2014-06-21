@@ -98,7 +98,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
     protected function createDefaultStation($id)
     {
-        return new Station($id, "Default Station {$id}");
+        return new Station($id, "Default Station {$id}", 61);
     }
 
     /**

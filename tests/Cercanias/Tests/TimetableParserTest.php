@@ -39,8 +39,8 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
     {
         return new TimetableParser(
             new Timetable(
-                new Station(123, "Brincola"),
-                new Station(456, "Irun")
+                new Station(123, "Brincola", 61),
+                new Station(456, "Irun", 61)
             ),
             file_get_contents(__DIR__ . "/../Fixtures/timetable-sansebastian.html")
         );
@@ -72,8 +72,8 @@ class TimetableParserTest extends \PHPUnit_Framework_TestCase
     {
         return new TimetableParser(
             new Timetable(
-                new Station(123, "Departure station"),
-                new Station(456, "Arrival station")
+                new Station(123, "Departure station", 61),
+                new Station(456, "Arrival station", 61)
             ),
             file_get_contents(__DIR__ . "/../Fixtures/" . $filename)
         );

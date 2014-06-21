@@ -26,12 +26,12 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
 
     protected function createDepartureStation()
     {
-        return new Station(1, "My departure");
+        return new Station(1, "My departure", 61);
     }
 
     protected function createDestinationStation()
     {
-        return new Station(2, "My destination");
+        return new Station(2, "My destination", 61);
     }
 
     public function testGetDestination()

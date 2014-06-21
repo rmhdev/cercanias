@@ -8,11 +8,13 @@ class Station
 {
     protected $id;
     protected $name;
+    protected $routeId;
 
-    public function __construct($id, $name)
+    public function __construct($id, $name, $routeId)
     {
         $this->setId($id);
         $this->setName($name);
+        $this->setRouteId($routeId);
     }
 
     protected function setId($id)
@@ -42,6 +44,14 @@ class Station
         return (!is_string($name) || strlen($name) <= 0);
     }
 
+    protected function setRouteId($routeId)
+    {
+        if ($this->isInvalidId($routeId)) {
+           throw new InvalidArgumentException("Invalid RouteId");
+        }
+        $this->routeId = $routeId;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -50,5 +60,10 @@ class Station
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getRouteId()
+    {
+        return $this->routeId;
     }
 }

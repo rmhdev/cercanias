@@ -4,6 +4,7 @@ namespace Cercanias\Tests\Provider;
 
 use Cercanias\Provider\WebProvider;
 use Cercanias\HttpAdapter\HttpAdapterInterface;
+use Cercanias\Station;
 
 class WebProviderTest extends \PHPUnit_Framework_TestCase
 {
@@ -77,4 +78,15 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     */
+    public function testGetTimetableForNullId()
+    {
+        $this->markTestSkipped("preparing code");
+        $provider = new WebProvider($this->getMockAdapter($this->never()));
+        $from = new Station(1, "Irun", 61);
+        $to = new Station(2, "Brincola", 61);
+        //$provider->getTimetable();
+    }
 }
