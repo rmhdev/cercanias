@@ -11,10 +11,10 @@ interface HttpAdapterInterface
 {
     /**
      * Returns content from a given url
-     * @param string $ulr
+     * @param string $url
      * @return string
      */
-    public function getContent($ulr);
+    public function getContent($url);
 
     /**
      * Returns the name of the HttpAdapter
