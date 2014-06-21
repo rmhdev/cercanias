@@ -20,6 +20,7 @@ class CurlHttpAdapter implements HttpAdapterInterface
         $this->timeout = $timeout;
         $this->connectTimeout = $connectTimeout;
     }
+
     /**
      * {@inheritDoc}
      */
