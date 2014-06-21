@@ -1,13 +1,14 @@
 <?php
 
-namespace Cercanias\Tests\Provider;
+namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Provider\Web\Provider;
-use Cercanias\HttpAdapter\HttpAdapterInterface;
 use Cercanias\Route;
+use Cercanias\Tests\Provider\AbstractProviderTest;
 
-class WebProviderTest extends \PHPUnit_Framework_TestCase
+class ProviderTest extends AbstractProviderTest
 {
+
     public function testGetName()
     {
         $provider = new Provider($this->getMockAdapter($this->never()));
@@ -22,24 +23,6 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
     {
         $provider = new Provider($this->getMockAdapter($this->never()));
         $provider->getRoute(null);
-    }
-
-    /**
-     * @param null $expects
-     * @return HttpAdapterInterface
-     */
-    protected function getMockAdapter($expects = null)
-    {
-        if (null === $expects) {
-            $expects = $this->once();
-        }
-        $mock = $this->getMock('Cercanias\HttpAdapter\HttpAdapterInterface');
-        $mock
-            ->expects($expects)
-            ->method('getContent')
-            ->will($this->returnArgument(0));
-
-        return $mock;
     }
 
     /**
@@ -61,21 +44,6 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Provider::ROUTE_SAN_SEBASTIAN, $route->getId());
         $this->assertEquals("San Sebastián", $route->getName());
         $this->assertEquals(30, $route->countStations());
-    }
-
-    /**
-     * @param string $filename
-     * @return HttpAdapterInterface
-     */
-    protected function getMockAdapterReturnsFixtureContent($filename)
-    {
-        $mock = $this->getMock('Cercanias\HttpAdapter\HttpAdapterInterface');
-        $mock->expects($this->once())
-            ->method('getContent')
-            ->willReturn(file_get_contents(__DIR__ . "/../../Fixtures/" . $filename))
-        ;
-
-        return $mock;
     }
 
     public function testGetTimetableSanSebastian()
