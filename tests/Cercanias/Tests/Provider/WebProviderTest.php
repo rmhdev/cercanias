@@ -55,9 +55,9 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
     {
         $mockAdapter = $this->getMockAdapterReturnsFixtureContent("route-sansebastian.html");
         $provider = new WebProvider($mockAdapter);
-        $route = $provider->getRoute(61);
+        $route = $provider->getRoute(WebProvider::ROUTE_SAN_SEBASTIAN);
 
-        $this->assertEquals(61, $route->getId());
+        $this->assertEquals(WebProvider::ROUTE_SAN_SEBASTIAN, $route->getId());
         $this->assertEquals("San Sebastián", $route->getName());
         $this->assertEquals(30, $route->countStations());
     }

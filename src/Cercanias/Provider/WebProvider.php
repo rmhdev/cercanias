@@ -8,7 +8,20 @@ use Cercanias\RouteParser;
 
 class WebProvider
 {
-    const ROUTE_URL = "http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
+    const URL_ROUTE = "http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
+
+    const ROUTE_ASTURIAS = 20;
+    const ROUTE_BARCELONA = 50;
+    const ROUTE_BILBAO = 60;
+    const ROUTE_CADIZ = 31;
+    const ROUTE_MADRID = 10;
+    const ROUTE_MALAGA = 32;
+    const ROUTE_MURCIA_ALICANTE = 41;
+    const ROUTE_SAN_SEBASTIAN = 61;
+    const ROUTE_SANTANDER = 62;
+    const ROUTE_SEVILLA = 30;
+    const ROUTE_VALENCIA = 40;
+    const ROUTE_ZARAGOZA = 70;
 
     protected $httpAdapter;
 
@@ -39,6 +52,6 @@ class WebProvider
             $parameters["route_id"] = "";
         }
 
-        return sprintf(self::ROUTE_URL, $parameters["route_id"]);
+        return sprintf(self::URL_ROUTE, $parameters["route_id"]);
     }
 }

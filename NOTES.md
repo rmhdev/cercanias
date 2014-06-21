@@ -71,15 +71,15 @@ Parameters:
 
 There is a fixed number of routes.
 
-* `XY`: Asturias
-* `XY`: Barcelona
-* `XY`: Bilbao
-* `XY`: Cadiz
+* `20`: Asturias
+* `50`: Barcelona
+* `60`: Bilbao
+* `31`: Cadiz
 * `10`: Madrid
-* `XY`: Málaga
-* `XY`: Murcia/Alicante
+* `32`: Málaga
+* `41`: Murcia/Alicante
 * `61`: San Sebastián
-* `XY`: Santander
-* `XY`: Sevilla
-* `XY`: Valencia
-* `XY`: Zaragoza
+* `62`: Santander
+* `30`: Sevilla
+* `40`: Valencia
+* `70`: Zaragoza
