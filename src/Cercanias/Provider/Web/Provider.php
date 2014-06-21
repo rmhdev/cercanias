@@ -69,10 +69,10 @@ class Provider extends AbstractProvider implements ProviderInterface
         }
 
         return sprintf(self::URL_TIMETABLE,
-            $parameters["date"],
+            $parameters["route_id"],
             $parameters["from_station_id"],
             $parameters["to_station_id"],
-            $parameters["route_id"]
+            $parameters["date"]
         );
     }
 
