@@ -60,6 +60,8 @@ class WebProviderTest extends \PHPUnit_Framework_TestCase
         $route = $provider->getRoute(61);
 
         $this->assertEquals(61, $route->getId());
+        $this->assertEquals("San Sebastián", $route->getName());
+        $this->assertEquals(30, $route->countStations());
     }
 
     /**
