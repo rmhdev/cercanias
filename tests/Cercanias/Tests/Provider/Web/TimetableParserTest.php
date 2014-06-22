@@ -119,7 +119,6 @@ class TimetableParserTest extends AbstractTimetableParser
 
     public function testStationNamesWithSpecialCharacters()
     {
-        $this->markTestSkipped("Some problems with utf-8");
         $parser = $this->createTimetableParser("timetable-transfer-complete.html");
 
         $this->assertEquals("Arenys de Mar", $parser->getDepartureStationName());
