@@ -1,12 +1,12 @@
 # Cercanias
 
-Retrieve Renfe's Cercanías information easily.
+Retrieve Renfe's *Cercanías* information easily.
 
 **THIS PROJECT IS IN ALPHA STAGE**. Please use it carefully.
 
 ## Requirements
 
-The Cercanias library has the following requirements:
+The `Cercanias` library has the following requirements:
 
 - `PHP 5.3+`
 
@@ -18,7 +18,7 @@ Depending on the chosen `HttpAdapter`, you may need:
 
 Clone the repo: `git clone https://github.com/rmhdev/cercanias.git`
 
-Install Composer
+Install `Composer`:
 
 ``` bash
 $ curl -sS https://getcomposer.org/installer | php
@@ -49,7 +49,13 @@ Indicates where is the information taken. Available providers:
 ### Results
 
 - `Route`: Information about a specific route.
-- `Timetable`: Information about trips between stations.
+- `Timetable`: Information about trips between stations for a given day.
+
+### Other classes
+
+- `Station`: information about a station from a `Route`.
+- `Trip`: information about a trip from a `Timetable`.
+- `Train`: information about departure and arrival time for a train in a `Trip`.
 
 ## How to use it
 
@@ -73,6 +79,10 @@ $route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
 ```
 
 View more [examples](examples).
+
+## Changelog
+
+* `0.0.1` (June 21, 2014): initial release.
 
 ## Copyright and license
 
