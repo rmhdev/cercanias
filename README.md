@@ -13,6 +13,7 @@ The `Cercanias` library has the following requirements:
 Depending on the chosen `HttpAdapter`, you may need:
 
 - `php5-curl`
+- `kriswallsmith/Buzz`
 
 ## Installation
 
