@@ -13,7 +13,12 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.1.*"
+        "phpunit/phpunit": "4.1.*",
+        "kriswallsmith/buzz": "0.*"
+    },
+    "suggest": {
+        "ext-curl": "Enabling the curl extension allows you to use the CurlHttpAdapter.",
+        "kriswallsmith/buzz": "Enabling Buzz allows you to use the BuzzHttpAdapter."
     },
     "autoload": {
         "psr-0": {
