@@ -86,10 +86,10 @@ class TimetableParserTest extends AbstractTimetableParser
         $timetable = $parser->getTimetable();
         $this->assertEquals(34, $timetable->getTrips()->count());
 
-        $train = new Train("c1", new \DateTime("2014-02-15 22:58"), new \DateTime("2014-02-15 23:10"));
-        $transferTrain = new Train("c3", new \DateTime("2014-02-15 23:37"), new \DateTime("2014-02-16 00:35"));
+        $train = new Train("c1", new \DateTime("2014-06-22 22:58"), new \DateTime("2014-06-22 23:10"));
+        $transferTrain = new Train("c3", new \DateTime("2014-06-22 23:37"), new \DateTime("2014-06-23 00:35"));
         $expectedTrip = new Trip($train, $transferTrain);
-        $trip = $timetable->nextDeparture(new \DateTime("2014-02-15 22:30"));
+        $trip = $timetable->nextDeparture(new \DateTime("2014-06-22 22:30"));
         $this->assertEquals($expectedTrip, $trip);
     }
 
