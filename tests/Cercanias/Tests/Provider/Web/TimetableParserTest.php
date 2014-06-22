@@ -126,5 +126,13 @@ class TimetableParserTest extends AbstractTimetableParser
         $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
     }
 
-}
+    /**
+     * @expectedException \Cercanias\Exception\NotFoundException
+     */
+    public function testDataNotAvailable()
+    {
+        $this->markTestIncomplete("Continue here");
+        $this->createTimetableParser("timetable-not-available.html");
+    }
 
+}
