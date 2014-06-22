@@ -8,15 +8,15 @@ Retrieve Renfe's Cercanías information easily.
 
 The Cercanias library has the following requirements:
 
-- PHP 5.3+
+- `PHP 5.3+`
 
-Depending on the chosen HttpAdapter, you may need:
+Depending on the chosen `HttpAdapter`, you may need:
 
-- php5-curl
+- `php5-curl`
 
 ## Installation
 
-Clone the repo:`git clone https://github.com/rmhdev/cercanias.git`
+Clone the repo: `git clone https://github.com/rmhdev/cercanias.git`
 
 Install Composer
 
@@ -32,11 +32,29 @@ After that, the autoloader will be available:
 require 'vendor/autoload.php';
 ```
 
+## Basic classes
+
+### `HttpAdapter`
+
+Responsible for making the HTTP connection. Available adapters:
+
+- `CurlHttpAdapter`: cURL
+
+### `Provider`
+
+Indicates where is the information taken. Available providers:
+
+- `Provider\Web\Provider`: Cercanias' [default web page]
+
+### Results
+
+- `Route`: Information about a specific route.
+- `Timetable`: Information about trips between stations.
 
 ## How to use it
 
-1. Choose a HttpAdapter
-2. Chose a Provider
+1. Choose a `HttpAdapter`
+2. Chose a `Provider`
 3. Make the call and retrieve the information.
 
 For example:
@@ -54,9 +72,11 @@ $provider     = new Provider($httpAdapter);
 $route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
 ```
 
+View more [examples](examples).
+
 ## Copyright and license
 
-Code and documentation copyright 2014 Rober Martín.
+Code and documentation copyright 2014 Rober Martín H.
 Code released under [MIT license](LICENSE).
 Docs released under [Creative Commons CC BY 4.0][].
 
@@ -66,6 +86,7 @@ Part of the project is based on [William Durand]'s [Geocoder][].
 
 My name is [Rober Martín H][] ([@rmhdev][]). I'm a developer from Donostia / San Sebastián.
 
+[default web page]: http://www.renfe.com/viajeros/cercanias/
 [Creative Commons CC BY 4.0]: http://creativecommons.org/licenses/by/4.0/
 [William Durand]: http://williamdurand.fr/
 [Geocoder]: https://github.com/geocoder-php/Geocoder
