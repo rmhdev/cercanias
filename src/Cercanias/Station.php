@@ -22,12 +22,12 @@ class Station
         if ($this->isInvalidId($id)) {
             throw new InvalidArgumentException("Invalid Id");
         }
-        $this->id = $id;
+        $this->id = (string) $id;
     }
 
     protected function isInvalidId($id)
     {
-        return (!is_integer($id) || $id <= 0);
+        return (is_null($id) || ($id == "")) ;
     }
 
     protected function setName($name)

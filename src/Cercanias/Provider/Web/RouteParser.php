@@ -57,7 +57,7 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
         $options = $path->query('//select[@name="o"]/option');
         for ($i = 0; $i < $options->length; $i += 1) {
             $stationName = $options->item($i)->textContent;
-            $stationId = $options->item($i)->attributes->getNamedItem("value")->nodeValue;
+            $stationId = (string) $options->item($i)->attributes->getNamedItem("value")->nodeValue;
             if ($stationId !== "?") {
                 $stations[$stationId] = $stationName;
             }

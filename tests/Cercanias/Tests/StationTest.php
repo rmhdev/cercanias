@@ -12,9 +12,9 @@ class StationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetId($id)
     {
-        $city = new Station($id, "Irún", 61);
+        $station = new Station($id, "Irún", 61);
 
-        $this->assertEquals($id, $city->getId());
+        $this->assertEquals($id, $station->getId());
     }
 
     public function getIdProvider()
@@ -22,6 +22,7 @@ class StationTest extends \PHPUnit_Framework_TestCase
         return array(
             array(61),
             array(10),
+            array("0123")
         );
     }
 
@@ -37,9 +38,8 @@ class StationTest extends \PHPUnit_Framework_TestCase
     public function getInvalidIdProvider()
     {
         return array(
-            array(-1),
-            array(0),
-            array("123"),
+            array(null),
+            array(""),
         );
     }
 
