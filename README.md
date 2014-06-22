@@ -61,7 +61,7 @@ Indicates where is the information taken. Available providers:
 ## How to use it
 
 1. Choose a `HttpAdapter`
-2. Chose a `Provider`
+2. Choose a `Provider`
 3. Make the call and retrieve the information.
 
 For example:
