@@ -39,6 +39,7 @@ require 'vendor/autoload.php';
 Responsible for making the HTTP connection. Available adapters:
 
 - `CurlHttpAdapter`: cURL
+- `BuzzHttpAdapter`: Kris Wallsmith's [Buzz] HTTP client.
 
 ### `Provider`
 
@@ -83,6 +84,7 @@ View more [examples](examples).
 ## Changelog
 
 * `0.0.1` (June 21, 2014): initial release.
+* `0.0.2` (June 22, 2014): added BuzzHttpAdapter.
 
 ## Copyright and license
 
@@ -96,6 +98,7 @@ Part of the project is based on [William Durand]'s [Geocoder][].
 
 My name is [Rober Martín H][] ([@rmhdev][]). I'm a developer from Donostia / San Sebastián.
 
+[Buzz]: https://github.com/kriswallsmith/Buzz
 [default web page]: http://www.renfe.com/viajeros/cercanias/
 [Creative Commons CC BY 4.0]: http://creativecommons.org/licenses/by/4.0/
 [William Durand]: http://williamdurand.fr/
