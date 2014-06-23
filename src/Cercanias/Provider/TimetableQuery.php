@@ -61,6 +61,8 @@ class TimetableQuery
     public function setDate(\DateTime $date)
     {
         $this->date = $date;
+
+        return $this;
     }
 
     public function getDate()
