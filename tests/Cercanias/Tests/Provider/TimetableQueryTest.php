@@ -88,4 +88,16 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($query->isValid());
     }
 
+    public function testIsValidWithConcatenatedSetters()
+    {
+        $query = new TimetableQuery();
+        $query
+            ->setRoute(1)
+            ->setDeparture(123)
+            ->setDestination(456)
+            ->setDate(new \DateTime("now"));
+
+        $this->assertTrue($query->isValid());
+    }
+
 }

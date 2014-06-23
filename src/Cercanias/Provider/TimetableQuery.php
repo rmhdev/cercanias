@@ -19,6 +19,8 @@ class TimetableQuery
             $route = new Route($route, "Default");
         }
         $this->route = $route;
+
+        return $this;
     }
 
     public function getRouteId()
@@ -32,6 +34,8 @@ class TimetableQuery
             $station = new Station($station, "Default station", 808);
         }
         $this->departureStation = $station;
+
+        return $this;
     }
 
     public function getDepartureStationId()
@@ -45,6 +49,8 @@ class TimetableQuery
             $station = new Station($station, "Default station", 909);
         }
         $this->destinationStation = $station;
+
+        return $this;
     }
 
     public function getDestinationStationId()
