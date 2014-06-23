@@ -13,11 +13,6 @@ class TimetableQuery
     private $destinationStation;
     private $date;
 
-    public function __construct()
-    {
-        $this->route = "";
-    }
-
     public function setRoute($route)
     {
         if (!$route instanceof Route) {
@@ -31,7 +26,7 @@ class TimetableQuery
         return $this->route ? $this->route->getId() : null;
     }
 
-    public function setDepartureStation($station)
+    public function setDeparture($station)
     {
         if (!$station instanceof Station) {
             $station = new Station($station, "Default station", 808);
@@ -44,7 +39,7 @@ class TimetableQuery
         return $this->departureStation ? $this->departureStation->getId() : null;
     }
 
-    public function setDestinationStation($station)
+    public function setDestination($station)
     {
         if (!$station instanceof Station) {
             $station = new Station($station, "Default station", 909);

@@ -32,10 +32,10 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider stationProvider
      */
-    public function testSetDepartureStation($expectedStationId, $station)
+    public function testSetDeparture($expectedStationId, $station)
     {
         $query = new TimetableQuery();
-        $query->setDepartureStation($station);
+        $query->setDeparture($station);
 
         $this->assertEquals($expectedStationId, $query->getDepartureStationId());
     }
@@ -52,10 +52,10 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider stationProvider
      */
-    public function testSetDestinationStation($expectedStationId, $station)
+    public function testSetDestination($expectedStationId, $station)
     {
         $query = new TimetableQuery();
-        $query->setDestinationStation($station);
+        $query->setDestination($station);
 
         $this->assertEquals($expectedStationId, $query->getDestinationStationId());
     }
@@ -63,11 +63,11 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
     public function testSetDate()
     {
         $query = new TimetableQuery();
+        $this->assertNull($query->getDate());
+
         $date = new \DateTime("now");
         $query->setDate($date);
-
         $this->assertEquals($date, $query->getDate());
     }
-
 
 }
