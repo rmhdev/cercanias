@@ -8,6 +8,7 @@ class TimetableQuery
     private $routeId;
     private $departureStationId;
     private $destinationStationId;
+    private $date;
 
     public function __construct()
     {
@@ -42,6 +43,16 @@ class TimetableQuery
     public function getDestinationStationId()
     {
         return $this->destinationStationId;
+    }
+
+    public function setDate(\DateTime $date)
+    {
+        $this->date = $date;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
     }
 
 }
