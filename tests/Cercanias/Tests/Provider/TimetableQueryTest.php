@@ -21,4 +21,14 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(456, $query->getDepartureStationId());
     }
+
+    public function testDestinationStationId()
+    {
+        $query = new TimetableQuery();
+        $query->setDestinationStationId(789);
+
+        $this->assertEquals(789, $query->getDestinationStationId());
+    }
+
+
 }
