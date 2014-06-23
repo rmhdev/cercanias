@@ -3,15 +3,30 @@
 namespace Cercanias\Tests\Provider;
 
 use Cercanias\Provider\TimetableQuery;
+use Cercanias\Route;
 
 class TimetableQueryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSetRouteId()
+
+    /**
+     * @dataProvider routeProvider
+     */
+    public function testSetRouteId($expectedRouteId, $routeId)
     {
         $query = new TimetableQuery();
-        $query->setRouteId(123);
+        $query->setRoute($routeId);
 
-        $this->assertEquals(123, $query->getRouteId());
+        $this->assertEquals($expectedRouteId, $query->getRouteId());
+    }
+
+    public function routeProvider()
+    {
+        $route = new Route(456, "Default");
+        return array(
+            array(1, 1),
+            array("123", "123"),
+            array(456, $route),
+        );
     }
 
     public function testSetDepartureStationId()

@@ -2,6 +2,8 @@
 
 namespace Cercanias\Provider;
 
+use Cercanias\Route;
+
 class TimetableQuery
 {
 
@@ -15,9 +17,12 @@ class TimetableQuery
         $this->routeId = "";
     }
 
-    public function setRouteId($routeId)
+    public function setRoute($route)
     {
-        $this->routeId = $routeId;
+        if ($route instanceof Route) {
+            $route = $route->getId();
+        }
+        $this->routeId = $route;
     }
 
     public function getRouteId()
