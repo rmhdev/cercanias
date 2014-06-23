@@ -6,6 +6,7 @@ class TimetableQuery
 {
 
     private $routeId;
+    private $departureStationId;
 
     public function __construct()
     {
@@ -20,6 +21,16 @@ class TimetableQuery
     public function getRouteId()
     {
         return $this->routeId;
+    }
+
+    public function setDepartureStationId($stationId)
+    {
+        $this->departureStationId = $stationId;
+    }
+
+    public function getDepartureStationId()
+    {
+        return $this->departureStationId;
     }
 
 }
