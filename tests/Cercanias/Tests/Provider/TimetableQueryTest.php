@@ -70,4 +70,22 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($date, $query->getDate());
     }
 
+    public function testIsValid()
+    {
+        $query = new TimetableQuery();
+        $this->assertFalse($query->isValid());
+
+        $query->setRoute(1);
+        $this->assertFalse($query->isValid());
+
+        $query->setDeparture(123);
+        $this->assertFalse($query->isValid());
+
+        $query->setDestination(456);
+        $this->assertTrue($query->isValid());
+
+        $query->setDate(new \DateTime("now"));
+        $this->assertTrue($query->isValid());
+    }
+
 }

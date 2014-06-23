@@ -62,4 +62,13 @@ class TimetableQuery
         return $this->date;
     }
 
+    public function isValid()
+    {
+        return (
+            $this->getRouteId() &&
+            $this->getDepartureStationId() &&
+            $this->getDestinationStationId()
+        );
+    }
+
 }
