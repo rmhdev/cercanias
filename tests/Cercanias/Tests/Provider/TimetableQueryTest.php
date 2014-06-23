@@ -4,6 +4,7 @@ namespace Cercanias\Tests\Provider;
 
 use Cercanias\Provider\TimetableQuery;
 use Cercanias\Route;
+use Cercanias\Station;
 
 class TimetableQueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,37 +30,34 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider incorrectRouteProvider
-     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @dataProvider stationProvider
      */
-    public function testSetIncorrectRouteId($routeId)
+    public function testSetDepartureStation($expectedStationId, $station)
     {
         $query = new TimetableQuery();
-        $query->setRoute($routeId);
+        $query->setDepartureStation($station);
+
+        $this->assertEquals($expectedStationId, $query->getDepartureStationId());
     }
 
-    public function incorrectRouteProvider()
+    public function stationProvider()
     {
+        $station = new Station(123, "Default station", 1);
         return array(
-            array(""),
-            array(new \ArrayIterator()),
+            array(1, 1),
+            array(123, $station),
         );
     }
 
-    public function testSetDepartureStationId()
+    /**
+     * @dataProvider stationProvider
+     */
+    public function testSetDestinationStation($expectedStationId, $station)
     {
         $query = new TimetableQuery();
-        $query->setDepartureStationId(456);
+        $query->setDestinationStation($station);
 
-        $this->assertEquals(456, $query->getDepartureStationId());
-    }
-
-    public function testSetDestinationStationId()
-    {
-        $query = new TimetableQuery();
-        $query->setDestinationStationId(789);
-
-        $this->assertEquals(789, $query->getDestinationStationId());
+        $this->assertEquals($expectedStationId, $query->getDestinationStationId());
     }
 
     public function testSetDate()

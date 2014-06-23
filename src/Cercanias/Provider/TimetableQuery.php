@@ -2,15 +2,15 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Exception\InvalidArgumentException;
 use Cercanias\Route;
+use Cercanias\Station;
 
 class TimetableQuery
 {
 
     private $route;
-    private $departureStationId;
-    private $destinationStationId;
+    private $departureStation;
+    private $destinationStation;
     private $date;
 
     public function __construct()
@@ -31,24 +31,30 @@ class TimetableQuery
         return $this->route ? $this->route->getId() : null;
     }
 
-    public function setDepartureStationId($stationId)
+    public function setDepartureStation($station)
     {
-        $this->departureStationId = $stationId;
+        if (!$station instanceof Station) {
+            $station = new Station($station, "Default station", 808);
+        }
+        $this->departureStation = $station;
     }
 
     public function getDepartureStationId()
     {
-        return $this->departureStationId;
+        return $this->departureStation ? $this->departureStation->getId() : null;
     }
 
-    public function setDestinationStationId($stationId)
+    public function setDestinationStation($station)
     {
-        $this->destinationStationId = $stationId;
+        if (!$station instanceof Station) {
+            $station = new Station($station, "Default station", 909);
+        }
+        $this->destinationStation = $station;
     }
 
     public function getDestinationStationId()
     {
-        return $this->destinationStationId;
+        return $this->destinationStation ? $this->destinationStation->getId() : null;
     }
 
     public function setDate(\DateTime $date)
