@@ -24,8 +24,25 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
         $route = new Route(456, "Default");
         return array(
             array(1, 1),
-            array("123", "123"),
             array(456, $route),
+        );
+    }
+
+    /**
+     * @dataProvider incorrectRouteProvider
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     */
+    public function testSetIncorrectRouteId($routeId)
+    {
+        $query = new TimetableQuery();
+        $query->setRoute($routeId);
+    }
+
+    public function incorrectRouteProvider()
+    {
+        return array(
+            array(""),
+            array(new \ArrayIterator()),
         );
     }
 

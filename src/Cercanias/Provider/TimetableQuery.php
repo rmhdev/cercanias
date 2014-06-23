@@ -2,32 +2,33 @@
 
 namespace Cercanias\Provider;
 
+use Cercanias\Exception\InvalidArgumentException;
 use Cercanias\Route;
 
 class TimetableQuery
 {
 
-    private $routeId;
+    private $route;
     private $departureStationId;
     private $destinationStationId;
     private $date;
 
     public function __construct()
     {
-        $this->routeId = "";
+        $this->route = "";
     }
 
     public function setRoute($route)
     {
-        if ($route instanceof Route) {
-            $route = $route->getId();
+        if (!$route instanceof Route) {
+            $route = new Route($route, "Default");
         }
-        $this->routeId = $route;
+        $this->route = $route;
     }
 
     public function getRouteId()
     {
-        return $this->routeId;
+        return $this->route ? $this->route->getId() : null;
     }
 
     public function setDepartureStationId($stationId)
