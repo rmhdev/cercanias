@@ -4,6 +4,7 @@ require_once __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
 use Cercanias\Provider\Web\Provider;
+use Cercanias\Provider\TimetableQuery;
 use Cercanias\Station;
 use Cercanias\Trip;
 
@@ -17,14 +18,20 @@ $stations->seek($stations->count() - 1);
 $lastStation = $stations->current();
 /* @var Station $firstStation */
 /* @var Station $lastStation */
-$date = new DateTime("now");
 
-$timetable = $provider->getTimetable($firstStation, $lastStation, $date);
+$query = new TimetableQuery();
+$query
+    ->setRoute(Provider::ROUTE_SAN_SEBASTIAN)
+    ->setDeparture($firstStation)
+    ->setDestination($lastStation)
+    ->setDate(new DateTime("now"));
+
+$timetable = $provider->getTimetable($query);
 
 echo "Timetable 'San Sebastián': \n";
-echo sprintf(" - departure:  '%s'\n", $firstStation->getName());
-echo sprintf(" - arrival:    '%s'\n", $lastStation->getName());
-echo sprintf(" - date:       %s\n", $date->format("Y-m-d"));
+echo sprintf(" - departure:  '%s'\n", $timetable->getDeparture()->getName());
+echo sprintf(" - arrival:    '%s'\n", $timetable->getDestination()->getName());
+echo sprintf(" - date:       %s\n", $query->getDate()->format("Y-m-d"));
 
 $pattern = "%4s  %6s  %6s  %4s\n";
 echo sprintf($pattern, "LINE", "DEPART", "ARRIVE", "TIME");

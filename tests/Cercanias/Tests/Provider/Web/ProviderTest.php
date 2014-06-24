@@ -4,7 +4,6 @@ namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
-use Cercanias\Route;
 use Cercanias\Tests\Provider\AbstractProviderTest;
 
 class ProviderTest extends AbstractProviderTest
