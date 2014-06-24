@@ -5,25 +5,16 @@ require_once __DIR__ . '/..' . '/vendor/autoload.php';
 use Cercanias\HttpAdapter\CurlHttpAdapter;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\Provider\TimetableQuery;
-use Cercanias\Station;
 use Cercanias\Trip;
 
 $httpAdapter = new CurlHttpAdapter();
 $provider = new Provider($httpAdapter);
 
-$route = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN);
-$stations = $route->getStations();
-$firstStation = $stations->current();
-$stations->seek($stations->count() - 1);
-$lastStation = $stations->current();
-/* @var Station $firstStation */
-/* @var Station $lastStation */
-
 $query = new TimetableQuery();
 $query
     ->setRoute(Provider::ROUTE_SAN_SEBASTIAN)
-    ->setDeparture($firstStation)
-    ->setDestination($lastStation)
+    ->setDeparture(11305)   // from brincola
+    ->setDestination(11600) // to Irun
     ->setDate(new DateTime("now"));
 
 $timetable = $provider->getTimetable($query);
