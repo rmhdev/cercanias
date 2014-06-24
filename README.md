@@ -71,12 +71,11 @@ For example:
 <?php
 require 'vendor/autoload.php';
 
-use Cercanias\Provider\Web\Provider;        // 1. Provider
-use Cercanias\HttpAdapter\CurlHttpAdapter;  // 2. HttpAdapter
-use Cercanias\Station;
+use Cercanias\HttpAdapter\CurlHttpAdapter;
+use Cercanias\Provider\Web\Provider;
 
-$httpAdapter  = new CurlHttpAdapter();
-$provider     = new Provider($httpAdapter);
+$httpAdapter  = new CurlHttpAdapter();                              // 1. HttpAdapter
+$provider     = new Provider($httpAdapter);                         // 2. Provider
 $route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
 ```
 
@@ -85,7 +84,8 @@ View more [examples](examples).
 ## Changelog
 
 * `0.0.1` (June 21, 2014): initial release.
-* `0.0.2` (June 22, 2014): added BuzzHttpAdapter.
+* `0.0.2` (June 22, 2014): added ´BuzzHttpAdapter´.
+* `0.0.3` (June 24, 2014): simplify Timetable queries.
 
 ## Copyright and license
 
