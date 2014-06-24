@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/..' . '/vendor/autoload.php';
+require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
 use Cercanias\Provider\Web\Provider;
