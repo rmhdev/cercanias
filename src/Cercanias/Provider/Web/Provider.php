@@ -4,8 +4,6 @@ namespace Cercanias\Provider\Web;
 
 use Cercanias\Exception\InvalidArgumentException;
 use Cercanias\Provider\TimetableQuery;
-use Cercanias\Station;
-use Cercanias\Timetable;
 use Cercanias\Provider\AbstractProvider;
 use Cercanias\Provider\ProviderInterface;
 
@@ -28,16 +26,16 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     public function getRoute($id)
     {
-        $query = $this->buildRouteQuery(array("route_id" => $id));
+        $url = $this->buildRouteUrl(array("route_id" => $id));
         if (is_null($id) || !is_int($id)) {
-            throw new InvalidArgumentException(sprintf("Could not execute query %s", $query));
+            throw new InvalidArgumentException(sprintf("Could not execute query %s", $url));
         }
-        $routeParser = new RouteParser($this->getHttpAdapter()->getContent($query));
+        $routeParser = new RouteParser($this->getHttpAdapter()->getContent($url));
 
         return $routeParser->getRoute();
     }
 
-    protected function buildRouteQuery($parameters = array())
+    protected function buildRouteUrl($parameters = array())
     {
         if (!isset($parameters["route_id"])) {
             $parameters["route_id"] = "";
@@ -51,37 +49,20 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     public function getTimetable(TimetableQuery $query)
     {
-//        $query = $this->buildTimetableQuery(array(
-//            "date" => $this->formatDate($dateTime),
-//            "from_station_id" => $from->getId(),
-//            "to_station_id" => $to->getId(),
-//            "route_id" => $from->getRouteId()
-//        ));
-//        $timetable = new Timetable($from, $to);
-        $parser = new TimetableParser($query, $this->getHttpAdapter()->getContent($query));
+        $url = $this->buildTimetableUrl($query);
+        $parser = new TimetableParser($query, $this->getHttpAdapter()->getContent($url));
 
         return $parser->getTimetable();
     }
 
-    protected function buildTimetableQuery($parameters = array())
+    protected function buildTimetableUrl(TimetableQuery $query)
     {
-        if (!isset($parameters["date"]) || (!$parameters["date"])) {
-            $parameters["date"] = $this->formatDate();
-        }
-
         return sprintf(self::URL_TIMETABLE,
-            $parameters["route_id"],
-            $parameters["from_station_id"],
-            $parameters["to_station_id"],
-            $parameters["date"]
+            $query->getRouteId(),
+            $query->getDepartureStationId(),
+            $query->getDestinationStationId(),
+            $query->getDate()->format("Ymd")
         );
     }
 
-    protected function formatDate(\DateTime $date = NULL)
-    {
-        if (is_null($date)) {
-            $date = new \DateTime("now");
-        }
-        return $date->format("Ymd");
-    }
 }
