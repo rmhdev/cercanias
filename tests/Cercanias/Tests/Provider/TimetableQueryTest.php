@@ -63,11 +63,18 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
     public function testSetDate()
     {
         $query = new TimetableQuery();
-        $this->assertNull($query->getDate());
-
         $date = new \DateTime("now");
         $query->setDate($date);
+
         $this->assertEquals($date, $query->getDate());
+    }
+
+    public function testDefaultGetDate()
+    {
+        $now = new \DateTime("now");
+        $query = new TimetableQuery();
+
+        $this->assertEquals($now->format("Y-m-d"), $query->getDate()->format("Y-m-d"));
     }
 
     public function testIsValid()

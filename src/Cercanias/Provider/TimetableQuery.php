@@ -13,6 +13,11 @@ class TimetableQuery
     private $destinationStation;
     private $date;
 
+    public function __construct()
+    {
+        $this->setDate(new \DateTime("now"));
+    }
+
     public function setRoute($route)
     {
         if (!$route instanceof Route) {
@@ -60,7 +65,7 @@ class TimetableQuery
 
     public function setDate(\DateTime $date)
     {
-        $this->date = $date;
+        $this->date = clone $date;
 
         return $this;
     }
