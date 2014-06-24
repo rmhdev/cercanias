@@ -2,7 +2,7 @@
 
 namespace Cercanias\Tests\Provider;
 
-abstract class AbstractTimetableParser extends \PHPUnit_Framework_TestCase
+abstract class AbstractTimetableParserTest extends \PHPUnit_Framework_TestCase
 {
     protected function getContentHtml($filename)
     {

@@ -2,10 +2,9 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Timetable;
-
 abstract class AbstractTimetableParser implements TimetableParserInterface
 {
+    protected $query;
     protected $timetable;
     protected $date;
     protected $transferStationName;
@@ -13,9 +12,9 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
     protected $arrivalStationName;
     protected $firstDateTime;
 
-    public function __construct(Timetable $timetable, $html)
+    public function __construct(TimetableQuery $query, $html)
     {
-        $this->timetable = $timetable;
+        $this->query = $query;
         $this->date = new \DateTime();
         $this->transferStationName = "";
         $this->departureStationName = "";

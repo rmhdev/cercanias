@@ -2,14 +2,13 @@
 
 namespace Cercanias\Tests\Provider\Web;
 
-use Cercanias\Station;
-use Cercanias\Tests\Provider\AbstractTimetableParser;
-use Cercanias\Timetable;
+use Cercanias\Tests\Provider\AbstractTimetableParserTest;
+use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\TimetableParser;
 use Cercanias\Train;
 use Cercanias\Trip;
 
-class TimetableParserTest extends AbstractTimetableParser
+class TimetableParserTest extends AbstractTimetableParserTest
 {
 
     public function testGetTimetable()
@@ -38,12 +37,14 @@ class TimetableParserTest extends AbstractTimetableParser
 
     protected function createTimetableParserSanSebastian()
     {
+        $query = new TimetableQuery();
+        $query
+            ->setRoute(61)
+            ->setDeparture(123)
+            ->setDestination(456);
+
         return new TimetableParser(
-            new Timetable(
-                new Station(123, "Brincola", 61),
-                new Station(456, "Irun", 61)
-            ),
-            $this->getContentHtml("timetable-sansebastian.html")
+            $query, $this->getContentHtml("timetable-sansebastian.html")
         );
     }
 
@@ -59,24 +60,24 @@ class TimetableParserTest extends AbstractTimetableParser
         $this->assertEquals($expectedTrip, $trip);
     }
 
+    /**
+     * @expectedException \Cercanias\Exception\NotFoundException
+     */
     public function testGetTimetableWithNoResults()
     {
-        $parser = $this->createTimetableParser("timetable-no-results.html");
-        $expected = new \DateTime("2014-02-15 00:00:00");
-        $this->assertEquals($expected, $parser->getDate());
-
-        $timetable = $parser->getTimetable();
-        $this->assertEquals(0, $timetable->getTrips()->count());
+        $this->createTimetableParser("timetable-no-results.html");
     }
 
     protected function createTimetableParser($filename)
     {
+        $query = new TimetableQuery();
+        $query
+            ->setRoute(1)
+            ->setDeparture(123)
+            ->setDestination(456);
+
         return new TimetableParser(
-            new Timetable(
-                new Station(123, "Departure station", 61),
-                new Station(456, "Arrival station", 61)
-            ),
-            $this->getContentHtml($filename)
+            $query, $this->getContentHtml($filename)
         );
     }
 
@@ -124,15 +125,6 @@ class TimetableParserTest extends AbstractTimetableParser
         $this->assertEquals("Arenys de Mar", $parser->getDepartureStationName());
         $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getArrivalStationName());
         $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
-    }
-
-    /**
-     * @expectedException \Cercanias\Exception\NotFoundException
-     */
-    public function testDataNotAvailable()
-    {
-        $this->markTestIncomplete("Continue here");
-        $this->createTimetableParser("timetable-not-available.html");
     }
 
 }

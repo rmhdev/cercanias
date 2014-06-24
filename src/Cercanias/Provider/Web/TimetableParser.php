@@ -2,7 +2,10 @@
 
 namespace Cercanias\Provider\Web;
 
+use Cercanias\Exception\NotFoundException;
 use Cercanias\Provider\AbstractTimetableParser;
+use Cercanias\Provider\TimetableQuery;
+use Cercanias\Station;
 use Cercanias\Timetable;
 use Cercanias\Train;
 use Cercanias\Trip;
@@ -10,9 +13,9 @@ use Cercanias\Trip;
 class TimetableParser extends AbstractTimetableParser
 {
 
-    public function __construct(Timetable $timetable, $html)
+    public function __construct(TimetableQuery $query, $html)
     {
-        parent::__construct($timetable, $html);
+        parent::__construct($query, $html);
         $this->processHTML($html);
     }
 
@@ -22,10 +25,18 @@ class TimetableParser extends AbstractTimetableParser
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
         $path = new \DOMXPath($domDocument);
+        $this->checkNotEmptyResult($path);
         $this->updateDate($path);
         $this->updateTimetable($path);
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
+    }
+
+    protected function checkNotEmptyResult(\DOMXPath $path)
+    {
+        if ($path->query('//table')->length <= 0) {
+            throw new NotFoundException("HTML has no timetable results");
+        }
     }
 
     protected function updateDate(\DOMXPath $path)
@@ -54,6 +65,7 @@ class TimetableParser extends AbstractTimetableParser
     protected function updateTimetable(\DOMXPath $path)
     {
         $this->updateDepartureArrivalStationNames($path);
+        $this->timetable = $this->createTimetable();
         if ($this->isTimetableWithTransfers($path)) {
             $this->updateTransferStationName($path);
             $this->updateTimetableWithTransfers($path);
@@ -73,6 +85,22 @@ class TimetableParser extends AbstractTimetableParser
         }
         $this->setDepartureStationName($departureStationName);
         $this->setArrivalStationName($arrivalStationName);
+    }
+
+    protected function createTimetable()
+    {
+        $departure = new Station(
+            $this->query->getDepartureStationId(),
+            $this->getDepartureStationName(),
+            $this->query->getRouteId()
+        );
+        $destination = new Station(
+            $this->query->getDestinationStationId(),
+            $this->getArrivalStationName(),
+            $this->query->getRouteId()
+        );
+
+        return new Timetable($departure, $destination);
     }
 
     protected function isTimetableWithTransfers(\DOMXPath $path)
