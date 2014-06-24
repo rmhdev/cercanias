@@ -2,6 +2,7 @@
 
 namespace Cercanias\Tests\Provider\Web;
 
+use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\Route;
 use Cercanias\Tests\Provider\AbstractProviderTest;
@@ -49,11 +50,14 @@ class ProviderTest extends AbstractProviderTest
     public function testGetTimetableSanSebastian()
     {
         $provider = new Provider($this->getMockAdapterReturnsFixtureContent("timetable-sansebastian.html"));
-        $route = new Route(1, "Default route");
-        $route->addNewStation(1, "Irun");
-        $route->addNewStation(2, "Brincola");
-        $date = new \DateTime("2014-02-10");
-        $timetable = $provider->getTimetable($route->getStation(1), $route->getStation(2), $date);
+        $query = new TimetableQuery();
+        $query
+            ->setRoute(1)
+            ->setDeparture(123)
+            ->setDestination(456)
+            ->setDate(new \DateTime("2014-02-10"))
+        ;
+        $timetable = $provider->getTimetable($query);
 
         $this->assertEquals(20, $timetable->getTrips()->count());
     }

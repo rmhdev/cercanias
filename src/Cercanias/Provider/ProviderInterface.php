@@ -2,7 +2,6 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Station;
 use Cercanias\Route;
 use Cercanias\Timetable;
 
@@ -24,10 +23,8 @@ interface ProviderInterface
 
     /**
      * Retrieve a Timetable Object
-     * @param Station $from
-     * @param Station $to
-     * @param \DateTime $date
+     * @param TimetableQuery $query
      * @return Timetable
      */
-    public function getTimetable(Station $from, Station $to, \DateTime $date);
+    public function getTimetable(TimetableQuery $query);
 }

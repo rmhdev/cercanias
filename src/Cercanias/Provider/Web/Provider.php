@@ -3,6 +3,7 @@
 namespace Cercanias\Provider\Web;
 
 use Cercanias\Exception\InvalidArgumentException;
+use Cercanias\Provider\TimetableQuery;
 use Cercanias\Station;
 use Cercanias\Timetable;
 use Cercanias\Provider\AbstractProvider;
@@ -48,16 +49,16 @@ class Provider extends AbstractProvider implements ProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function getTimetable(Station $from, Station $to, \DateTime $dateTime)
+    public function getTimetable(TimetableQuery $query)
     {
-        $query = $this->buildTimetableQuery(array(
-            "date" => $this->formatDate($dateTime),
-            "from_station_id" => $from->getId(),
-            "to_station_id" => $to->getId(),
-            "route_id" => $from->getRouteId()
-        ));
-        $timetable = new Timetable($from, $to);
-        $parser = new TimetableParser($timetable, $this->getHttpAdapter()->getContent($query));
+//        $query = $this->buildTimetableQuery(array(
+//            "date" => $this->formatDate($dateTime),
+//            "from_station_id" => $from->getId(),
+//            "to_station_id" => $to->getId(),
+//            "route_id" => $from->getRouteId()
+//        ));
+//        $timetable = new Timetable($from, $to);
+        $parser = new TimetableParser($query, $this->getHttpAdapter()->getContent($query));
 
         return $parser->getTimetable();
     }
