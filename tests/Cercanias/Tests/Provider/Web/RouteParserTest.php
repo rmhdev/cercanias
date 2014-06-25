@@ -84,4 +84,12 @@ class RouteParserTest extends AbstractRouteParserTest
         $this->assertEquals(92, $route->countStations());
     }
 
+    /**
+     * @expectedException \Cercanias\Exception\NotFoundException
+     */
+    public function testGetRouteWithNoResults()
+    {
+        $this->getRouteParser("route-no-results.html");
+    }
+
 }

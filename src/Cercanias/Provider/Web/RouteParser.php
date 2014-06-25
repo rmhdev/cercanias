@@ -2,6 +2,7 @@
 
 namespace Cercanias\Provider\Web;
 
+use Cercanias\Exception\NotFoundException;
 use Cercanias\Route;
 use Cercanias\Provider\AbstractRouteParser;
 use Cercanias\Provider\RouteParserInterface;
@@ -23,10 +24,13 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
 
     protected function createRoute(\DOMXPath $path)
     {
+        $stations = $this->parseStations($path);
+        if (!sizeof($stations)) {
+            throw new NotFoundException("no found");
+        }
         $id = $this->parseRouteId($path);
         $name = $this->parseRouteName($path);
         $route = new Route($id, $name);
-        $stations = $this->parseStations($path);
         foreach ($stations as $stationId => $stationName) {
             $route->addNewStation($stationId, $stationName);
         }
