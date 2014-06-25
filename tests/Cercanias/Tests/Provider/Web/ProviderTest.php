@@ -60,4 +60,16 @@ class ProviderTest extends AbstractProviderTest
 
         $this->assertEquals(20, $timetable->getTrips()->count());
     }
+
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     */
+    public function testGetTimetableWithNotValidQuery()
+    {
+        $provider = new Provider($this->getMockAdapter($this->never()));
+        $query = new TimetableQuery();
+        $query->setRoute(1);
+        $provider->getTimetable($query);
+    }
+
 }
