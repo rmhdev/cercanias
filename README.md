@@ -33,6 +33,28 @@ After that, the autoloader will be available:
 require 'vendor/autoload.php';
 ```
 
+## How to use it
+
+1. Choose a `HttpAdapter`
+2. Choose a `Provider`
+3. Make the call and retrieve the information.
+
+For example:
+
+``` php
+<?php
+require 'vendor/autoload.php';
+
+use Cercanias\HttpAdapter\CurlHttpAdapter;
+use Cercanias\Provider\Web\Provider;
+
+$httpAdapter  = new CurlHttpAdapter();                              // 1. HttpAdapter
+$provider     = new Provider($httpAdapter);                         // 2. Provider
+$route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
+```
+
+View more [examples](examples).
+
 ## Basic classes
 
 ### `HttpAdapter`
@@ -59,33 +81,11 @@ Indicates where is the information taken. Available providers:
 - `Trip`: information about a trip from a `Timetable`.
 - `Train`: information about departure and arrival time for a train in a `Trip`.
 
-## How to use it
-
-1. Choose a `HttpAdapter`
-2. Choose a `Provider`
-3. Make the call and retrieve the information.
-
-For example:
-
-``` php
-<?php
-require 'vendor/autoload.php';
-
-use Cercanias\HttpAdapter\CurlHttpAdapter;
-use Cercanias\Provider\Web\Provider;
-
-$httpAdapter  = new CurlHttpAdapter();                              // 1. HttpAdapter
-$provider     = new Provider($httpAdapter);                         // 2. Provider
-$route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
-```
-
-View more [examples](examples).
-
 ## Changelog
 
 * `0.0.1` (June 21, 2014): initial release.
-* `0.0.2` (June 22, 2014): added ´BuzzHttpAdapter´.
-* `0.0.3` (June 24, 2014): simplify Timetable queries.
+* `0.0.2` (June 22, 2014): added `BuzzHttpAdapter`.
+* `0.0.3` (June 24, 2014): simplify timetable queries.
 
 ## Copyright and license
 
