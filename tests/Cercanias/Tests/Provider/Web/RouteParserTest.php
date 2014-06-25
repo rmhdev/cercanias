@@ -86,6 +86,7 @@ class RouteParserTest extends AbstractRouteParserTest
 
     /**
      * @expectedException \Cercanias\Exception\NotFoundException
+     * @expectedExceptionMessage No stations found in Route
      */
     public function testGetRouteWithNoResults()
     {
