@@ -28,9 +28,10 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
         if (!sizeof($stations)) {
             throw new NotFoundException("no found");
         }
-        $id = $this->parseRouteId($path);
-        $name = $this->parseRouteName($path);
-        $route = new Route($id, $name);
+        $route = new Route(
+            $this->parseRouteId($path),
+            $this->parseRouteName($path)
+        );
         foreach ($stations as $stationId => $stationName) {
             $route->addNewStation($stationId, $stationName);
         }
