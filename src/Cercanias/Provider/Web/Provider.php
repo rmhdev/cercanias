@@ -50,7 +50,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     public function getTimetable(TimetableQuery $query)
     {
         if (!$query->isValid()) {
-            throw new InvalidArgumentException("not valid");
+            throw new InvalidArgumentException("TimetableQuery is not valid");
         }
         $url = $this->buildTimetableUrl($query);
         $parser = new TimetableParser($query, $this->getHttpAdapter()->getContent($url));

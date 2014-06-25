@@ -63,6 +63,7 @@ class ProviderTest extends AbstractProviderTest
 
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @expectedExceptionMessage TimetableQuery is not valid
      */
     public function testGetTimetableWithNotValidQuery()
     {
