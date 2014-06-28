@@ -51,7 +51,7 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
         $this->timetable = $timetable;
     }
 
-    public function getTransferStationName()
+    public function getTransferName()
     {
         return $this->transferStationName;
     }
@@ -61,7 +61,7 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
         $this->transferStationName = trim($name);
     }
 
-    public function getDepartureStationName()
+    public function getDepartureName()
     {
         return $this->departureStationName;
     }
@@ -71,7 +71,7 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
         $this->departureStationName = trim($name);
     }
 
-    public function getArrivalStationName()
+    public function getArrivalName()
     {
         return $this->arrivalStationName;
     }

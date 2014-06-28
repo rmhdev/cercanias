@@ -19,15 +19,15 @@ interface TimetableParserInterface
     /**
      * @return string
      */
-    public function getTransferStationName();
+    public function getTransferName();
 
     /**
      * @return string
      */
-    public function getDepartureStationName();
+    public function getDepartureName();
 
     /**
      * @return string
      */
-    public function getArrivalStationName();
+    public function getArrivalName();
 }

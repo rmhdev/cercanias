@@ -84,12 +84,12 @@ class TimetableParser extends AbstractTimetableParser
     {
         $departure = new Station(
             $this->query->getDepartureStationId(),
-            $this->getDepartureStationName(),
+            $this->getDepartureName(),
             $this->query->getRouteId()
         );
         $destination = new Station(
             $this->query->getDestinationStationId(),
-            $this->getArrivalStationName(),
+            $this->getArrivalName(),
             $this->query->getRouteId()
         );
 

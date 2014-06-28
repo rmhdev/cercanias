@@ -115,17 +115,17 @@ class TimetableParserTest extends AbstractTimetableParserTest
     public function testStationNames()
     {
         $parser = $this->createTimetableParserSanSebastian();
-        $this->assertEquals("Brincola", $parser->getDepartureStationName());
-        $this->assertEquals("Irun", $parser->getArrivalStationName());
-        $this->assertEmpty($parser->getTransferStationName());
+        $this->assertEquals("Brincola", $parser->getDepartureName());
+        $this->assertEquals("Irun", $parser->getArrivalName());
+        $this->assertEmpty($parser->getTransferName());
     }
 
     public function testStationNamesWithSpecialCharacters()
     {
         $parser = $this->createTimetableParser("timetable-transfer-complete.html");
 
-        $this->assertEquals("Arenys de Mar", $parser->getDepartureStationName());
-        $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getArrivalStationName());
-        $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
+        $this->assertEquals("Arenys de Mar", $parser->getDepartureName());
+        $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getArrivalName());
+        $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferName());
     }
 }
