@@ -107,6 +107,16 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
 
     public function testNextTrips()
     {
+        $timetable = $this->createTimetableForNextTrips();
+
+        $this->assertEquals(2, $timetable->nextTrips(new \DateTime("2014-06-28 10:55:00"))->count());
+        $this->assertEquals(1, $timetable->nextTrips(new \DateTime("2014-06-28 11:00:00"))->count());
+        $this->assertEquals(1, $timetable->nextTrips(new \DateTime("2014-06-28 11:05:00"))->count());
+        $this->assertEquals(0, $timetable->nextTrips(new \DateTime("2014-06-28 11:16:00"))->count());
+    }
+
+    protected function createTimetableForNextTrips()
+    {
         $timetable = $this->createTimetable();
         $trainA = new Train("C1", new \DateTime("2014-06-28 11:00:00"), new \DateTime("2014-06-28 12:00:00"));
         $trainB = new Train("C1", new \DateTime("2014-06-28 11:15:00"), new \DateTime("2014-06-28 12:15:00"));
@@ -115,10 +125,18 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $timetable->addTrip($tripA);
         $timetable->addTrip($tripB);
 
-        $this->assertEquals(2, $timetable->nextTrips(new \DateTime("2014-06-28 10:55:00"))->count());
-        $this->assertEquals(1, $timetable->nextTrips(new \DateTime("2014-06-28 11:00:00"))->count());
-        $this->assertEquals(1, $timetable->nextTrips(new \DateTime("2014-06-28 11:05:00"))->count());
-        $this->assertEquals(0, $timetable->nextTrips(new \DateTime("2014-06-28 11:16:00"))->count());
+        return $timetable;
+    }
+
+    public function testNextTripsWithLimit()
+    {
+        $timetable = $this->createTimetableForNextTrips();
+
+        $dateTime = new \DateTime("2014-06-28 10:55:00");
+        $this->assertEquals(1, $timetable->nextTrips($dateTime, 1)->count());
+        $this->assertEquals(2, $timetable->nextTrips($dateTime, 2)->count());
+        $this->assertEquals(2, $timetable->nextTrips($dateTime, 0)->count());
+        $this->assertEquals(2, $timetable->nextTrips($dateTime, 5)->count());
     }
 
     /**

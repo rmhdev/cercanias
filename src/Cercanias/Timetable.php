@@ -47,14 +47,20 @@ class Timetable
 
     /**
      * @param \DateTime $dateTime
+     * @param int $limit
      * @return \ArrayIterator
      */
-    public function nextTrips(\DateTime $dateTime)
+    public function nextTrips(\DateTime $dateTime, $limit = 0)
     {
         $results = new \ArrayIterator();
         $iterator = new NextTripsFilterIterator($this->getTrips(), $dateTime);
+        $i = 1;
         foreach ($iterator as $trip) {
             $results->append($trip);
+            if ($limit && ($i >= $limit)) {
+                break;
+            }
+            $i += 1;
         }
 
         return $results;
