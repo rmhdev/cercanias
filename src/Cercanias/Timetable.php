@@ -45,9 +45,9 @@ class Timetable
         $this->trips[] = $trip;
     }
 
-    public function nextDeparture(\DateTime $dateTime)
+    public function nextTrip(\DateTime $dateTime)
     {
-        $nextDepartures = new NextDeparturesFilterIterator($this->getTrips(), $dateTime);
+        $nextDepartures = new NextTripsFilterIterator($this->getTrips(), $dateTime);
         foreach ($nextDepartures as $nextDeparture) {
             return $nextDeparture;
         }
@@ -57,7 +57,7 @@ class Timetable
 }
 
 
-class NextDeparturesFilterIterator extends \FilterIterator
+class NextTripsFilterIterator extends \FilterIterator
 {
     protected $dateTime;
 

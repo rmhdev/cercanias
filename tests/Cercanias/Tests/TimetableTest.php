@@ -89,7 +89,7 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         return $timetable;
     }
 
-    public function testNextDeparture()
+    public function testNextTrip()
     {
         $timetable = $this->createTimetable();
         $trainA = new Train("C1", new \DateTime("2014-01-20 11:00:00"), new \DateTime("2014-01-20 12:00:00"));
@@ -99,10 +99,10 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $timetable->addTrip($tripA);
         $timetable->addTrip($tripB);
 
-        $this->assertEquals($tripA, $timetable->nextDeparture(new \DateTime("2014-01-20 10:55:00")));
-        $this->assertEquals($tripB, $timetable->nextDeparture(new \DateTime("2014-01-20 11:00:00")));
-        $this->assertEquals($tripB, $timetable->nextDeparture(new \DateTime("2014-01-20 11:10:00")));
-        $this->assertNull($timetable->nextDeparture(new \DateTime("2014-01-20 12:00:00")));
+        $this->assertEquals($tripA, $timetable->nextTrip(new \DateTime("2014-01-20 10:55:00")));
+        $this->assertEquals($tripB, $timetable->nextTrip(new \DateTime("2014-01-20 11:00:00")));
+        $this->assertEquals($tripB, $timetable->nextTrip(new \DateTime("2014-01-20 11:10:00")));
+        $this->assertNull($timetable->nextTrip(new \DateTime("2014-01-20 12:00:00")));
     }
 
     /**
