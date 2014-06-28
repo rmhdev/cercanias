@@ -42,7 +42,7 @@ class CurlHttpAdapter implements HttpAdapterInterface
             CURLOPT_URL => $url
         );
         if ($this->curlOptions) {
-            $options = array_merge($options, $this->curlOptions);
+            $options = $options + $this->curlOptions;
         }
 
         return $options;
