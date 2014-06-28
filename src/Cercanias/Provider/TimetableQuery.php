@@ -70,6 +70,9 @@ class TimetableQuery
         return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getDate()
     {
         return $this->date;

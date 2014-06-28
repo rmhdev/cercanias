@@ -9,10 +9,9 @@ use Cercanias\Exception\NotFoundException;
 class Route
 {
 
-    protected
-        $id,
-        $name,
-        $stations;
+    protected $id;
+    protected $name;
+    protected $stations;
 
     public function __construct($id, $name)
     {

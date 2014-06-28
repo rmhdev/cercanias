@@ -30,5 +30,4 @@ interface TimetableParserInterface
      * @return string
      */
     public function getArrivalStationName();
-
 }

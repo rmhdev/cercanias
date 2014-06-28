@@ -21,5 +21,4 @@ interface HttpAdapterInterface
      * @return string
      */
     public function getName();
-
 }

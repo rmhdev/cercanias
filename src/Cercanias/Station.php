@@ -47,7 +47,7 @@ class Station
     protected function setRouteId($routeId)
     {
         if ($this->isInvalidId($routeId)) {
-           throw new InvalidArgumentException("Invalid RouteId");
+            throw new InvalidArgumentException("Invalid RouteId");
         }
         $this->routeId = $routeId;
     }

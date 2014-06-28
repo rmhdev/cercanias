@@ -108,5 +108,4 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
 
         return ($this->getFirstDateTime() > $testDate);
     }
-
 }

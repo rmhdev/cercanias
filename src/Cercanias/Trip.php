@@ -62,5 +62,4 @@ class Trip
     {
         return $this->transferTrains;
     }
-
 }

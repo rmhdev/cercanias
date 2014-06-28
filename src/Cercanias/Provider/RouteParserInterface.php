@@ -11,5 +11,4 @@ interface RouteParserInterface
      * @return Route
      */
     public function getRoute();
-
 }

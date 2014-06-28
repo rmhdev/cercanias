@@ -60,12 +60,12 @@ class Provider extends AbstractProvider implements ProviderInterface
 
     protected function buildTimetableUrl(TimetableQuery $query)
     {
-        return sprintf(self::URL_TIMETABLE,
+        return sprintf(
+            self::URL_TIMETABLE,
             $query->getRouteId(),
             $query->getDepartureStationId(),
             $query->getDestinationStationId(),
             $query->getDate()->format("Ymd")
         );
     }
-
 }

@@ -70,5 +70,4 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
 
         return $stations;
     }
-
 }

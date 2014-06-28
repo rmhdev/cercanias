@@ -6,12 +6,11 @@ use Cercanias\Exception\OutOfBoundsException;
 
 class Train
 {
-    protected
-        $line,
-        $departureTime,
-        $arrivalTime;
+    protected $line;
+    protected $departureTime;
+    protected $arrivalTime;
 
-    public function __construct($line, \DateTime $departureTime, \DateTime $arrivalTime = NULL)
+    public function __construct($line, \DateTime $departureTime, \DateTime $arrivalTime = null)
     {
         $this->setLine($line);
         $this->departureTime = $departureTime;

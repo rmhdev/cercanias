@@ -25,7 +25,7 @@ class CurlHttpAdapter implements HttpAdapterInterface
     public function getContent($url)
     {
         if (!function_exists('curl_init')) {
-           throw new ExtensionNotLoadedException("cURL has to be enabled");
+            throw new ExtensionNotLoadedException("cURL has to be enabled");
         }
         $c = curl_init();
         curl_setopt_array($c, $this->prepareCurlOptions($url));
@@ -55,5 +55,4 @@ class CurlHttpAdapter implements HttpAdapterInterface
     {
         return 'curl';
     }
-
 }

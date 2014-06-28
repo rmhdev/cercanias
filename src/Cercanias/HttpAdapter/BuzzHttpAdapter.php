@@ -38,5 +38,4 @@ class BuzzHttpAdapter implements HttpAdapterInterface
     {
         return 'buzz';
     }
-
 }

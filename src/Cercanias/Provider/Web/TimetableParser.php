@@ -184,5 +184,4 @@ class TimetableParser extends AbstractTimetableParser
 
         return $date;
     }
-
 }
