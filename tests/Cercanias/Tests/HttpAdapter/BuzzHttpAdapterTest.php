@@ -78,5 +78,4 @@ class BuzzHttpAdapterTest extends \PHPUnit_Framework_TestCase
 
         return $mock;
     }
-
 }

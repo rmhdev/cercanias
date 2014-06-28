@@ -88,7 +88,4 @@ class TripTest extends \PHPUnit_Framework_TestCase
         $transferTrain = new Train($departureTrain->getLine(), $transferDepartureTime, $transferArrivalTime);
         $trip = new Trip($departureTrain, $transferTrain);
     }
-
-
-
 }

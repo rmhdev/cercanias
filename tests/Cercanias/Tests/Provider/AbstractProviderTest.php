@@ -38,5 +38,4 @@ abstract class AbstractProviderTest extends \PHPUnit_Framework_TestCase
 
         return $mock;
     }
-
 }

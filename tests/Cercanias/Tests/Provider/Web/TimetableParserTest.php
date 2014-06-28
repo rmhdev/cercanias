@@ -44,7 +44,8 @@ class TimetableParserTest extends AbstractTimetableParserTest
             ->setDestination(456);
 
         return new TimetableParser(
-            $query, $this->getContentHtml("timetable-sansebastian.html")
+            $query,
+            $this->getContentHtml("timetable-sansebastian.html")
         );
     }
 
@@ -77,7 +78,8 @@ class TimetableParserTest extends AbstractTimetableParserTest
             ->setDestination(456);
 
         return new TimetableParser(
-            $query, $this->getContentHtml($filename)
+            $query,
+            $this->getContentHtml($filename)
         );
     }
 
@@ -126,5 +128,4 @@ class TimetableParserTest extends AbstractTimetableParserTest
         $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getArrivalStationName());
         $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferStationName());
     }
-
 }

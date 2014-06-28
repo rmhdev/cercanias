@@ -72,5 +72,4 @@ class ProviderTest extends AbstractProviderTest
         $query->setRoute(1);
         $provider->getTimetable($query);
     }
-
 }

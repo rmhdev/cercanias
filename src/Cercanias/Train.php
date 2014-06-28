@@ -73,5 +73,4 @@ class Train
 
         return ($first < $second) ? -1 : 1;
     }
-
 }

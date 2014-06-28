@@ -84,5 +84,4 @@ class StationTest extends \PHPUnit_Framework_TestCase
     {
         new Station(1, "Irun", $routeId);
     }
-
 }

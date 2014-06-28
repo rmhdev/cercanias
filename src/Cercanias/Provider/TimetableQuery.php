@@ -86,5 +86,4 @@ class TimetableQuery
             $this->getDestinationStationId()
         );
     }
-
 }

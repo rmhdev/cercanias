@@ -106,5 +106,4 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($query->isValid());
     }
-
 }

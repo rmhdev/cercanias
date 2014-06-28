@@ -87,11 +87,13 @@ class TrainTest extends \PHPUnit_Framework_TestCase
 
     public function testCompareWithALaterTrain()
     {
-        $train = new Train("C1",
+        $train = new Train(
+            "C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $trainLater = new Train("C1",
+        $trainLater = new Train(
+            "C1",
             new \DateTime("2014-01-10 12:00:00"),
             new \DateTime("2014-01-10 12:30:00")
         );
@@ -101,11 +103,13 @@ class TrainTest extends \PHPUnit_Framework_TestCase
 
     public function testCompareWithAPreviousTrain()
     {
-        $train = new Train("C1",
+        $train = new Train(
+            "C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $trainBefore = new Train("C1",
+        $trainBefore = new Train(
+            "C1",
             new \DateTime("2014-01-10 10:00:00"),
             new \DateTime("2014-01-10 10:30:00")
         );
@@ -115,11 +119,13 @@ class TrainTest extends \PHPUnit_Framework_TestCase
 
     public function testCompareWithASameDepartureTimeAndLaterArrival()
     {
-        $train = new Train("C1",
+        $train = new Train(
+            "C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $trainBefore = new Train("C1",
+        $trainBefore = new Train(
+            "C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:45:00")
         );
@@ -129,11 +135,13 @@ class TrainTest extends \PHPUnit_Framework_TestCase
 
     public function testCompareWithASameDepartureTimeAndBeforeArrival()
     {
-        $train = new Train("C1",
+        $train = new Train(
+            "C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );
-        $trainBefore = new Train("C1",
+        $trainBefore = new Train(
+            "C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:25:00")
         );
@@ -143,7 +151,8 @@ class TrainTest extends \PHPUnit_Framework_TestCase
 
     public function testCompareWithSameDepartureAndArrivalTimes()
     {
-        $train = new Train("C1",
+        $train = new Train(
+            "C1",
             new \DateTime("2014-01-10 11:00:00"),
             new \DateTime("2014-01-10 11:30:00")
         );

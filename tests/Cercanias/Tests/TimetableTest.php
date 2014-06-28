@@ -63,7 +63,7 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $timetable = $this->createTimetableAddingUnorderedTrips();
         /* @var Trip $trip */
         /* @var \DateTime $previousDepartureTime */
-        $previousDepartureTime = NULL;
+        $previousDepartureTime = null;
         foreach ($timetable->getTrips() as $trip) {
             if (!is_null($previousDepartureTime)) {
                 $this->assertTrue(

@@ -28,7 +28,8 @@ $pattern = "%4s  %6s  %6s  %4s\n";
 echo sprintf($pattern, "LINE", "DEPART", "ARRIVE", "TIME");
 foreach ($timetable->getTrips() as $trip) {
     /* @var Trip $trip*/
-    echo sprintf($pattern,
+    echo sprintf(
+        $pattern,
         $trip->getDepartureTrain()->getLine(),
         $trip->getDepartureTrain()->getDepartureTime()->format("H:i"),
         $trip->getDepartureTrain()->getArrivalTime()->format("H:i"),
