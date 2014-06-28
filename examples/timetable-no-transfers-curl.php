@@ -7,9 +7,6 @@ use Cercanias\Provider\Web\Provider;
 use Cercanias\Provider\TimetableQuery;
 use Cercanias\Trip;
 
-$httpAdapter = new CurlHttpAdapter();
-$provider = new Provider($httpAdapter);
-
 $query = new TimetableQuery();
 $query
     ->setRoute(Provider::ROUTE_SAN_SEBASTIAN)
@@ -17,12 +14,14 @@ $query
     ->setDestination(11600) // to Irun
     ->setDate(new DateTime("now"));
 
-$timetable = $provider->getTimetable($query);
+$httpAdapter  = new CurlHttpAdapter();
+$provider     = new Provider($httpAdapter);
+$timetable    = $provider->getTimetable($query);
 
 echo "Timetable 'San Sebastián': \n";
-echo sprintf(" - departure:  '%s'\n", $timetable->getDeparture()->getName());
-echo sprintf(" - arrival:    '%s'\n", $timetable->getDestination()->getName());
-echo sprintf(" - date:       %s\n", $query->getDate()->format("Y-m-d"));
+echo sprintf(" - departure:     '%s'\n", $timetable->getDeparture()->getName());
+echo sprintf(" - destination:   '%s'\n", $timetable->getDestination()->getName());
+echo sprintf(" - date:          %s\n", $query->getDate()->format("Y-m-d"));
 
 $pattern = "%4s  %6s  %6s  %4s\n";
 echo sprintf($pattern, "LINE", "DEPART", "ARRIVE", "TIME");

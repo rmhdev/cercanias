@@ -8,8 +8,7 @@ use Cercanias\Station;
 
 $httpAdapter  = new BuzzHttpAdapter();
 $provider     = new Provider($httpAdapter);
-
-$route = $provider->getRoute(Provider::ROUTE_BARCELONA);
+$route        = $provider->getRoute(Provider::ROUTE_BARCELONA);
 
 echo "Route 'Barcelona': \n";
 
