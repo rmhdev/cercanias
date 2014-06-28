@@ -105,6 +105,22 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($timetable->nextTrip(new \DateTime("2014-01-20 12:00:00")));
     }
 
+    public function testNextTrips()
+    {
+        $timetable = $this->createTimetable();
+        $trainA = new Train("C1", new \DateTime("2014-06-28 11:00:00"), new \DateTime("2014-06-28 12:00:00"));
+        $trainB = new Train("C1", new \DateTime("2014-06-28 11:15:00"), new \DateTime("2014-06-28 12:15:00"));
+        $tripA = new Trip($trainA);
+        $tripB = new Trip($trainB);
+        $timetable->addTrip($tripA);
+        $timetable->addTrip($tripB);
+
+        $this->assertEquals(2, $timetable->nextTrips(new \DateTime("2014-06-28 10:55:00"))->count());
+        $this->assertEquals(1, $timetable->nextTrips(new \DateTime("2014-06-28 11:00:00"))->count());
+        $this->assertEquals(1, $timetable->nextTrips(new \DateTime("2014-06-28 11:05:00"))->count());
+        $this->assertEquals(0, $timetable->nextTrips(new \DateTime("2014-06-28 11:16:00"))->count());
+    }
+
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
      */

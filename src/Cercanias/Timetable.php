@@ -45,6 +45,21 @@ class Timetable
         $this->trips[] = $trip;
     }
 
+    /**
+     * @param \DateTime $dateTime
+     * @return \ArrayIterator
+     */
+    public function nextTrips(\DateTime $dateTime)
+    {
+        $results = new \ArrayIterator();
+        $iterator = new NextTripsFilterIterator($this->getTrips(), $dateTime);
+        foreach ($iterator as $trip) {
+            $results->append($trip);
+        }
+
+        return $results;
+    }
+
     public function nextTrip(\DateTime $dateTime)
     {
         $nextDepartures = new NextTripsFilterIterator($this->getTrips(), $dateTime);
