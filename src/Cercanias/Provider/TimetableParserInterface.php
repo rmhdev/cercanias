@@ -29,5 +29,5 @@ interface TimetableParserInterface
     /**
      * @return string
      */
-    public function getArrivalName();
+    public function getDestinationName();
 }

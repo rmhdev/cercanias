@@ -6,21 +6,21 @@ use Cercanias\Timetable;
 
 abstract class AbstractTimetableParser implements TimetableParserInterface
 {
-    protected $query;
-    protected $timetable;
-    protected $date;
-    protected $transferStationName;
-    protected $departureStationName;
-    protected $arrivalStationName;
-    protected $firstDateTime;
+    private $query;
+    private $timetable;
+    private $date;
+    private $transferName;
+    private $departureName;
+    private $destinationName;
+    private $firstDateTime;
 
     public function __construct(TimetableQuery $query, $html)
     {
         $this->query = $query;
         $this->date = null;
-        $this->transferStationName = "";
-        $this->departureStationName = "";
-        $this->arrivalStationName = "";
+        $this->transferName = "";
+        $this->departureName = "";
+        $this->destinationName = "";
         $this->firstDateTime = null;
         $this->processHTML($html);
     }
@@ -53,32 +53,32 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
 
     public function getTransferName()
     {
-        return $this->transferStationName;
+        return $this->transferName;
     }
 
-    protected function setTransferStationName($name)
+    protected function setTransferName($name)
     {
-        $this->transferStationName = trim($name);
+        $this->transferName = trim($name);
     }
 
     public function getDepartureName()
     {
-        return $this->departureStationName;
+        return $this->departureName;
     }
 
-    protected function setDepartureStationName($name)
+    protected function setDepartureName($name)
     {
-        $this->departureStationName = trim($name);
+        $this->departureName = trim($name);
     }
 
-    public function getArrivalName()
+    public function getDestinationName()
     {
-        return $this->arrivalStationName;
+        return $this->destinationName;
     }
 
-    protected function setArrivalStationName($name)
+    protected function setDestinationName($name)
     {
-        $this->arrivalStationName = trim($name);
+        $this->destinationName = trim($name);
     }
 
     protected function getFirstDateTime()
@@ -107,5 +107,10 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
         $testDate->setTime($hour, $minute, 0);
 
         return ($this->getFirstDateTime() > $testDate);
+    }
+
+    protected function getQuery()
+    {
+        return $this->query;
     }
 }

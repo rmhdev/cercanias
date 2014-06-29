@@ -81,8 +81,8 @@ class TimetableParser extends AbstractTimetableParser
             $departureStationName = $spans->item(0)->textContent;
             $arrivalStationName = $spans->item(1)->textContent;
         }
-        $this->setDepartureStationName($departureStationName);
-        $this->setArrivalStationName($arrivalStationName);
+        $this->setDepartureName($departureStationName);
+        $this->setDestinationName($arrivalStationName);
         if ($hasTransfer) {
             $this->updateTransferStationName($path);
         }
@@ -91,14 +91,14 @@ class TimetableParser extends AbstractTimetableParser
     protected function createTimetable()
     {
         $departure = new Station(
-            $this->query->getDepartureStationId(),
+            $this->getQuery()->getDepartureStationId(),
             $this->getDepartureName(),
-            $this->query->getRouteId()
+            $this->getQuery()->getRouteId()
         );
         $destination = new Station(
-            $this->query->getDestinationStationId(),
-            $this->getArrivalName(),
-            $this->query->getRouteId()
+            $this->getQuery()->getDestinationStationId(),
+            $this->getDestinationName(),
+            $this->getQuery()->getRouteId()
         );
 
         return new Timetable($departure, $destination, $this->getTransferName());
@@ -169,7 +169,7 @@ class TimetableParser extends AbstractTimetableParser
     {
         $allRows = $path->query('//table/tbody/tr');
         $tds = $path->query(".//td", $allRows->item(2));
-        $this->setTransferStationName($tds->item(0)->textContent);
+        $this->setTransferName($tds->item(0)->textContent);
     }
 
     protected function parseTransferTrain(\DOMNodeList $tds)

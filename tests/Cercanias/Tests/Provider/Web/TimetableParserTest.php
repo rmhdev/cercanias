@@ -125,7 +125,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
     {
         $parser = $this->createTimetableParserSanSebastian();
         $this->assertEquals("Brincola", $parser->getDepartureName());
-        $this->assertEquals("Irun", $parser->getArrivalName());
+        $this->assertEquals("Irun", $parser->getDestinationName());
         $this->assertEmpty($parser->getTransferName());
     }
 
@@ -134,7 +134,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
         $parser = $this->createTimetableParser("timetable-transfer-complete.html");
 
         $this->assertEquals("Arenys de Mar", $parser->getDepartureName());
-        $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getArrivalName());
+        $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getDestinationName());
         $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferName());
     }
 
