@@ -21,13 +21,28 @@ $timetable    = $provider->getTimetable($query);
 echo "Timetable 'Barcelona': \n";
 echo sprintf(" - departure:     '%s'\n", $timetable->getDeparture()->getName());
 echo sprintf(" - destination:   '%s'\n", $timetable->getDestination()->getName());
+echo sprintf(" - transfer:      '%s'\n", $timetable->getTransferName());
 echo sprintf(" - date:          %s\n", $query->getDate()->format("Y-m-d"));
 
 $pattern = "%4s  %6s  %6s  %6s  %4s  %6s\n";
 echo sprintf($pattern, "LINE", "DEPART", "ARRIVE", "DEPART", "LINE", "ARRIVE");
 
 foreach ($timetable->getTrips() as $trip) {
-    /* @var Trip $trip */
+    foreach (prepareResults($trip) as $item) {
+        echo sprintf(
+            $pattern,
+            $item["line"],
+            $item["departure"],
+            $item["arrival"],
+            $item["transfer_departure"],
+            $item["transfer_line"],
+            $item["transfer_arrival"]
+        );
+    }
+}
+
+function prepareResults(Trip $trip)
+{
     $result = array(
         "line" => $trip->getDepartureTrain()->getLine(),
         "departure" => $trip->getDepartureTrain()->getDepartureTime()->format("H:i"),
@@ -62,15 +77,5 @@ foreach ($timetable->getTrips() as $trip) {
     if ($transfers) {
         $results = array_merge($results, $transfers);
     }
-    foreach ($results as $item) {
-        echo sprintf(
-            $pattern,
-            $item["line"],
-            $item["departure"],
-            $item["arrival"],
-            $item["transfer_departure"],
-            $item["transfer_line"],
-            $item["transfer_arrival"]
-        );
-    }
+    return $results;
 }
