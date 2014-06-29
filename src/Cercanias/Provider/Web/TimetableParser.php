@@ -63,9 +63,12 @@ class TimetableParser extends AbstractTimetableParser
     protected function updateTimetable(\DOMXPath $path)
     {
         $this->updateDepartureArrivalStationNames($path);
-        $this->setTimetable($this->createTimetable());
-        if ($this->isTimetableWithTransfers($path)) {
+        $hasTransfers = $this->isTimetableWithTransfers($path);
+        if ($hasTransfers) {
             $this->updateTransferStationName($path);
+        }
+        $this->setTimetable($this->createTimetable());
+        if ($hasTransfers) {
             $this->updateTimetableWithTransfers($path);
         } else {
             $this->updateTimetableSimple($path);
@@ -98,7 +101,7 @@ class TimetableParser extends AbstractTimetableParser
             $this->query->getRouteId()
         );
 
-        return new Timetable($departure, $destination);
+        return new Timetable($departure, $destination, $this->getTransferName());
     }
 
     protected function isTimetableWithTransfers(\DOMXPath $path)

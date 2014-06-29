@@ -137,4 +137,23 @@ class TimetableParserTest extends AbstractTimetableParserTest
         $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getArrivalName());
         $this->assertEquals("Barcelona-El Clot-Aragó", $parser->getTransferName());
     }
+
+    /**
+     * @dataProvider getTransferNameProvider
+     */
+    public function testTransferName($expectedName, $filename)
+    {
+        $parser = $this->createTimetableParser($filename);
+        $timetable = $parser->getTimetable();
+        $this->assertEquals($expectedName, $timetable->getTransferName());
+    }
+
+    public function getTransferNameProvider()
+    {
+        return array(
+            array("", "timetable-sansebastian.html"),
+            array("Chamartin", "timetable-transfer-simple.html"),
+            array("Barcelona-El Clot-Aragó", "timetable-transfer-complete.html"),
+        );
+    }
 }
