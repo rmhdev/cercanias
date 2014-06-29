@@ -148,4 +148,22 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $arrival = new Station(2, "Brincola", 20);
         new Timetable($departure, $arrival);
     }
+
+    public function testHasTransferForSimpleTimetable()
+    {
+        $timetable = $this->createTimetableForNextTrips();
+        $this->assertFalse($timetable->hasTransfer());
+    }
+
+    public function testHasTransferForComplexTimetable()
+    {
+        $timetable = $this->createTimetable();
+        $trainB = new Train("C1", new \DateTime("2014-06-28 11:15:00"), new \DateTime("2014-06-28 12:15:00"));
+        $transferB1 = new Train("C2", new \DateTime("2014-06-28 12:20:00"), new \DateTime("2014-06-28 12:45:00"));
+        $transferB2 = new Train("C2", new \DateTime("2014-06-28 12:23:00"), new \DateTime("2014-06-28 12:48:00"));
+        $tripB = new Trip($trainB, array($transferB1, $transferB2));
+        $timetable->addTrip($tripB);
+
+        $this->assertTrue($timetable->hasTransfer());
+    }
 }

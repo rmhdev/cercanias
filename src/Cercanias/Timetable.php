@@ -9,6 +9,7 @@ class Timetable
     protected $departure;
     protected $destination;
     protected $trips;
+    protected $hasTransfer;
 
     public function __construct(Station $departure, Station $destination)
     {
@@ -18,6 +19,7 @@ class Timetable
         $this->departure = $departure;
         $this->destination = $destination;
         $this->trips = array();
+        $this->hasTransfer = false;
     }
 
     public function getDeparture()
@@ -43,6 +45,7 @@ class Timetable
     public function addTrip(Trip $trip)
     {
         $this->trips[] = $trip;
+        $this->updateHasTransfer($trip->hasTransfer());
     }
 
     /**
@@ -74,6 +77,18 @@ class Timetable
         }
 
         return null;
+    }
+
+    public function hasTransfer()
+    {
+        return $this->hasTransfer;
+    }
+
+    protected function updateHasTransfer($hasTransfer = false)
+    {
+        if (!$this->hasTransfer()) {
+            $this->hasTransfer = $hasTransfer;
+        }
     }
 }
 
