@@ -62,20 +62,17 @@ class TimetableParser extends AbstractTimetableParser
 
     protected function updateTimetable(\DOMXPath $path)
     {
-        $this->updateDepartureArrivalStationNames($path);
-        $hasTransfers = $this->isTimetableWithTransfers($path);
-        if ($hasTransfers) {
-            $this->updateTransferStationName($path);
-        }
+        $hasTransfer = $this->isTimetableWithTransfer($path);
+        $this->updateStationNames($path, $hasTransfer);
         $this->setTimetable($this->createTimetable());
-        if ($hasTransfers) {
+        if ($hasTransfer) {
             $this->updateTimetableWithTransfers($path);
         } else {
             $this->updateTimetableSimple($path);
         }
     }
 
-    protected function updateDepartureArrivalStationNames(\DOMXPath $path)
+    protected function updateStationNames(\DOMXPath $path, $hasTransfer = false)
     {
         $spans = $path->query('//span[@class="titulo_negro"]');
         $departureStationName = "";
@@ -86,6 +83,9 @@ class TimetableParser extends AbstractTimetableParser
         }
         $this->setDepartureStationName($departureStationName);
         $this->setArrivalStationName($arrivalStationName);
+        if ($hasTransfer) {
+            $this->updateTransferStationName($path);
+        }
     }
 
     protected function createTimetable()
@@ -104,17 +104,17 @@ class TimetableParser extends AbstractTimetableParser
         return new Timetable($departure, $destination, $this->getTransferName());
     }
 
-    protected function isTimetableWithTransfers(\DOMXPath $path)
+    protected function isTimetableWithTransfer(\DOMXPath $path)
     {
-        $isSimple = false;
+        $hasTransfer = false;
         $allRows = $path->query('//table/tbody/tr');
         if ($allRows->length) {
             if ($path->query(".//td", $allRows->item(1))->length > 5) {
-                $isSimple = true;
+                $hasTransfer = true;
             }
         }
 
-        return $isSimple;
+        return $hasTransfer;
     }
 
     protected function updateTimetableSimple(\DOMXPath $path)
