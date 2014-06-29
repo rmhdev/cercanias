@@ -209,4 +209,16 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
             array(new Train("c1", new \DateTime("now -10 minutes"), new \DateTime("now")))
         );
     }
+
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Transfer station is from different route
+     */
+    public function testAddTransferStationFromDifferentRoute()
+    {
+        $departure = new Station(1, "From", 61);
+        $destination = new Station(2, "To", 61);
+        $transfer = new Station(3, "Transfer", 20);
+        $timetable = new Timetable($departure, $destination, $transfer);
+    }
 }

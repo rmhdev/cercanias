@@ -26,12 +26,15 @@ class Timetable
 
     protected function setTransfer($transfer = null)
     {
-        if ($transfer instanceof Station) {
+        if (is_object($transfer)) {
+            if (!$transfer instanceof Station) {
+                throw new InvalidArgumentException("Unknown type of transfer");
+            }
+            if ($this->getDeparture()->getRouteId() !== $transfer->getRouteId()) {
+                throw new InvalidArgumentException("Transfer station is from different route");
+            }
             $transfer = $transfer->getName();
-        } elseif (is_object($transfer)) {
-            throw new InvalidArgumentException("Unknown type of transfer");
         }
-
         $this->transferName = $transfer;
     }
 
