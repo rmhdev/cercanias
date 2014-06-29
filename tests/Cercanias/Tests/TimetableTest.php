@@ -141,6 +141,7 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Stations must have the same RouteId
      */
     public function testStationsMustHaveSameRouteId()
     {
