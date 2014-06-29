@@ -68,8 +68,8 @@ use Cercanias\Provider\TimetableQuery;
 $query = new TimetableQuery();
 $query
     ->setRoute(Provider::ROUTE_SAN_SEBASTIAN)
-    ->setDeparture(11305)   // from Brinkola
-    ->setDestination(11600) // to Irun
+    ->setDeparture("11305")   // from Brinkola
+    ->setDestination("11600") // to Irun
     ->setDate(new \DateTime("tomorrow"));
 
 $httpAdapter  = new CurlHttpAdapter();            // 1. HttpAdapter
