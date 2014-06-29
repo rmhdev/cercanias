@@ -190,4 +190,23 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
             array("My station", $station),
         );
     }
+
+    /**
+     * @dataProvider getIncorrectTransferProvider
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Unknown type of transfer
+     */
+    public function testIncorrectTransfer($transfer)
+    {
+        $departure = new Station(1, "Irun", 61);
+        $destination = new Station(2, "Brincola", 61);
+        $timetable = new Timetable($departure, $destination, $transfer);
+    }
+
+    public function getIncorrectTransferProvider()
+    {
+        return array(
+            array(new Train("c1", new \DateTime("now -10 minutes"), new \DateTime("now")))
+        );
+    }
 }

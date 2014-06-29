@@ -28,7 +28,10 @@ class Timetable
     {
         if ($transfer instanceof Station) {
             $transfer = $transfer->getName();
+        } elseif (is_object($transfer)) {
+            throw new InvalidArgumentException("Unknown type of transfer");
         }
+
         $this->transferName = $transfer;
     }
 
