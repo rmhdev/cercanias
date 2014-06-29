@@ -64,18 +64,17 @@ require 'vendor/autoload.php';
 use Cercanias\HttpAdapter\CurlHttpAdapter;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\Provider\TimetableQuery;
-use Cercanias\Trip;
 
 $query = new TimetableQuery();
 $query
     ->setRoute(Provider::ROUTE_SAN_SEBASTIAN)
-    ->setDeparture(11305)   // from brincola
+    ->setDeparture(11305)   // from Brinkola
     ->setDestination(11600) // to Irun
-    ->setDate(new DateTime("now"));
+    ->setDate(new \DateTime("now"));
 
-$httpAdapter  = new CurlHttpAdapter();
-$provider     = new Provider($httpAdapter);
-$timetable    = $provider->getTimetable($query);
+$httpAdapter  = new CurlHttpAdapter();            // 1. HttpAdapter
+$provider     = new Provider($httpAdapter);       // 2. Provider
+$timetable    = $provider->getTimetable($query);  // 3. Call
 ```
 
 View more [examples](examples).
