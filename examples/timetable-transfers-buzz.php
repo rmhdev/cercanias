@@ -4,7 +4,7 @@ require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use \Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
-use Cercanias\HttpAdapter\CurlHttpAdapter;
+use Cercanias\HttpAdapter\BuzzHttpAdapter;
 use Cercanias\Trip;
 use Cercanias\Train;
 
@@ -14,7 +14,7 @@ $query
     ->setDeparture("79600")     // Arenys de Mar
     ->setDestination("71802");  // Barcelona-Passeig de Gràcia
 
-$httpAdapter  = new CurlHttpAdapter();
+$httpAdapter  = new BuzzHttpAdapter();
 $provider     = new Provider($httpAdapter);
 $timetable    = $provider->getTimetable($query);
 
