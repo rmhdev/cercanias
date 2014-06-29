@@ -83,6 +83,15 @@ class TimetableParserTest extends AbstractTimetableParserTest
         );
     }
 
+    /**
+     * @expectedException \Cercanias\Exception\ServiceUnavailableException
+     * @expectedExceptionMessage Servicio temporalmente no disponible.
+     */
+    public function testGetTimetableServiceUnavailable()
+    {
+        $this->createTimetableParser("service-unavailable.html");
+    }
+
     public function testGetTimetableWithSimpleTransfer()
     {
         $parser = $this->createTimetableParser("timetable-transfer-simple.html");

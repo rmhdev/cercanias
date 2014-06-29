@@ -3,6 +3,7 @@
 namespace Cercanias\Provider\Web;
 
 use Cercanias\Exception\NotFoundException;
+use Cercanias\Exception\ServiceUnavailableException;
 use Cercanias\Provider\AbstractTimetableParser;
 use Cercanias\Station;
 use Cercanias\Timetable;
@@ -28,6 +29,10 @@ class TimetableParser extends AbstractTimetableParser
     protected function checkNotEmptyResult(\DOMXPath $path)
     {
         if ($path->query('//table')->length <= 0) {
+            $unavailable = $path->query('//div[@class="lista_cuadradorosa posicion_cuadrado"]');
+            if ($unavailable->length) {
+                throw new ServiceUnavailableException(trim($unavailable->item(0)->textContent));
+            }
             throw new NotFoundException("HTML has no timetable results");
         }
     }
