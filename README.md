@@ -41,7 +41,7 @@ require 'vendor/autoload.php';
 2. Choose a `Provider`
 3. Make the call and retrieve the information.
 
-For example, if you want to retrieve all the stations in a route (San Sebastián):
+For example, if you want to retrieve all the stations from a route (*San Sebastián*):
 
 ``` php
 <?php
