@@ -19,14 +19,14 @@ class TimetableParser extends AbstractTimetableParser
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
         $path = new \DOMXPath($domDocument);
-        $this->checkNotEmptyResult($path);
+        $this->checkContent($path);
         $this->updateDate($path);
         $this->updateTimetable($path);
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
     }
 
-    protected function checkNotEmptyResult(\DOMXPath $path)
+    protected function checkContent(\DOMXPath $path)
     {
         if ($path->query('//table')->length <= 0) {
             $unavailable = $path->query('//div[@class="lista_cuadradorosa posicion_cuadrado"]');
