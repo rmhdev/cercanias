@@ -9,9 +9,9 @@ use Cercanias\Provider\ProviderInterface;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
-
-    const URL_ROUTE = "http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
-    const URL_TIMETABLE = "http://horarios.renfe.com/cer/hjcer310.jsp?nucleo=%s&i=s&cp=NO&o=%s&d=%s&df=%s&ho=00&hd=26&TXTInfo=";
+    const HOST = "http://horarios.renfe.com";
+    const URL_ROUTE = "/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
+    const URL_TIMETABLE = "/cer/hjcer310.jsp?nucleo=%s&i=s&cp=NO&o=%s&d=%s&df=%s&ho=00&hd=26&TXTInfo=";
 
     /**
      * {@inheritDoc}
@@ -41,7 +41,12 @@ class Provider extends AbstractProvider implements ProviderInterface
             $parameters["route_id"] = "";
         }
 
-        return sprintf(self::URL_ROUTE, $parameters["route_id"]);
+        return sprintf($this->getUrlRoute(), $parameters["route_id"]);
+    }
+
+    protected function getUrlRoute()
+    {
+        return self::HOST . self::URL_ROUTE;
     }
 
     /**
@@ -61,11 +66,16 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function buildTimetableUrl(TimetableQuery $query)
     {
         return sprintf(
-            self::URL_TIMETABLE,
+            $this->getUrlTimetable(),
             $query->getRouteId(),
             $query->getDepartureStationId(),
             $query->getDestinationStationId(),
             $query->getDate()->format("Ymd")
         );
+    }
+
+    protected function getUrlTimetable()
+    {
+        return self::HOST . self::URL_TIMETABLE;
     }
 }
