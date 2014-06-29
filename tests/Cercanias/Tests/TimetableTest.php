@@ -166,4 +166,28 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($timetable->hasTransfer());
     }
+
+    /**
+     * @dataProvider getTransferProvider
+     */
+    public function testGetTransferName($expectedName, $transfer)
+    {
+        $departure = new Station(1, "Irun", 61);
+        $destination = new Station(2, "Brincola", 61);
+        $timetable = new Timetable($departure, $destination, $transfer);
+        $this->assertEquals($expectedName, $timetable->getTransferName());
+    }
+
+    public function getTransferProvider()
+    {
+        $station = new Station("909", "My station", 61);
+
+        return array(
+            array("Transfer Station", "Transfer Station"),
+            array("", ""),
+            array("", null),
+            array("", false),
+            array("My station", $station),
+        );
+    }
 }

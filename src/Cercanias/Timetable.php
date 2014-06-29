@@ -9,17 +9,27 @@ class Timetable
     protected $departure;
     protected $destination;
     protected $trips;
+    protected $transferName;
     protected $hasTransfer;
 
-    public function __construct(Station $departure, Station $destination)
+    public function __construct(Station $departure, Station $destination, $transfer = null)
     {
         if ($departure->getRouteId() != $destination->getRouteId()) {
             throw new InvalidArgumentException("Stations must have the same RouteId");
         }
         $this->departure = $departure;
         $this->destination = $destination;
+        $this->setTransfer($transfer);
         $this->trips = array();
         $this->hasTransfer = false;
+    }
+
+    protected function setTransfer($transfer = null)
+    {
+        if ($transfer instanceof Station) {
+            $transfer = $transfer->getName();
+        }
+        $this->transferName = $transfer;
     }
 
     public function getDeparture()
@@ -30,6 +40,11 @@ class Timetable
     public function getDestination()
     {
         return $this->destination;
+    }
+
+    public function getTransferName()
+    {
+        return $this->transferName;
     }
 
     public function getTrips()
