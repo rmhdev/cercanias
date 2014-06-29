@@ -1,6 +1,8 @@
 # Cercanias
 
-Retrieve Renfe's *Cercanías* information easily.
+Retrieve Renfe's *Cercanías*[1] information easily.
+
+[1]: Spain's commuter trains service.
 
 **THIS PROJECT IS IN ALPHA STAGE**. Please use it carefully.
 
@@ -39,7 +41,7 @@ require 'vendor/autoload.php';
 2. Choose a `Provider`
 3. Make the call and retrieve the information.
 
-For example:
+For example, if you want information about a **route**:
 
 ``` php
 <?php
@@ -51,6 +53,29 @@ use Cercanias\Provider\Web\Provider;
 $httpAdapter  = new CurlHttpAdapter();                              // 1. HttpAdapter
 $provider     = new Provider($httpAdapter);                         // 2. Provider
 $route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
+```
+
+If you want information about a **timetable**:
+
+``` php
+<?php
+require 'vendor/autoload.php';
+
+use Cercanias\HttpAdapter\CurlHttpAdapter;
+use Cercanias\Provider\Web\Provider;
+use Cercanias\Provider\TimetableQuery;
+use Cercanias\Trip;
+
+$query = new TimetableQuery();
+$query
+    ->setRoute(Provider::ROUTE_SAN_SEBASTIAN)
+    ->setDeparture(11305)   // from brincola
+    ->setDestination(11600) // to Irun
+    ->setDate(new DateTime("now"));
+
+$httpAdapter  = new CurlHttpAdapter();
+$provider     = new Provider($httpAdapter);
+$timetable    = $provider->getTimetable($query);
 ```
 
 View more [examples](examples).
@@ -86,6 +111,7 @@ Indicates where is the information taken. Available providers:
 * `0.0.1` (June 21, 2014): initial release.
 * `0.0.2` (June 22, 2014): added `BuzzHttpAdapter`.
 * `0.0.3` (June 24, 2014): simplify timetable queries.
+* `0.0.4` (June 29, 2014): fix bugs, improve naming and parsing.
 
 ## Copyright and license
 
