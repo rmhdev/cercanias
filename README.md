@@ -41,7 +41,7 @@ require 'vendor/autoload.php';
 2. Choose a `Provider`
 3. Make the call and retrieve the information.
 
-For example, if you want information about a **route**:
+For example, if you want to retrieve all the stations in a route (San Sebastián):
 
 ``` php
 <?php
@@ -55,7 +55,7 @@ $provider     = new Provider($httpAdapter);                         // 2. Provid
 $route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
 ```
 
-If you want information about a **timetable**:
+If you want to know all the trips from *Brinkola* to *Irun* for *tomorrow*:
 
 ``` php
 <?php
@@ -70,7 +70,7 @@ $query
     ->setRoute(Provider::ROUTE_SAN_SEBASTIAN)
     ->setDeparture(11305)   // from Brinkola
     ->setDestination(11600) // to Irun
-    ->setDate(new \DateTime("now"));
+    ->setDate(new \DateTime("tomorrow"));
 
 $httpAdapter  = new CurlHttpAdapter();            // 1. HttpAdapter
 $provider     = new Provider($httpAdapter);       // 2. Provider
