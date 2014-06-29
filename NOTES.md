@@ -1,26 +1,10 @@
 # Notes
 
-## Entities:
+Basic information about data providers.
 
-* Route:
-    * Id.
-    * Name.
-    * list of stations.
-* Station: place of departure or arrival.
-    * Id.
-    * Name.
-    * Extra information?
-* Timetable:
-    * Station of departure.
-    * Station of arrival.
-    * List of departures.
-* Departure: information.
-    * Line.
-    * Time of departure.
-    * Duration.
-    * Extra information.
+## horarios.renfe.com
 
-## URLs
+### Timetables
 
 Base url:
 
@@ -31,7 +15,7 @@ Parameters:
 * `nucleo`
     * Type: integer.
     * Description: Route id.
-    * Example: 61 for San Sebastián.
+    * Example: 61 for *San Sebastián*.
 * `i`
     * Type: string.
     * Description: ?
@@ -67,7 +51,29 @@ Parameters:
     * Description: ?
     * Default: ""
 
-## Routes
+### Routes
+
+Base url:
+
+`http://horarios.renfe.com/cer/hjcer300.jsp`
+
+Parameters:
+
+* `NUCLEO`
+    * Type: string.
+    * Description: Station id.
+    * Example: `17000` for *Chamartin*.
+* `CP`
+    * Type: string.
+    * Description: ?
+    * Default: "NO"
+* `I`
+    * Type: string.
+    * Description: ?
+    * Default: "s"
+
+
+## Information about routes
 
 There is a fixed number of routes.
 
