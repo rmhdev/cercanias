@@ -2,7 +2,7 @@
 
 namespace Cercanias\Tests\Provider\Web;
 
-use Cercanias\Provider\TimetableQuery;
+use Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\Tests\Provider\AbstractProviderTest;
 

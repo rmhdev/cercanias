@@ -14,7 +14,7 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
     private $destinationName;
     private $firstDateTime;
 
-    public function __construct(TimetableQuery $query, $html)
+    public function __construct(TimetableQueryInterface $query, $html)
     {
         $this->query = $query;
         $this->date = null;

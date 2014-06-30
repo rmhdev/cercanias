@@ -5,9 +5,8 @@ namespace Cercanias\Provider;
 use Cercanias\Route;
 use Cercanias\Station;
 
-class TimetableQuery
+abstract class AbstractTimetableQuery implements TimetableQueryInterface
 {
-
     private $route;
     private $departureStation;
     private $destinationStation;
@@ -18,6 +17,9 @@ class TimetableQuery
         $this->setDate(new \DateTime("now"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setRoute($route)
     {
         if (!$route instanceof Route) {
@@ -28,11 +30,17 @@ class TimetableQuery
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRouteId()
     {
         return $this->route ? $this->route->getId() : null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setDeparture($station)
     {
         if (!$station instanceof Station) {
@@ -43,11 +51,17 @@ class TimetableQuery
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getDepartureStationId()
     {
         return $this->departureStation ? $this->departureStation->getId() : null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setDestination($station)
     {
         if (!$station instanceof Station) {
@@ -58,11 +72,17 @@ class TimetableQuery
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getDestinationStationId()
     {
         return $this->destinationStation ? $this->destinationStation->getId() : null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setDate(\DateTime $date)
     {
         $this->date = clone $date;
@@ -71,13 +91,16 @@ class TimetableQuery
     }
 
     /**
-     * @return \DateTime
+     * {@inheritDoc}
      */
     public function getDate()
     {
         return $this->date;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function isValid()
     {
         return (

@@ -3,9 +3,9 @@
 namespace Cercanias\Provider\Web;
 
 use Cercanias\Exception\InvalidArgumentException;
-use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\AbstractProvider;
 use Cercanias\Provider\ProviderInterface;
+use Cercanias\Provider\TimetableQueryInterface;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
@@ -52,7 +52,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function getTimetable(TimetableQuery $query)
+    public function getTimetable(TimetableQueryInterface $query)
     {
         if (!$query->isValid()) {
             throw new InvalidArgumentException("TimetableQuery is not valid");
@@ -63,7 +63,7 @@ class Provider extends AbstractProvider implements ProviderInterface
         return $parser->getTimetable();
     }
 
-    protected function buildTimetableUrl(TimetableQuery $query)
+    protected function buildTimetableUrl(TimetableQueryInterface $query)
     {
         return sprintf(
             $this->getUrlTimetable(),

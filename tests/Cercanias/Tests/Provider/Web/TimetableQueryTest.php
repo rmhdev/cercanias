@@ -1,8 +1,8 @@
 <?php
 
-namespace Cercanias\Tests\Provider;
+namespace Cercanias\Tests\Provider\Web;
 
-use Cercanias\Provider\TimetableQuery;
+use Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Route;
 use Cercanias\Station;
 

@@ -23,8 +23,8 @@ interface ProviderInterface
 
     /**
      * Retrieve a Timetable Object
-     * @param TimetableQuery $query
+     * @param TimetableQueryInterface $query
      * @return Timetable
      */
-    public function getTimetable(TimetableQuery $query);
+    public function getTimetable(TimetableQueryInterface $query);
 }

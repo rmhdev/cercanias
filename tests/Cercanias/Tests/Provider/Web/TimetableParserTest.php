@@ -3,7 +3,7 @@
 namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Tests\Provider\AbstractTimetableParserTest;
-use Cercanias\Provider\TimetableQuery;
+use Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Provider\Web\TimetableParser;
 use Cercanias\Train;
 use Cercanias\Trip;
