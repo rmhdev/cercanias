@@ -2,7 +2,7 @@
 
 require __DIR__ . '/..' . '/vendor/autoload.php';
 
-use \Cercanias\Provider\TimetableQuery;
+use \Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
 use Cercanias\Trip;

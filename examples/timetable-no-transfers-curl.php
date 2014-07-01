@@ -4,7 +4,7 @@ require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
 use Cercanias\Provider\Web\Provider;
-use Cercanias\Provider\TimetableQuery;
+use Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Trip;
 
 $query = new TimetableQuery();
