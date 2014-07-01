@@ -106,4 +106,39 @@ class TimetableQueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($query->isValid());
     }
+
+    /**
+     * @dataProvider getGenerateUrlProvider
+     */
+    public function testGenerateUrl($expectedUrl, $values)
+    {
+        $query = new TimetableQuery();
+        $query
+            ->setRoute($values["route"])
+            ->setDeparture($values["from"])
+            ->setDestination($values["to"])
+        ;
+        if ($values["date"]) {
+            $query->setDate($values["date"]);
+        }
+        $this->assertEquals($expectedUrl, $query->generateUrl());
+    }
+
+    public function getGenerateUrlProvider()
+    {
+        $url = "http://horarios.renfe.com/cer/hjcer310.jsp";
+        $url .= "?nucleo=%s&i=s&cp=NO&o=%s&d=%s&df=%s&ho=00&hd=26&TXTInfo=";
+        $today = new \DateTime("now");
+
+        return array(
+            array(
+                sprintf($url, "123", "808", "909", "20140701"),
+                array("route" => 123, "from" => "808", "to" => "909", "date" => new \DateTime("2014-07-01"))
+            ),
+            array(
+                sprintf($url, "123", "abc", "def", $today->format("Ymd")),
+                array("route" => 123, "from" => "abc", "to" => "def", "date" => null)
+            )
+        );
+    }
 }
