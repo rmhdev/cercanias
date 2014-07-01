@@ -25,7 +25,7 @@ interface TimetableQueryInterface
     public function setDeparture($station);
 
     /**
-     * @return int
+     * @return string
      */
     public function getDepartureStationId();
 
