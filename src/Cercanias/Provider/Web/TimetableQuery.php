@@ -8,8 +8,10 @@ class TimetableQuery extends AbstractTimetableQuery
 {
 
     const BASE_URL = "http://horarios.renfe.com/cer/hjcer310.jsp";
-    //const URL_TIMETABLE = "?nucleo=%s&i=s&cp=NO&o=%s&d=%s&df=%s&ho=00&hd=26&TXTInfo=";
 
+    /**
+     * {@inheritDoc}
+     */
     public function generateUrl()
     {
         $params = array();
