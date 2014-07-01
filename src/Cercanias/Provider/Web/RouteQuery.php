@@ -6,20 +6,12 @@ use Cercanias\Provider\AbstractRouteQuery;
 
 class RouteQuery extends AbstractRouteQuery
 {
-
-    const BASE_URL = "http://horarios.renfe.com/cer/hjcer300.jsp";
-
-    public function generateUrl()
+    protected function getBaseUrl()
     {
-        $params = array();
-        foreach ($this->prepareUrlParameters() as $name => $value) {
-            $params[] = sprintf("%s=%s", $name, $value);
-        }
-
-        return self::BASE_URL . "?" . implode("&", $params);
+        return "http://horarios.renfe.com/cer/hjcer300.jsp";
     }
 
-    private function prepareUrlParameters()
+    protected function getUrlParameters()
     {
         return array(
             "NUCLEO"    => $this->getRouteId(),

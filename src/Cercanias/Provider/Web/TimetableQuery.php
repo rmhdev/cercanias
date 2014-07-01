@@ -6,23 +6,12 @@ use Cercanias\Provider\AbstractTimetableQuery;
 
 class TimetableQuery extends AbstractTimetableQuery
 {
-
-    const BASE_URL = "http://horarios.renfe.com/cer/hjcer310.jsp";
-
-    /**
-     * {@inheritDoc}
-     */
-    public function generateUrl()
+    protected function getBaseUrl()
     {
-        $params = array();
-        foreach ($this->prepareUrlParameters() as $name => $value) {
-            $params[] = sprintf("%s=%s", $name, $value);
-        }
-
-        return self::BASE_URL . "?" . implode("&", $params);
+        return "http://horarios.renfe.com/cer/hjcer310.jsp";
     }
 
-    private function prepareUrlParameters()
+    protected function getUrlParameters()
     {
         return array(
             "nucleo"    => $this->getRouteId(),

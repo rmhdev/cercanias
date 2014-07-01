@@ -4,7 +4,7 @@ namespace Cercanias\Provider;
 
 use Cercanias\Route;
 
-interface RouteQueryInterface
+interface RouteQueryInterface extends QueryInterface
 {
     /**
      * @param Route|int $route
@@ -15,14 +15,4 @@ interface RouteQueryInterface
      * @return int
      */
     public function getRouteId();
-
-    /**
-     * @return bool
-     */
-    public function isValid();
-
-    /**
-     * @return string
-     */
-    public function generateUrl();
 }

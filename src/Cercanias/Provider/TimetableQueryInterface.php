@@ -5,7 +5,7 @@ namespace Cercanias\Provider;
 use Cercanias\Route;
 use Cercanias\Station;
 
-interface TimetableQueryInterface
+interface TimetableQueryInterface extends QueryInterface
 {
     /**
      * @param Route|int $route
@@ -50,14 +50,4 @@ interface TimetableQueryInterface
      * @return \DateTime
      */
     public function getDate();
-
-    /**
-     * @return bool
-     */
-    public function isValid();
-
-    /**
-     * @return string
-     */
-    public function generateUrl();
 }
