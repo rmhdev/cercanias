@@ -18,7 +18,7 @@ class ProviderTest extends AbstractProviderTest
 
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid Id
+     * @expectedExceptionMessage Invalid routeId
      */
     public function testGetRouteForNullId()
     {
@@ -28,7 +28,7 @@ class ProviderTest extends AbstractProviderTest
 
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid Id
+     * @expectedExceptionMessage Invalid routeId
      */
     public function testGetRouteForNotNumberId()
     {

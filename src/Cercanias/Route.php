@@ -23,7 +23,7 @@ class Route
     protected function setId($id)
     {
         if ($this->isInvalidId($id)) {
-            throw new InvalidArgumentException("Invalid Id");
+            throw new InvalidArgumentException("Invalid routeId");
         }
         $this->id = $id;
     }
