@@ -22,16 +22,26 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     public function getRoute($routeId)
     {
-        $query = $routeId;
-        if (!$query instanceof RouteQuery) {
-            $query = new RouteQuery();
-            $query->setRoute($routeId);
+        $query = $this->prepareRouteQuery($routeId);
+        if (!$query->isValid()) {
+            throw new InvalidArgumentException("RouteQuery is not valid");
         }
         $routeParser = new RouteParser(
             $this->getHttpAdapter()->getContent($query->generateUrl())
         );
 
         return $routeParser->getRoute();
+    }
+
+    private function prepareRouteQuery($routeId)
+    {
+        $query = $routeId;
+        if (!$query instanceof RouteQuery) {
+            $query = new RouteQuery();
+            $query->setRoute($routeId);
+        }
+
+        return $query;
     }
 
     /**

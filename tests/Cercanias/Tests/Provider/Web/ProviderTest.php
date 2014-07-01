@@ -36,6 +36,17 @@ class ProviderTest extends AbstractProviderTest
         $provider->getRoute("hi");
     }
 
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @expectedExceptionMessage RouteQuery is not valid
+     */
+    public function testGetRouteForNotValidQuery()
+    {
+        $provider = new Provider($this->getMockAdapter($this->never()));
+        $query = new RouteQuery();
+        $provider->getRoute($query);
+    }
+
 
     public function testGetRouteForQuery()
     {
