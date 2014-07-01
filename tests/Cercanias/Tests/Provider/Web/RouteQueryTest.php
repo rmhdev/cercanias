@@ -26,4 +26,13 @@ class RouteQueryTest extends \PHPUnit_Framework_TestCase
             array(456, $route),
         );
     }
+
+    public function testIsValid()
+    {
+        $query = new RouteQuery();
+        $this->assertFalse($query->isValid());
+
+        $query->setRoute(123);
+        $this->assertTrue($query->isValid());
+    }
 }

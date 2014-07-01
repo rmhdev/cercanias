@@ -33,4 +33,9 @@ class RouteQuery
     {
         return $this->route;
     }
+
+    public function isValid()
+    {
+        return ($this->getRoute() instanceof Route);
+    }
 }
