@@ -6,6 +6,9 @@ use Cercanias\Route;
 
 class RouteQuery
 {
+
+    const BASE_URL = "http://horarios.renfe.com/cer/hjcer300.jsp";
+
     private $route;
 
     public function __construct()
@@ -37,5 +40,24 @@ class RouteQuery
     public function isValid()
     {
         return ($this->getRoute() instanceof Route);
+    }
+
+    public function generateUrl()
+    {
+        $params = array();
+        foreach ($this->prepareUrlParameters() as $name => $value) {
+            $params[] = sprintf("%s=%s", $name, $value);
+        }
+
+        return self::BASE_URL . "?" . implode("&", $params);
+    }
+
+    private function prepareUrlParameters()
+    {
+        return array(
+            "NUCLEO"    => $this->getRouteId(),
+            "CP"        => "NO",
+            "I"         => "s"
+        );
     }
 }

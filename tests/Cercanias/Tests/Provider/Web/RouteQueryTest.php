@@ -35,4 +35,27 @@ class RouteQueryTest extends \PHPUnit_Framework_TestCase
         $query->setRoute(123);
         $this->assertTrue($query->isValid());
     }
+
+    /**
+     * @dataProvider getGenerateUrlProvider
+     */
+    public function testGenerateUrl($expectedUrl, $route)
+    {
+        $query = new RouteQuery();
+        $query->setRoute($route);
+
+        $this->assertEquals($expectedUrl, $query->generateUrl());
+    }
+
+    public function getGenerateUrlProvider()
+    {
+        $url = "http://horarios.renfe.com";
+        $url .= "/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
+        $route = new Route(60, "Default route");
+
+        return array(
+            array(sprintf($url, 123), 123),
+            array(sprintf($url, 60), $route)
+        );
+    }
 }
