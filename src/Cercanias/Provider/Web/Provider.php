@@ -9,9 +9,6 @@ use Cercanias\Provider\TimetableQueryInterface;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
-    const HOST = "http://horarios.renfe.com";
-    const URL_ROUTE = "/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
-
     /**
      * {@inheritDoc}
      */
@@ -23,29 +20,18 @@ class Provider extends AbstractProvider implements ProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function getRoute($id)
+    public function getRoute($routeId)
     {
-        $url = $this->buildRouteUrl(array("route_id" => $id));
-        if (is_null($id) || !is_int($id)) {
-            throw new InvalidArgumentException(sprintf("Could not execute query %s", $url));
+        $query = $routeId;
+        if (!$query instanceof RouteQuery) {
+            $query = new RouteQuery();
+            $query->setRoute($routeId);
         }
-        $routeParser = new RouteParser($this->getHttpAdapter()->getContent($url));
+        $routeParser = new RouteParser(
+            $this->getHttpAdapter()->getContent($query->generateUrl())
+        );
 
         return $routeParser->getRoute();
-    }
-
-    protected function buildRouteUrl($parameters = array())
-    {
-        if (!isset($parameters["route_id"])) {
-            $parameters["route_id"] = "";
-        }
-
-        return sprintf($this->getUrlRoute(), $parameters["route_id"]);
-    }
-
-    protected function getUrlRoute()
-    {
-        return self::HOST . self::URL_ROUTE;
     }
 
     /**

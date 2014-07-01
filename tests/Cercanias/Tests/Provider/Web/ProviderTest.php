@@ -2,6 +2,7 @@
 
 namespace Cercanias\Tests\Provider\Web;
 
+use Cercanias\Provider\Web\RouteQuery;
 use Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\Tests\Provider\AbstractProviderTest;
@@ -17,7 +18,7 @@ class ProviderTest extends AbstractProviderTest
 
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Could not execute query http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=&CP=NO&I=s
+     * @expectedExceptionMessage Invalid Id
      */
     public function testGetRouteForNullId()
     {
@@ -27,12 +28,24 @@ class ProviderTest extends AbstractProviderTest
 
     /**
      * @expectedException \Cercanias\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Could not execute query http://horarios.renfe.com/cer/hjcer300.jsp?NUCLEO=hi&CP=NO&I=s
+     * @expectedExceptionMessage Invalid Id
      */
     public function testGetRouteForNotNumberId()
     {
         $provider = new Provider($this->getMockAdapter($this->never()));
         $provider->getRoute("hi");
+    }
+
+
+    public function testGetRouteForQuery()
+    {
+        $mockAdapter = $this->getMockAdapterReturnsFixtureContent("route-sansebastian.html");
+        $provider = new Provider($mockAdapter);
+        $query = new RouteQuery();
+        $query->setRoute(Provider::ROUTE_SAN_SEBASTIAN);
+        $route = $provider->getRoute($query);
+
+        $this->assertEquals(Provider::ROUTE_SAN_SEBASTIAN, $route->getId());
     }
 
     public function testGetRouteSanSebastian()

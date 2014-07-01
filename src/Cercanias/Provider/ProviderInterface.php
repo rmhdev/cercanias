@@ -16,7 +16,7 @@ interface ProviderInterface
 
     /**
      * Retrieve a Route object
-     * @param $routeId
+     * @param RouteQueryInterface|int $routeId
      * @return Route
      */
     public function getRoute($routeId);
