@@ -12,7 +12,7 @@ class RouteParserTest extends AbstractRouteParserTest
     {
         $routeParser = $this->getRouteParser("route-sansebastian.html");
 
-        $this->assertInstanceOf('Cercanias\Route', $routeParser->getRoute());
+        $this->assertInstanceOf('Cercanias\Entity\Route', $routeParser->getRoute());
     }
 
     protected function getRouteParser($filename)

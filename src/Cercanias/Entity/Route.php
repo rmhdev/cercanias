@@ -1,6 +1,6 @@
 <?php
 
-namespace Cercanias;
+namespace Cercanias\Entity;
 
 use Cercanias\Exception\DuplicateKeyException;
 use Cercanias\Exception\InvalidArgumentException;
@@ -88,7 +88,7 @@ class Route
     /**
      * @param $stationId
      * @return Station
-     * @throws Exception\NotFoundException
+     * @throws NotFoundException
      */
     public function getStation($stationId)
     {

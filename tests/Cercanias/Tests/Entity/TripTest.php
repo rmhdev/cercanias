@@ -1,9 +1,9 @@
 <?php
 
-namespace Cercanias\Tests\Trip;
+namespace Cercanias\Tests\Entity;
 
-use Cercanias\Train;
-use Cercanias\Trip;
+use Cercanias\Entity\Train;
+use Cercanias\Entity\Trip;
 
 class TripTest extends \PHPUnit_Framework_TestCase
 {

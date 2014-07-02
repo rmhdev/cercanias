@@ -2,8 +2,8 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Route;
-use Cercanias\Station;
+use Cercanias\Entity\Route;
+use Cercanias\Entity\Station;
 
 abstract class AbstractTimetableQuery extends AbstractQuery implements TimetableQueryInterface
 {

@@ -3,8 +3,8 @@
 namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Provider\Web\TimetableQuery;
-use Cercanias\Route;
-use Cercanias\Station;
+use Cercanias\Entity\Route;
+use Cercanias\Entity\Station;
 
 class TimetableQueryTest extends \PHPUnit_Framework_TestCase
 {

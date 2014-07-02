@@ -1,6 +1,6 @@
 <?php
 
-namespace Cercanias;
+namespace Cercanias\Entity;
 
 use Cercanias\Exception\InvalidArgumentException;
 

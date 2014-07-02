@@ -5,10 +5,10 @@ namespace Cercanias\Provider\Web;
 use Cercanias\Exception\NotFoundException;
 use Cercanias\Exception\ServiceUnavailableException;
 use Cercanias\Provider\AbstractTimetableParser;
-use Cercanias\Station;
-use Cercanias\Timetable;
-use Cercanias\Train;
-use Cercanias\Trip;
+use Cercanias\Entity\Station;
+use Cercanias\Entity\Timetable;
+use Cercanias\Entity\Train;
+use Cercanias\Entity\Trip;
 
 class TimetableParser extends AbstractTimetableParser
 {

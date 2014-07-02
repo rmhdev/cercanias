@@ -3,7 +3,7 @@
 namespace Cercanias\Provider\Web;
 
 use Cercanias\Exception\NotFoundException;
-use Cercanias\Route;
+use Cercanias\Entity\Route;
 use Cercanias\Provider\AbstractRouteParser;
 use Cercanias\Provider\RouteParserInterface;
 

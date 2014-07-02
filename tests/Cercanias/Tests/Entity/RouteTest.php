@@ -1,9 +1,9 @@
 <?php
 
-namespace Cercanias\Tests\Route;
+namespace Cercanias\Tests\Entity;
 
-use Cercanias\Route;
-use Cercanias\Station;
+use Cercanias\Entity\Route;
+use Cercanias\Entity\Station;
 
 class RouteTest extends \PHPUnit_Framework_TestCase
 {

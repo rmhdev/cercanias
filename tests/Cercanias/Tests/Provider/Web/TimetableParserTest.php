@@ -5,8 +5,8 @@ namespace Cercanias\Tests\Provider\Web;
 use Cercanias\Tests\Provider\AbstractTimetableParserTest;
 use Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Provider\Web\TimetableParser;
-use Cercanias\Train;
-use Cercanias\Trip;
+use Cercanias\Entity\Train;
+use Cercanias\Entity\Trip;
 
 class TimetableParserTest extends AbstractTimetableParserTest
 {
@@ -15,7 +15,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
     {
         $parser = $this->createTimetableParserSanSebastian();
 
-        $this->assertInstanceOf('\Cercanias\Timetable', $parser->getTimetable());
+        $this->assertInstanceOf('Cercanias\Entity\Timetable', $parser->getTimetable());
     }
 
     public function testGetDate()

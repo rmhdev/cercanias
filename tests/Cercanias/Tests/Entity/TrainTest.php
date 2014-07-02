@@ -1,8 +1,8 @@
 <?php
 
-namespace Cercanias\Tests\Train;
+namespace Cercanias\Tests\Entity;
 
-use Cercanias\Train;
+use Cercanias\Entity\Train;
 
 class TrainTest extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Timetable;
+use Cercanias\Entity\Timetable;
 
 abstract class AbstractTimetableParser implements TimetableParserInterface
 {

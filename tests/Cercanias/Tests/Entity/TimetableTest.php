@@ -1,11 +1,11 @@
 <?php
 
-namespace Cercanias\Tests\Timetable;
+namespace Cercanias\Tests\Entity;
 
-use Cercanias\Station;
-use Cercanias\Timetable;
-use Cercanias\Train;
-use Cercanias\Trip;
+use Cercanias\Entity\Station;
+use Cercanias\Entity\Timetable;
+use Cercanias\Entity\Train;
+use Cercanias\Entity\Trip;
 
 class TimetableTest extends \PHPUnit_Framework_TestCase
 {

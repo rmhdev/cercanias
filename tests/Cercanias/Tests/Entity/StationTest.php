@@ -1,8 +1,8 @@
 <?php
 
-namespace Cercanias\Tests\Station;
+namespace Cercanias\Tests\Entity;
 
-use Cercanias\Station;
+use Cercanias\Entity\Station;
 
 class StationTest extends \PHPUnit_Framework_TestCase
 {
