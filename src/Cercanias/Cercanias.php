@@ -2,8 +2,9 @@
 
 namespace Cercanias;
 
-use Cercanias\Exception\InvalidArgumentException;
+use Cercanias\Entity\Route;
 use Cercanias\Provider\ProviderInterface;
+use Cercanias\Provider\Web\RouteQuery;
 
 class Cercanias
 {
@@ -17,6 +18,12 @@ class Cercanias
 
     public function getRoute($routeId)
     {
-        throw new InvalidArgumentException("Invalid routeId");
+        $route = $routeId;
+        if (!$routeId instanceof RouteQuery) {
+            $route = new RouteQuery();
+        }
+        $route->setRoute($routeId);
+
+        return new Route(123, "test");
     }
 }

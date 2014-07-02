@@ -5,18 +5,48 @@ namespace Cercanias\Tests\Cercanias;
 use Cercanias\Cercanias;
 use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\TimetableQueryInterface;
+use Cercanias\Provider\Web\RouteQuery;
 
 class CercaniasTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @dataProvider getInvalidRouteProvider
      * @expectedException \Cercanias\Exception\InvalidArgumentException
      * @expectedExceptionMessage Invalid routeId
      */
-    public function testGetRouteForNullId()
+    public function testGetRouteForNullId($route)
     {
         $provider = new MockProvider("default");
         $cercanias = new Cercanias($provider);
-        $cercanias->getRoute(null);
+        $cercanias->getRoute($route);
+    }
+
+    public function getInvalidRouteProvider()
+    {
+        return array(
+            array(null),
+            array(""),
+            array(new RouteQuery()),
+        );
+    }
+
+    /**
+     * @dataProvider getRouteReturnsValidInstanceProvider
+     */
+    public function testGetRouteReturnsValidInstance($route)
+    {
+        $provider = new MockProvider("default");
+        $cercanias = new Cercanias($provider);
+        $route = $cercanias->getRoute($route);
+
+        $this->assertInstanceOf('\Cercanias\Entity\Route', $route);
+    }
+
+    public function getRouteReturnsValidInstanceProvider()
+    {
+        return array(
+            array(12),
+        );
     }
 }
 
