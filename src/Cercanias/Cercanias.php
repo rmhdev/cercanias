@@ -3,11 +3,20 @@
 namespace Cercanias;
 
 use Cercanias\Exception\InvalidArgumentException;
+use Cercanias\Provider\ProviderInterface;
 
 class Cercanias
 {
-    public function __construct()
+
+    private $provider;
+
+    public function __construct(ProviderInterface $provider)
     {
-        throw new InvalidArgumentException();
+        $this->provider = $provider;
+    }
+
+    public function getRoute($routeId)
+    {
+        throw new InvalidArgumentException("Invalid routeId");
     }
 }
