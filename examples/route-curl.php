@@ -4,7 +4,7 @@ require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\CurlHttpAdapter;
-use Cercanias\Station;
+use Cercanias\Entity\Station;
 
 $httpAdapter  = new CurlHttpAdapter();
 $provider     = new Provider($httpAdapter);

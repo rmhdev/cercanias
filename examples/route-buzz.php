@@ -4,7 +4,7 @@ require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
-use Cercanias\Station;
+use Cercanias\Entity\Station;
 
 $httpAdapter  = new BuzzHttpAdapter();
 $provider     = new Provider($httpAdapter);

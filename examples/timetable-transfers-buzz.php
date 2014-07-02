@@ -5,8 +5,8 @@ require __DIR__ . '/..' . '/vendor/autoload.php';
 use \Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
-use Cercanias\Trip;
-use Cercanias\Train;
+use Cercanias\Entity\Trip;
+use Cercanias\Entity\Train;
 
 $query = new TimetableQuery();
 $query
