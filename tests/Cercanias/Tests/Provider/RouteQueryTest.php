@@ -3,7 +3,7 @@
 namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Entity\Route;
-use Cercanias\Provider\Web\RouteQuery;
+use Cercanias\Provider\RouteQuery;
 
 class RouteQueryTest extends \PHPUnit_Framework_TestCase
 {

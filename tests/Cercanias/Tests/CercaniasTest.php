@@ -5,7 +5,7 @@ namespace Cercanias\Tests\Cercanias;
 use Cercanias\Cercanias;
 use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\TimetableQueryInterface;
-use Cercanias\Provider\Web\RouteQuery;
+use Cercanias\Provider\RouteQuery;
 
 class CercaniasTest extends \PHPUnit_Framework_TestCase
 {

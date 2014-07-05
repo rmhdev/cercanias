@@ -7,6 +7,7 @@ use Cercanias\Provider\AbstractProvider;
 use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\RouteQueryInterface;
 use Cercanias\Provider\TimetableQueryInterface;
+use Cercanias\Provider\RouteQuery;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {

@@ -5,7 +5,7 @@ namespace Cercanias\Provider;
 use Cercanias\Entity\Route;
 use Cercanias\Entity\Station;
 
-abstract class AbstractTimetableQuery extends AbstractQuery implements TimetableQueryInterface
+final class TimetableQuery implements TimetableQueryInterface
 {
     private $route;
     private $departureStation;

@@ -3,8 +3,8 @@
 namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Entity\Route;
-use Cercanias\Provider\Web\RouteQuery;
-use Cercanias\Provider\Web\TimetableQuery;
+use Cercanias\Provider\RouteQuery;
+use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\Tests\Provider\AbstractProviderTest;
 

@@ -4,7 +4,7 @@ namespace Cercanias\Provider;
 
 use Cercanias\Entity\Route;
 
-abstract class AbstractRouteQuery extends AbstractQuery implements RouteQueryInterface
+final class RouteQuery implements RouteQueryInterface
 {
     private $route;
 

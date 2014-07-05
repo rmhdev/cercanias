@@ -4,7 +4,7 @@ namespace Cercanias;
 
 use Cercanias\Entity\Route;
 use Cercanias\Provider\ProviderInterface;
-use Cercanias\Provider\Web\RouteQuery;
+use Cercanias\Provider\RouteQuery;
 
 class Cercanias
 {

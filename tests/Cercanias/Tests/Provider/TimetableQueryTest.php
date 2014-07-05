@@ -2,7 +2,7 @@
 
 namespace Cercanias\Tests\Provider\Web;
 
-use Cercanias\Provider\Web\TimetableQuery;
+use Cercanias\Provider\TimetableQuery;
 use Cercanias\Entity\Route;
 use Cercanias\Entity\Station;
 
