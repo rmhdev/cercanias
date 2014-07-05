@@ -7,13 +7,10 @@ use Cercanias\Entity\Station;
 use Cercanias\Entity\Timetable;
 use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\RouteQuery;
-use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\TimetableQueryInterface;
-use Cercanias\Provider\Web\TimetableParser;
 
-class Cercanias
+final class Cercanias implements CercaniasInterface
 {
-
     private $provider;
 
     public function __construct(ProviderInterface $provider)
@@ -21,6 +18,9 @@ class Cercanias
         $this->provider = $provider;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRoute($routeId)
     {
         $routeParser = $this->getProvider()->getRouteParser(
@@ -50,6 +50,9 @@ class Cercanias
         return $this->provider;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getTimetable(TimetableQueryInterface $query)
     {
         $parser = $this->getProvider()->getTimetableParser($query);

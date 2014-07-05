@@ -10,6 +10,9 @@ use Cercanias\Provider\TimetableQueryInterface;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
+    const URL_ROUTE     = "http://horarios.renfe.com/cer/hjcer300.jsp";
+    const URL_TIMETABLE = "http://horarios.renfe.com/cer/hjcer310.jsp";
+
     /**
      * {@inheritDoc}
      */
@@ -18,57 +21,12 @@ class Provider extends AbstractProvider implements ProviderInterface
         return 'web_provider';
     }
 
-//    /**
-//     * {@inheritDoc}
-//     */
-//    public function getRoute($routeId)
-//    {
-//        $query = $this->prepareRouteQuery($routeId);
-//        if (!$query->isValid()) {
-//            throw new InvalidArgumentException("RouteQuery is not valid");
-//        }
-//        $routeParser = new RouteParser(
-//            $this->getHttpAdapter()->getContent($this->generateRouteUrl($query))
-//        );
-//
-//        return $routeParser->getRoute();
-//    }
-//
-//    private function prepareRouteQuery($routeId)
-//    {
-//        $query = $routeId;
-//        if (!$query instanceof RouteQuery) {
-//            $query = new RouteQuery();
-//            $query->setRoute($routeId);
-//        }
-//
-//        return $query;
-//    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTimetable(TimetableQueryInterface $query)
-    {
-        if (!$query->isValid()) {
-            throw new InvalidArgumentException("TimetableQuery is not valid");
-        }
-        $parser = new TimetableParser(
-            $query,
-            $this->getHttpAdapter()->getContent(
-                $this->generateTimetableUrl($query)
-            )
-        );
-
-        return $parser->getTimetable();
-    }
-
     /**
      * {@inheritDoc}
      */
     public function generateRouteUrl(RouteQueryInterface $query)
     {
-        return $this->generateUrl($this->getBaseRouteUrl(), $this->getRouteUrlParameters($query));
+        return $this->generateUrl(self::URL_ROUTE, $this->getRouteUrlParameters($query));
     }
 
     protected function generateUrl($baseUrl, $parameters = array())
@@ -79,11 +37,6 @@ class Provider extends AbstractProvider implements ProviderInterface
         }
 
         return $baseUrl . "?" . implode("&", $params);
-    }
-
-    protected function getBaseRouteUrl()
-    {
-        return "http://horarios.renfe.com/cer/hjcer300.jsp";
     }
 
     protected function getRouteUrlParameters(RouteQueryInterface $query)
@@ -100,12 +53,7 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     public function generateTimetableUrl(TimetableQueryInterface $query)
     {
-        return $this->generateUrl($this->getBaseTimetableUrl(), $this->getTimetableUrlParameters($query));
-    }
-
-    protected function getBaseTimetableUrl()
-    {
-        return "http://horarios.renfe.com/cer/hjcer310.jsp";
+        return $this->generateUrl(self::URL_TIMETABLE, $this->getTimetableUrlParameters($query));
     }
 
     protected function getTimetableUrlParameters(TimetableQueryInterface $query)
@@ -123,6 +71,9 @@ class Provider extends AbstractProvider implements ProviderInterface
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRouteParser(RouteQueryInterface $query)
     {
         if (!$query->isValid()) {
@@ -136,6 +87,9 @@ class Provider extends AbstractProvider implements ProviderInterface
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getTimetableParser(TimetableQueryInterface $query)
     {
         if (!$query->isValid()) {
