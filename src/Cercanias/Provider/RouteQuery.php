@@ -13,6 +13,9 @@ final class RouteQuery implements RouteQueryInterface
         $this->route = null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setRoute($route)
     {
         if (!$route instanceof Route) {
@@ -21,6 +24,9 @@ final class RouteQuery implements RouteQueryInterface
         $this->route = $route;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRouteId()
     {
         return $this->getRoute()->getId();
@@ -34,6 +40,9 @@ final class RouteQuery implements RouteQueryInterface
         return $this->route;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function isValid()
     {
         return ($this->getRoute() instanceof Route);

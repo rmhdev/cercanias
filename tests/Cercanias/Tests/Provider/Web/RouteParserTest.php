@@ -18,11 +18,16 @@ class RouteParserTest extends AbstractRouteParserTest
         $stations = $this->getSanSebastianStations();
         $this->assertEquals(sizeof($stations), $routeParser->getStations()->count());
 
-//        foreach ($stations as $stationId => $stationName) {
-//            $this->assertTrue($route->hasStation($stationId));
-//            $station = $route->getStation($stationId);
-//            $this->assertEquals($stationName, $station->getName());
-//        }
+        $keys = array();
+        $names = array();
+        foreach ($routeParser->getStations() as $station) {
+            /* @var \Cercanias\Entity\Station $station */
+            $keys[] = $station->getId();
+            $names[] = $station->getName();
+        }
+
+        $this->assertEquals(array_keys($this->getSanSebastianStations()), $keys);
+        $this->assertEquals(array_values($this->getSanSebastianStations()), $names);
     }
 
     protected function getRouteParser($filename)

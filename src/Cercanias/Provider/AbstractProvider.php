@@ -19,7 +19,7 @@ abstract class AbstractProvider
     const ROUTE_VALENCIA = 40;
     const ROUTE_ZARAGOZA = 70;
 
-    protected $httpAdapter;
+    private $httpAdapter;
 
     /**
      * @param HttpAdapterInterface $httpAdapter

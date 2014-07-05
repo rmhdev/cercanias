@@ -10,6 +10,9 @@ abstract class AbstractRouteParser
     private $routeName;
     private $stations;
 
+    /**
+     * @param string $html
+     */
     public function __construct($html)
     {
         $this->stations = new \ArrayIterator();

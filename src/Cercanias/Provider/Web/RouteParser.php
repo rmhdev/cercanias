@@ -9,6 +9,9 @@ use Cercanias\Provider\RouteParserInterface;
 
 class RouteParser extends AbstractRouteParser implements RouteParserInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function __construct($html)
     {
         parent::__construct($html);

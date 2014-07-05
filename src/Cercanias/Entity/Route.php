@@ -8,7 +8,6 @@ use Cercanias\Exception\NotFoundException;
 
 class Route
 {
-
     protected $id;
     protected $name;
     protected $stations;
@@ -61,11 +60,6 @@ class Route
     {
         return sizeof($this->stations);
     }
-
-//    public function addNewStation($id, $name)
-//    {
-//        $this->addStation(new Station($id, $name, $this->getId()));
-//    }
 
     public function addStation(Station $station)
     {

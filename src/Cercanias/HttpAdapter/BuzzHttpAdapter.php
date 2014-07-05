@@ -4,9 +4,13 @@ namespace Cercanias\HttpAdapter;
 
 use Buzz\Browser;
 
+/**
+ * Based on https://github.com/geocoder-php/Geocoder
+ * Class BuzzHttpAdapter
+ * @package Cercanias\HttpAdapter
+ */
 class BuzzHttpAdapter implements HttpAdapterInterface
 {
-
     private $browser;
 
     public function __construct(Browser $browser = null)
@@ -14,6 +18,9 @@ class BuzzHttpAdapter implements HttpAdapterInterface
         $this->browser = (null === $browser) ? new Browser() : $browser;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getContent($url)
     {
         $content = null;
@@ -34,6 +41,9 @@ class BuzzHttpAdapter implements HttpAdapterInterface
         return $this->browser;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getName()
     {
         return 'buzz';

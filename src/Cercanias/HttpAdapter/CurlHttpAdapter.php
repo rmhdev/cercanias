@@ -11,7 +11,6 @@ use Cercanias\Exception\ExtensionNotLoadedException;
  */
 class CurlHttpAdapter implements HttpAdapterInterface
 {
-
     private $curlOptions;
 
     public function __construct($curlOptions = array())

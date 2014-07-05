@@ -40,7 +40,7 @@ abstract class AbstractCercaniasTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class MockProviderddd implements ProviderInterface
+class MockProvider implements ProviderInterface
 {
     public function __construct($name)
     {
@@ -73,7 +73,7 @@ class MockProviderddd implements ProviderInterface
     }
 }
 
-class MockRouteParserddd implements RouteParserInterface
+class MockRouteParser implements RouteParserInterface
 {
     /**
      * Parse html and create a Route object
@@ -81,7 +81,7 @@ class MockRouteParserddd implements RouteParserInterface
      */
     public function getRoute()
     {
-        // TODO: Implement getRoute() method.
+
     }
 
     /**
@@ -109,7 +109,7 @@ class MockRouteParserddd implements RouteParserInterface
     }
 }
 
-class MockTimetableParserddd implements TimetableParserInterface
+class MockTimetableParser implements TimetableParserInterface
 {
     public function getDate()
     {

@@ -4,13 +4,13 @@ namespace Cercanias\Provider\Web;
 
 use Cercanias\Exception\NotFoundException;
 use Cercanias\Exception\ServiceUnavailableException;
+use Cercanias\Provider\TimetableParserInterface;
 use Cercanias\Provider\AbstractTimetableParser;
 use Cercanias\Entity\Train;
 use Cercanias\Entity\Trip;
 
-class TimetableParser extends AbstractTimetableParser
+class TimetableParser extends AbstractTimetableParser implements TimetableParserInterface
 {
-
     protected function processHTML($html)
     {
         $previousState = libxml_use_internal_errors(true);
