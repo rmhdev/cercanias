@@ -99,9 +99,9 @@ class ProviderTest extends AbstractProviderTest
     }
 
     /**
-     * @dataProvider getGenerateUrlProvider
+     * @dataProvider getGenerateRouteUrlProvider
      */
-    public function testGenerateUrl($expectedUrl, $route)
+    public function testGenerateRouteUrl($expectedUrl, $route)
     {
         $query = new RouteQuery();
         $query->setRoute($route);
@@ -110,7 +110,7 @@ class ProviderTest extends AbstractProviderTest
         $this->assertEquals($expectedUrl, $provider->generateRouteUrl($query));
     }
 
-    public function getGenerateUrlProvider()
+    public function getGenerateRouteUrlProvider()
     {
         $url = "http://horarios.renfe.com";
         $url .= "/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
@@ -119,6 +119,43 @@ class ProviderTest extends AbstractProviderTest
         return array(
             array(sprintf($url, 123), 123),
             array(sprintf($url, 60), $route)
+        );
+    }
+
+    /**
+     * @dataProvider getGenerateTimetableUrlProvider
+     */
+    public function testGenerateTimetableUrl($expectedUrl, $values)
+    {
+        $query = new TimetableQuery();
+        $query
+            ->setRoute($values["route"])
+            ->setDeparture($values["from"])
+            ->setDestination($values["to"])
+        ;
+        if ($values["date"]) {
+            $query->setDate($values["date"]);
+        }
+        $provider = new Provider($this->getMockAdapter($this->never()));
+
+        $this->assertEquals($expectedUrl, $provider->generateTimetableUrl($query));
+    }
+
+    public function getGenerateTimetableUrlProvider()
+    {
+        $url = "http://horarios.renfe.com/cer/hjcer310.jsp";
+        $url .= "?nucleo=%s&i=s&cp=NO&o=%s&d=%s&df=%s&ho=00&hd=26&TXTInfo=";
+        $today = new \DateTime("now");
+
+        return array(
+            array(
+                sprintf($url, "123", "808", "909", "20140701"),
+                array("route" => 123, "from" => "808", "to" => "909", "date" => new \DateTime("2014-07-01"))
+            ),
+            array(
+                sprintf($url, "123", "abc", "def", $today->format("Ymd")),
+                array("route" => 123, "from" => "abc", "to" => "def", "date" => null)
+            )
         );
     }
 }

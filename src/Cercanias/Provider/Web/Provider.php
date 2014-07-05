@@ -28,7 +28,7 @@ class Provider extends AbstractProvider implements ProviderInterface
             throw new InvalidArgumentException("RouteQuery is not valid");
         }
         $routeParser = new RouteParser(
-            $this->getHttpAdapter()->getContent($query->generateUrl())
+            $this->getHttpAdapter()->getContent($this->generateRouteUrl($query))
         );
 
         return $routeParser->getRoute();
@@ -56,7 +56,7 @@ class Provider extends AbstractProvider implements ProviderInterface
         $parser = new TimetableParser(
             $query,
             $this->getHttpAdapter()->getContent(
-                $query->generateUrl()
+                $this->generateTimetableUrl($query)
             )
         );
 
@@ -65,7 +65,7 @@ class Provider extends AbstractProvider implements ProviderInterface
 
     public function generateRouteUrl(RouteQueryInterface $query)
     {
-        return $this->generateUrl($this->getBaseUrl(), $this->getUrlParameters($query));
+        return $this->generateUrl($this->getBaseRouteUrl(), $this->getRouteUrlParameters($query));
     }
 
     protected function generateUrl($baseUrl, $parameters = array())
@@ -78,17 +78,42 @@ class Provider extends AbstractProvider implements ProviderInterface
         return $baseUrl . "?" . implode("&", $params);
     }
 
-    protected function getBaseUrl()
+    protected function getBaseRouteUrl()
     {
         return "http://horarios.renfe.com/cer/hjcer300.jsp";
     }
 
-    protected function getUrlParameters(RouteQueryInterface $query)
+    protected function getRouteUrlParameters(RouteQueryInterface $query)
     {
         return array(
             "NUCLEO"    => $query->getRouteId(),
             "CP"        => "NO",
             "I"         => "s"
+        );
+    }
+
+    public function generateTimetableUrl(TimetableQueryInterface $query)
+    {
+        return $this->generateUrl($this->getBaseTimetableUrl(), $this->getTimetableUrlParameters($query));
+    }
+
+    protected function getBaseTimetableUrl()
+    {
+        return "http://horarios.renfe.com/cer/hjcer310.jsp";
+    }
+
+    protected function getTimetableUrlParameters(TimetableQueryInterface $query)
+    {
+        return array(
+            "nucleo"    => $query->getRouteId(),
+            "i"         => "s",
+            "cp"        => "NO",
+            "o"         => $query->getDepartureStationId(),
+            "d"         => $query->getDestinationStationId(),
+            "df"        => $query->getDate()->format("Ymd"),
+            "ho"        => "00",
+            "hd"        => "26",
+            "TXTInfo"   => ""
         );
     }
 }
