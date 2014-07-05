@@ -10,29 +10,12 @@ use Cercanias\Entity\Trip;
 
 class TimetableParserTest extends AbstractTimetableParserTest
 {
-
-    public function testGetTimetable()
-    {
-        $parser = $this->createTimetableParserSanSebastian();
-
-        $this->assertInstanceOf('Cercanias\Entity\Timetable', $parser->getTimetable());
-    }
-
     public function testGetDate()
     {
         $parser = $this->createTimetableParserSanSebastian();
         $expected = new \DateTime("2014-02-10 00:00:00");
 
         $this->assertEquals($expected, $parser->getDate());
-    }
-
-    public function testGetTimetableCheckBasicData()
-    {
-        $parser = $this->createTimetableParserSanSebastian();
-        $timetable = $parser->getTimetable();
-
-        $this->assertEquals("Brincola", $timetable->getDeparture()->getName());
-        $this->assertEquals("Irun", $timetable->getDestination()->getName());
     }
 
     protected function createTimetableParserSanSebastian()
@@ -49,16 +32,10 @@ class TimetableParserTest extends AbstractTimetableParserTest
         );
     }
 
-    public function testGetTimetableCheckTrips()
+    public function testGetTrips()
     {
         $parser = $this->createTimetableParserSanSebastian();
-        $timetable = $parser->getTimetable();
-        $this->assertEquals(20, $timetable->getTrips()->count());
-
-        $train = new Train("c1", new \DateTime("2014-02-10 05:53"), new \DateTime("2014-02-10 07:23"));
-        $expectedTrip = new Trip($train);
-        $trip = $timetable->nextTrip(new \DateTime("2014-02-10 05:50"));
-        $this->assertEquals($expectedTrip, $trip);
+        $this->assertEquals(20, $parser->getTrips()->count());
     }
 
     /**
@@ -95,30 +72,33 @@ class TimetableParserTest extends AbstractTimetableParserTest
     public function testGetTimetableWithSimpleTransfer()
     {
         $parser = $this->createTimetableParser("timetable-transfer-simple.html");
-        $timetable = $parser->getTimetable();
-        $this->assertEquals(34, $timetable->getTrips()->count());
+        $this->assertEquals(34, $parser->getTrips()->count());
 
+        $trips = $parser->getTrips();
+        $trips->seek(34 - 1);
+        $lastTrip = $trips->current();
         $train = new Train("c1", new \DateTime("2014-06-22 22:58"), new \DateTime("2014-06-22 23:10"));
         $transferTrain = new Train("c3", new \DateTime("2014-06-22 23:37"), new \DateTime("2014-06-23 00:35"));
         $expectedTrip = new Trip($train, $transferTrain);
-        $trip = $timetable->nextTrip(new \DateTime("2014-06-22 22:30"));
-        $this->assertEquals($expectedTrip, $trip);
+
+        $this->assertEquals($expectedTrip, $lastTrip, "Last trip arrives after midnight");
     }
 
     public function testGetTimetableWithMultipleTransfers()
     {
         $parser = $this->createTimetableParser("timetable-transfer-complete.html");
-        $timetable = $parser->getTimetable();
-        $this->assertEquals(33, $timetable->getTrips()->count());
+        $this->assertEquals(33, $parser->getTrips()->count());
 
+        $trips = $parser->getTrips();
+        $trips->seek(31 - 1);
+        $trip = $trips->current();
         $train = new Train("r1", new \DateTime("2014-06-15 21:03"), new \DateTime("2014-06-15 21:49"));
         $transferTrains = array(
             new Train("r2", new \DateTime("2014-06-15 21:56"), new \DateTime("2014-06-15 22:01")),
             new Train("r2", new \DateTime("2014-06-15 22:09"), new \DateTime("2014-06-15 22:14"))
         );
         $expectedTrip = new Trip($train, $transferTrains);
-        $trip = $timetable->nextTrip(new \DateTime("2014-06-15 21:00"));
-        $this->assertEquals($expectedTrip, $trip);
+        $this->assertEquals($expectedTrip, $trip, "Trips #30 has two transfers");
     }
 
     public function testStationNames()
@@ -144,8 +124,8 @@ class TimetableParserTest extends AbstractTimetableParserTest
     public function testTransferName($expectedName, $filename)
     {
         $parser = $this->createTimetableParser($filename);
-        $timetable = $parser->getTimetable();
-        $this->assertEquals($expectedName, $timetable->getTransferName());
+
+        $this->assertEquals($expectedName, $parser->getTransferName());
     }
 
     public function getTransferNameProvider()

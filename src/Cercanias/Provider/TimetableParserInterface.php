@@ -2,24 +2,12 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Entity\Timetable;
-
 interface TimetableParserInterface
 {
     /**
      * @return \DateTime
      */
     public function getDate();
-
-    /**
-     * @return Timetable
-     */
-    public function getTimetable();
-
-    /**
-     * @return string
-     */
-    public function getTransferName();
 
     /**
      * @return string
@@ -30,4 +18,14 @@ interface TimetableParserInterface
      * @return string
      */
     public function getDestinationName();
+
+    /**
+     * @return string
+     */
+    public function getTransferName();
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getTrips();
 }

@@ -5,8 +5,6 @@ namespace Cercanias\Provider\Web;
 use Cercanias\Exception\NotFoundException;
 use Cercanias\Exception\ServiceUnavailableException;
 use Cercanias\Provider\AbstractTimetableParser;
-use Cercanias\Entity\Station;
-use Cercanias\Entity\Timetable;
 use Cercanias\Entity\Train;
 use Cercanias\Entity\Trip;
 
@@ -20,8 +18,7 @@ class TimetableParser extends AbstractTimetableParser
         $domDocument->loadHTML($html);
         $path = new \DOMXPath($domDocument);
         $this->checkContent($path);
-        $this->updateDate($path);
-        $this->updateTimetable($path);
+        $this->parseValues($path);
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
     }
@@ -37,10 +34,24 @@ class TimetableParser extends AbstractTimetableParser
         }
     }
 
+    protected function parseValues(\DOMXPath $path)
+    {
+        $this->updateDate($path);
+        $hasTransfer = $this->isTimetableWithTransfer($path);
+        $this->updateStationNames($path, $hasTransfer);
+        if ($hasTransfer) {
+            $this->updateTimetableWithTransfers($path);
+        } else {
+            $this->updateTimetableSimple($path);
+        }
+    }
+
     protected function updateDate(\DOMXPath $path)
     {
-        $textDate = $this->retrieveDateString($path);
-        $date = \DateTime::createFromFormat("d-m-Y", $textDate);
+        $date = \DateTime::createFromFormat(
+            "d-m-Y",
+            $this->retrieveDateString($path)
+        );
         $this->setDate($date);
     }
 
@@ -60,18 +71,6 @@ class TimetableParser extends AbstractTimetableParser
         return trim($dateString);
     }
 
-    protected function updateTimetable(\DOMXPath $path)
-    {
-        $hasTransfer = $this->isTimetableWithTransfer($path);
-        $this->updateStationNames($path, $hasTransfer);
-        $this->setTimetable($this->createTimetable());
-        if ($hasTransfer) {
-            $this->updateTimetableWithTransfers($path);
-        } else {
-            $this->updateTimetableSimple($path);
-        }
-    }
-
     protected function updateStationNames(\DOMXPath $path, $hasTransfer = false)
     {
         $spans = $path->query('//span[@class="titulo_negro"]');
@@ -86,22 +85,6 @@ class TimetableParser extends AbstractTimetableParser
         if ($hasTransfer) {
             $this->updateTransferStationName($path);
         }
-    }
-
-    protected function createTimetable()
-    {
-        $departure = new Station(
-            $this->getQuery()->getDepartureStationId(),
-            $this->getDepartureName(),
-            $this->getQuery()->getRouteId()
-        );
-        $destination = new Station(
-            $this->getQuery()->getDestinationStationId(),
-            $this->getDestinationName(),
-            $this->getQuery()->getRouteId()
-        );
-
-        return new Timetable($departure, $destination, $this->getTransferName());
     }
 
     protected function isTimetableWithTransfer(\DOMXPath $path)
@@ -123,7 +106,7 @@ class TimetableParser extends AbstractTimetableParser
         for ($i = 2; $i < $allRows->length; $i += 1) {
             $tds = $path->query(".//td", $allRows->item($i));
             $train = $this->parseDepartureTrain($tds);
-            $this->getTimetable()->addTrip(new Trip($train));
+            $this->addTrip(new Trip($train));
         }
     }
 
@@ -146,7 +129,7 @@ class TimetableParser extends AbstractTimetableParser
             $tds = $path->query(".//td", $allRows->item($i));
             if ($this->hasLine($tds)) {
                 if ($transferTrains && $train) {
-                    $this->getTimetable()->addTrip(new Trip($train, $transferTrains));
+                    $this->addTrip(new Trip($train, $transferTrains));
                 }
                 $train = $this->parseDepartureTrain($tds);
                 $transferTrains = array();
@@ -154,7 +137,7 @@ class TimetableParser extends AbstractTimetableParser
             $transferTrains[] = $this->parseTransferTrain($tds);
         }
         if ($transferTrains && $train) {
-            $this->getTimetable()->addTrip(new Trip($train, $transferTrains));
+            $this->addTrip(new Trip($train, $transferTrains));
         }
     }
 

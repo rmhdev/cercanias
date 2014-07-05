@@ -3,12 +3,13 @@
 namespace Cercanias\Provider;
 
 use Cercanias\Entity\Timetable;
+use Cercanias\Entity\Trip;
 
 abstract class AbstractTimetableParser implements TimetableParserInterface
 {
     private $query;
-    private $timetable;
     private $date;
+    private $trips;
     private $transferName;
     private $departureName;
     private $destinationName;
@@ -18,6 +19,7 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
     {
         $this->query = $query;
         $this->date = null;
+        $this->trips = new \ArrayIterator();
         $this->transferName = "";
         $this->departureName = "";
         $this->destinationName = "";
@@ -36,19 +38,6 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
     {
         $dateTime->setTime(0, 0, 0);
         $this->date = $dateTime;
-    }
-
-    /**
-     * @return Timetable
-     */
-    public function getTimetable()
-    {
-        return $this->timetable;
-    }
-
-    protected function setTimetable(Timetable $timetable)
-    {
-        $this->timetable = $timetable;
     }
 
     public function getTransferName()
@@ -112,5 +101,15 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
     protected function getQuery()
     {
         return $this->query;
+    }
+
+    public function getTrips()
+    {
+        return $this->trips;
+    }
+
+    protected function addTrip(Trip $trip)
+    {
+        $this->getTrips()->append($trip);
     }
 }
