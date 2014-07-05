@@ -18,12 +18,26 @@ class Cercanias
 
     public function getRoute($routeId)
     {
-        $route = $routeId;
-        if (!$routeId instanceof RouteQuery) {
-            $route = new RouteQuery();
-        }
-        $route->setRoute($routeId);
+        $query = $this->prepareRouteQuery($routeId);
 
         return new Route(123, "test");
+    }
+
+    public function getRouteParser($routeId)
+    {
+        $query = $this->prepareRouteQuery($routeId);
+
+        return $this->provider->getRouteParser($query);
+    }
+
+    protected function prepareRouteQuery($routeId)
+    {
+        $query = $routeId;
+        if (!$query instanceof RouteQuery) {
+            $query = new RouteQuery();
+        }
+        $query->setRoute($routeId);
+
+        return $query;
     }
 }
