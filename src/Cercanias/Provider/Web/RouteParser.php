@@ -12,14 +12,22 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
 
     public function __construct($html)
     {
+        parent::__construct($html);
         $previousState = libxml_use_internal_errors(true);
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
+        $this->parseValues(new \DOMXPath($domDocument));
         $this->setRoute(
             $this->createRoute(new \DOMXPath($domDocument))
         );
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
+    }
+
+    protected function parseValues(\DOMXPath $path)
+    {
+        $this->setRouteId($this->parseRouteId($path));
+        $this->setRouteName($this->parseRouteName($path));
     }
 
     protected function createRoute(\DOMXPath $path)
