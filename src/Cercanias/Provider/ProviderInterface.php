@@ -2,7 +2,6 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Entity\Route;
 use Cercanias\Entity\Timetable;
 
 interface ProviderInterface
@@ -13,13 +12,6 @@ interface ProviderInterface
      * @return string
      */
     public function getName();
-
-    /**
-     * Retrieve a Route object
-     * @param RouteQueryInterface|int $routeId
-     * @return Route
-     */
-    public function getRoute($routeId);
 
     /**
      * Retrieve a Timetable Object

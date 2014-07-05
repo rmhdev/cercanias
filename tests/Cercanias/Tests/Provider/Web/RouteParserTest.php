@@ -7,20 +7,7 @@ use Cercanias\Tests\Provider\AbstractRouteParserTest;
 
 class RouteParserTest extends AbstractRouteParserTest
 {
-
-    public function testGetRoute()
-    {
-        $routeParser = $this->getRouteParser("route-sansebastian.html");
-
-        $this->assertInstanceOf('Cercanias\Entity\Route', $routeParser->getRoute());
-    }
-
-    protected function getRouteParser($filename)
-    {
-        return new RouteParser($this->getContentHtml($filename));
-    }
-
-    public function testGetRouteSanSebastian()
+    public function testParseSanSebastian()
     {
         $routeParser = $this->getRouteParser("route-sansebastian.html");
 
@@ -36,6 +23,11 @@ class RouteParserTest extends AbstractRouteParserTest
 //            $station = $route->getStation($stationId);
 //            $this->assertEquals($stationName, $station->getName());
 //        }
+    }
+
+    protected function getRouteParser($filename)
+    {
+        return new RouteParser($this->getContentHtml($filename));
     }
 
     protected function getSanSebastianStations()
@@ -74,7 +66,7 @@ class RouteParserTest extends AbstractRouteParserTest
         );
     }
 
-    public function testGetRouteMadrid()
+    public function testParseMadrid()
     {
         $routeParser = $this->getRouteParser("route-madrid.html");
 
@@ -87,7 +79,7 @@ class RouteParserTest extends AbstractRouteParserTest
      * @expectedException \Cercanias\Exception\NotFoundException
      * @expectedExceptionMessage No stations found in Route
      */
-    public function testGetRouteWithNoResults()
+    public function testParseNoResults()
     {
         $this->getRouteParser("route-no-results.html");
     }

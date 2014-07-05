@@ -19,32 +19,32 @@ class Provider extends AbstractProvider implements ProviderInterface
         return 'web_provider';
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getRoute($routeId)
-    {
-        $query = $this->prepareRouteQuery($routeId);
-        if (!$query->isValid()) {
-            throw new InvalidArgumentException("RouteQuery is not valid");
-        }
-        $routeParser = new RouteParser(
-            $this->getHttpAdapter()->getContent($this->generateRouteUrl($query))
-        );
-
-        return $routeParser->getRoute();
-    }
-
-    private function prepareRouteQuery($routeId)
-    {
-        $query = $routeId;
-        if (!$query instanceof RouteQuery) {
-            $query = new RouteQuery();
-            $query->setRoute($routeId);
-        }
-
-        return $query;
-    }
+//    /**
+//     * {@inheritDoc}
+//     */
+//    public function getRoute($routeId)
+//    {
+//        $query = $this->prepareRouteQuery($routeId);
+//        if (!$query->isValid()) {
+//            throw new InvalidArgumentException("RouteQuery is not valid");
+//        }
+//        $routeParser = new RouteParser(
+//            $this->getHttpAdapter()->getContent($this->generateRouteUrl($query))
+//        );
+//
+//        return $routeParser->getRoute();
+//    }
+//
+//    private function prepareRouteQuery($routeId)
+//    {
+//        $query = $routeId;
+//        if (!$query instanceof RouteQuery) {
+//            $query = new RouteQuery();
+//            $query->setRoute($routeId);
+//        }
+//
+//        return $query;
+//    }
 
     /**
      * {@inheritDoc}

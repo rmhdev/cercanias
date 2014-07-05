@@ -2,13 +2,15 @@
 
 require __DIR__ . '/..' . '/vendor/autoload.php';
 
+use Cercanias\Cercanias;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
 use Cercanias\Entity\Station;
 
 $httpAdapter  = new BuzzHttpAdapter();
 $provider     = new Provider($httpAdapter);
-$route        = $provider->getRoute(Provider::ROUTE_BARCELONA);
+$cercanias    = new Cercanias($provider);
+$route        = $cercanias->getRoute(Provider::ROUTE_BARCELONA);
 
 echo "Route 'Barcelona': \n";
 

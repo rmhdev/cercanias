@@ -2,12 +2,10 @@
 
 namespace Cercanias\Provider;
 
-use Cercanias\Entity\Route;
 use Cercanias\Entity\Station;
 
 abstract class AbstractRouteParser
 {
-    protected $route;
     private $routeId;
     private $routeName;
     private $stations;
@@ -16,20 +14,6 @@ abstract class AbstractRouteParser
     {
         $this->stations = new \ArrayIterator();
     }
-
-    protected function setRoute(Route $route)
-    {
-        $this->route = $route;
-    }
-
-    /**
-     * @return Route
-     */
-    public function getRoute()
-    {
-        return $this->route;
-    }
-
 
     protected function setRouteId($routeId)
     {

@@ -4,13 +4,11 @@ namespace Cercanias\Provider\Web;
 
 use Cercanias\Entity\Station;
 use Cercanias\Exception\NotFoundException;
-use Cercanias\Entity\Route;
 use Cercanias\Provider\AbstractRouteParser;
 use Cercanias\Provider\RouteParserInterface;
 
 class RouteParser extends AbstractRouteParser implements RouteParserInterface
 {
-
     public function __construct($html)
     {
         parent::__construct($html);
@@ -18,9 +16,6 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
         $this->parseValues(new \DOMXPath($domDocument));
-        $this->setRoute(
-            $this->createRoute(new \DOMXPath($domDocument))
-        );
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
     }
@@ -30,28 +25,14 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
         $this->setRouteId($this->parseRouteId($path));
         $this->setRouteName($this->parseRouteName($path));
         $stations = $this->parseStations($path);
+        if (!sizeof($stations)) {
+            throw new NotFoundException("No stations found in Route");
+        }
         foreach ($stations as $stationId => $stationName) {
             $this->addStation(
                 new Station($stationId, $stationName, $this->getRouteId())
             );
         }
-    }
-
-    protected function createRoute(\DOMXPath $path)
-    {
-        $stations = $this->parseStations($path);
-        if (!sizeof($stations)) {
-            throw new NotFoundException("No stations found in Route");
-        }
-        $route = new Route(
-            $this->parseRouteId($path),
-            $this->parseRouteName($path)
-        );
-        foreach ($stations as $stationId => $stationName) {
-            $route->addStation(new Station($stationId, $stationName, $route->getId()));
-        }
-
-        return $route;
     }
 
     protected function parseRouteId(\DOMXPath $path)
