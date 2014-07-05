@@ -78,10 +78,9 @@ class RouteParserTest extends AbstractRouteParserTest
     {
         $routeParser = $this->getRouteParser("route-madrid.html");
 
-        $route = $routeParser->getRoute();
-        $this->assertEquals(10, $route->getId());
-        $this->assertEquals("Madrid", $route->getName());
-        $this->assertEquals(92, $route->countStations());
+        $this->assertEquals(10, $routeParser->getRouteId());
+        $this->assertEquals("Madrid", $routeParser->getRouteName());
+        $this->assertEquals(92, $routeParser->getStations()->count());
     }
 
     /**

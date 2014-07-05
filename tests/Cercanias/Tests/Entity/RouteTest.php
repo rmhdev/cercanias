@@ -86,12 +86,12 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testAddNewStation()
+    public function testAddStation()
     {
         $route = $this->createRoute("My route");
         $this->assertEquals(0, $route->countStations());
 
-        $route->addNewStation(1, "Default");
+        $route->addStation(new Station(1, "Default", $route->getId()));
         $this->assertEquals(1, $route->countStations());
     }
 
@@ -106,8 +106,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     public function testAddRepeatedStation()
     {
         $route = $this->createRoute("My route");
-        $route->addNewStation(1, "Default 1");
-        $route->addNewStation(1, "Default 2");
+        $station = new Station(1, "Default 1", $route->getId());
+        $route->addStation($station);
+        $route->addStation($station);
     }
 
     public function testGetStationsInEmptyRoute()
@@ -120,15 +121,15 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     public function testGetStationsInNormalRoute()
     {
         $route = $this->createRoute("My Route");
-        $route->addNewStation(1, "Default 1");
-        $route->addNewStation(2, "Default 2");
+        $route->addStation(new Station(1, "Default 1", $route->getId()));
+        $route->addStation(new Station(2, "Default 2", $route->getId()));
         $this->assertEquals(2, $route->getStations()->count());
     }
 
     public function testHasStation()
     {
         $route = $this->createRoute("My Route");
-        $route->addNewStation(1, "Default 1");
+        $route->addStation(new Station(1, "Default 1", $route->getId()));
 
         $this->assertTrue($route->hasStation(1));
         $this->assertFalse($route->hasStation(2));
@@ -138,7 +139,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     {
         $route = $this->createRoute("My Route");
         $station1 = new Station(1, "Default 1", $route->getId());
-        $route->addNewStation(1, "Default 1");
+        $route->addStation($station1);
 
         $this->assertEquals($station1, $route->getStation(1));
     }
@@ -149,7 +150,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     public function testGetUnknownStation()
     {
         $route = $this->createRoute("My Route");
-        $route->addNewStation(1, "Default 1");
+        $route->addStation(new Station(1, "Default 1", $route->getId()));
         $route->getStation(2);
     }
 }

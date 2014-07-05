@@ -48,7 +48,7 @@ class RouteParser extends AbstractRouteParser implements RouteParserInterface
             $this->parseRouteName($path)
         );
         foreach ($stations as $stationId => $stationName) {
-            $route->addNewStation($stationId, $stationName);
+            $route->addStation(new Station($stationId, $stationName, $route->getId()));
         }
 
         return $route;
