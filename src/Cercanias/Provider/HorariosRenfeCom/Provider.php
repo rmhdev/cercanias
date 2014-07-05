@@ -1,6 +1,6 @@
 <?php
 
-namespace Cercanias\Provider\Web;
+namespace Cercanias\Provider\HorariosRenfeCom;
 
 use Cercanias\Exception\InvalidArgumentException;
 use Cercanias\Provider\AbstractProvider;
@@ -18,7 +18,7 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     public function getName()
     {
-        return 'web_provider';
+        return 'horarios_renfe_com_provider';
     }
 
     /**

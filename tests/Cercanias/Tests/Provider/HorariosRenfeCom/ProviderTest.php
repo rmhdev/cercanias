@@ -1,11 +1,11 @@
 <?php
 
-namespace Cercanias\Tests\Provider\Web;
+namespace Cercanias\Tests\Provider\HorariosRenfeCom;
 
 use Cercanias\Entity\Route;
 use Cercanias\Provider\RouteQuery;
 use Cercanias\Provider\TimetableQuery;
-use Cercanias\Provider\Web\Provider;
+use Cercanias\Provider\HorariosRenfeCom\Provider;
 use Cercanias\Tests\Provider\AbstractProviderTest;
 
 class ProviderTest extends AbstractProviderTest
@@ -14,7 +14,7 @@ class ProviderTest extends AbstractProviderTest
     public function testGetName()
     {
         $provider = new Provider($this->getMockAdapter($this->never()));
-        $this->assertEquals("web_provider", $provider->getName());
+        $this->assertEquals("horarios_renfe_com_provider", $provider->getName());
     }
 
     public function testGetTimetableParserSanSebastian()
@@ -124,7 +124,7 @@ class ProviderTest extends AbstractProviderTest
         $query->setRoute(Provider::ROUTE_SAN_SEBASTIAN);
         $routeParser = $provider->getRouteParser($query);
 
-        $this->assertInstanceOf('\Cercanias\Provider\Web\RouteParser', $routeParser);
+        $this->assertInstanceOf('\Cercanias\Provider\HorariosRenfeCom\RouteParser', $routeParser);
         $this->assertEquals(61, $routeParser->getRouteId());
         $this->assertEquals("San Sebastián", $routeParser->getRouteName());
         $this->assertEquals(30, $routeParser->getStations()->count());

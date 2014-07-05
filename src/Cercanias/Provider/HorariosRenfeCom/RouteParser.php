@@ -1,6 +1,6 @@
 <?php
 
-namespace Cercanias\Provider\Web;
+namespace Cercanias\Provider\HorariosRenfeCom;
 
 use Cercanias\Entity\Station;
 use Cercanias\Exception\NotFoundException;

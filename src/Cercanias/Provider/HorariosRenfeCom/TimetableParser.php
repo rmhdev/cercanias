@@ -1,6 +1,6 @@
 <?php
 
-namespace Cercanias\Provider\Web;
+namespace Cercanias\Provider\HorariosRenfeCom;
 
 use Cercanias\Exception\NotFoundException;
 use Cercanias\Exception\ServiceUnavailableException;

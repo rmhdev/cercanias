@@ -2,7 +2,7 @@
 
 namespace Cercanias\Tests\RouteParser\Web;
 
-use Cercanias\Provider\Web\RouteParser;
+use Cercanias\Provider\HorariosRenfeCom\RouteParser;
 use Cercanias\Tests\Provider\AbstractRouteParserTest;
 
 class RouteParserTest extends AbstractRouteParserTest
