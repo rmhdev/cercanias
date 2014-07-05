@@ -39,7 +39,7 @@ require 'vendor/autoload.php';
 
 1. Choose a `HttpAdapter`
 2. Choose a `Provider`
-3. Make the call and retrieve the information.
+3. Create a `Cercanias` object and call `getRoute` or `getTimetable`.
 
 For example, if you want to retrieve all the stations from a route (*San Sebastián*):
 
@@ -48,11 +48,13 @@ For example, if you want to retrieve all the stations from a route (*San Sebasti
 require 'vendor/autoload.php';
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
-use Cercanias\Provider\Web\Provider;
+use Cercanias\Provider\HorariosRenfeCom\Provider;
+use Cercanias\Cercanias;
 
-$httpAdapter  = new CurlHttpAdapter();                              // 1. HttpAdapter
-$provider     = new Provider($httpAdapter);                         // 2. Provider
-$route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN); // 3. Call
+$httpAdapter  = new CurlHttpAdapter();          // 1. HttpAdapter
+$provider     = new Provider($httpAdapter);     // 2. Provider
+$cercanias    = new Cercanias($provider);       // 3. Cercanias
+$route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN);
 ```
 
 If you want to know all the trips from *Brinkola* to *Irun* for *tomorrow*:
@@ -62,8 +64,9 @@ If you want to know all the trips from *Brinkola* to *Irun* for *tomorrow*:
 require 'vendor/autoload.php';
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
-use Cercanias\Provider\Web\Provider;
+use Cercanias\Provider\HorariosRenfeCom\Provider;
 use Cercanias\Provider\TimetableQuery;
+use Cercanias\Cercanias;
 
 $query = new TimetableQuery();
 $query
@@ -72,9 +75,10 @@ $query
     ->setDestination("11600") // to Irun
     ->setDate(new \DateTime("tomorrow"));
 
-$httpAdapter  = new CurlHttpAdapter();            // 1. HttpAdapter
-$provider     = new Provider($httpAdapter);       // 2. Provider
-$timetable    = $provider->getTimetable($query);  // 3. Call
+$httpAdapter  = new CurlHttpAdapter();              // 1. HttpAdapter
+$provider     = new Provider($httpAdapter);         // 2. Provider
+$cercanias    = new Cercanias($provider);           // 3. Cercanias
+$timetable    = $cercanias->getTimetable($query);
 ```
 
 View more [examples](examples).
@@ -92,7 +96,7 @@ Responsible for making the HTTP connection. Available adapters:
 
 Indicates where is the information taken. Available providers:
 
-- `Provider\Web\Provider`: Cercanias' [default web page]
+- `Provider\HorariosRenfeCom\Provider`: Cercanias' [default web page]
 
 ### Results
 
@@ -111,6 +115,8 @@ Indicates where is the information taken. Available providers:
 * `0.0.2` (June 22, 2014): added `BuzzHttpAdapter`.
 * `0.0.3` (June 24, 2014): simplify timetable queries.
 * `0.0.4` (June 29, 2014): fix bugs, improve naming and parsing.
+* `0.0.5` (July 01, 2014): improve queries generation.
+* `0.0.6` (July 06, 2014): add `Cercanias` class to simplify usage.
 
 ## Copyright and license
 
