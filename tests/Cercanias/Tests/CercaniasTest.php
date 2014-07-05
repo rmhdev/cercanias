@@ -3,12 +3,15 @@
 namespace Cercanias\Tests\Cercanias;
 
 use Cercanias\Cercanias;
+use Cercanias\Provider\RouteQuery;
+use Cercanias\Provider\TimetableQuery;
+
 use Cercanias\Entity\Route;
-use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\RouteParserInterface;
 use Cercanias\Provider\RouteQueryInterface;
+use Cercanias\Provider\TimetableParserInterface;
 use Cercanias\Provider\TimetableQueryInterface;
-use Cercanias\Provider\RouteQuery;
+use Cercanias\Provider\ProviderInterface;
 
 class CercaniasTest extends \PHPUnit_Framework_TestCase
 {
@@ -61,6 +64,20 @@ class CercaniasTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $route->getId());
     }
 
+    public function testGetTimetableReturnsValidInstance()
+    {
+        $query = new TimetableQuery();
+        $query
+            ->setRoute(1)
+            ->setDeparture("123")
+            ->setDestination("456");
+
+        $provider = $this->getMockProviderReturnsTimetableParser();
+        $cercanias = new Cercanias($provider);
+
+        $this->assertInstanceOf('\Cercanias\Entity\Timetable', $cercanias->getTimetable($query));
+    }
+
     /**
      * @return ProviderInterface
      */
@@ -70,6 +87,20 @@ class CercaniasTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())
             ->method('getRouteParser')
             ->willReturn(new MockRouteParser())
+        ;
+
+        return $mock;
+    }
+
+    /**
+     * @return ProviderInterface
+     */
+    protected function getMockProviderReturnsTimetableParser()
+    {
+        $mock = $this->getMock('Cercanias\Provider\ProviderInterface');
+        $mock->expects($this->once())
+            ->method('getTimetableParser')
+            ->willReturn(new MockTimetableParser())
         ;
 
         return $mock;
@@ -88,16 +119,6 @@ class MockProvider implements ProviderInterface
 
     }
 
-    public function getRoute($routeId)
-    {
-
-    }
-
-    public function getTimetable(TimetableQueryInterface $query)
-    {
-
-    }
-
     public function generateRouteUrl(RouteQueryInterface $query)
     {
 
@@ -112,6 +133,11 @@ class MockProvider implements ProviderInterface
     {
 
     }
+
+    public function getTimetableParser(TimetableQueryInterface $query)
+    {
+
+    }
 }
 
 class MockRouteParser implements RouteParserInterface
@@ -122,7 +148,7 @@ class MockRouteParser implements RouteParserInterface
      */
     public function getRoute()
     {
-        // TODO: Implement getRoute() method.
+
     }
 
     /**
@@ -145,6 +171,34 @@ class MockRouteParser implements RouteParserInterface
      * @return \ArrayIterator
      */
     public function getStations()
+    {
+        return new \ArrayIterator();
+    }
+}
+
+class MockTimetableParser implements TimetableParserInterface
+{
+    public function getDate()
+    {
+        return new \DateTime("now");
+    }
+
+    public function getDepartureName()
+    {
+        return "Departure station";
+    }
+
+    public function getDestinationName()
+    {
+        return "Destination station";
+    }
+
+    public function getTransferName()
+    {
+        return "Transfer station";
+    }
+
+    public function getTrips()
     {
         return new \ArrayIterator();
     }

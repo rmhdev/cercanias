@@ -3,7 +3,6 @@
 namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Tests\Provider\AbstractTimetableParserTest;
-use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\TimetableParser;
 use Cercanias\Entity\Train;
 use Cercanias\Entity\Trip;
@@ -20,16 +19,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
 
     protected function createTimetableParserSanSebastian()
     {
-        $query = new TimetableQuery();
-        $query
-            ->setRoute(61)
-            ->setDeparture(123)
-            ->setDestination(456);
-
-        return new TimetableParser(
-            $query,
-            $this->getContentHtml("timetable-sansebastian.html")
-        );
+        return $this->createTimetableParser("timetable-sansebastian.html");
     }
 
     public function testGetTrips()
@@ -48,14 +38,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
 
     protected function createTimetableParser($filename)
     {
-        $query = new TimetableQuery();
-        $query
-            ->setRoute(1)
-            ->setDeparture(123)
-            ->setDestination(456);
-
         return new TimetableParser(
-            $query,
             $this->getContentHtml($filename)
         );
     }

@@ -3,8 +3,13 @@
 namespace Cercanias;
 
 use Cercanias\Entity\Route;
+use Cercanias\Entity\Station;
+use Cercanias\Entity\Timetable;
 use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\RouteQuery;
+use Cercanias\Provider\TimetableQuery;
+use Cercanias\Provider\TimetableQueryInterface;
+use Cercanias\Provider\Web\TimetableParser;
 
 class Cercanias
 {
@@ -43,5 +48,28 @@ class Cercanias
     protected function getProvider()
     {
         return $this->provider;
+    }
+
+    public function getTimetable(TimetableQueryInterface $query)
+    {
+        $parser = $this->getProvider()->getTimetableParser($query);
+        $timetable = new Timetable(
+            new Station(
+                $query->getDepartureStationId(),
+                $parser->getDepartureName(),
+                $query->getRouteId()
+            ),
+            new Station(
+                $query->getDestinationStationId(),
+                $parser->getDestinationName(),
+                $query->getRouteId()
+            ),
+            $parser->getTransferName()
+        );
+        foreach ($parser->getTrips() as $trip) {
+            $timetable->addTrip($trip);
+        }
+
+        return $timetable;
     }
 }

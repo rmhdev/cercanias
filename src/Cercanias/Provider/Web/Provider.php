@@ -7,7 +7,6 @@ use Cercanias\Provider\AbstractProvider;
 use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\RouteQueryInterface;
 use Cercanias\Provider\TimetableQueryInterface;
-use Cercanias\Provider\RouteQuery;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
@@ -135,5 +134,14 @@ class Provider extends AbstractProvider implements ProviderInterface
                 $this->generateRouteUrl($query)
             )
         );
+    }
+
+    public function getTimetableParser(TimetableQueryInterface $query)
+    {
+        if (!$query->isValid()) {
+            throw new InvalidArgumentException("TimetableQuery is not valid");
+        }
+
+        return new TimetableParser($this->getHttpAdapter()->getContent($this->generateTimetableUrl($query)));
     }
 }

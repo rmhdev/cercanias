@@ -81,9 +81,9 @@ class ProviderTest extends AbstractProviderTest
             ->setDestination(456)
             ->setDate(new \DateTime("2014-02-10"))
         ;
-        $timetable = $provider->getTimetable($query);
+        $parser = $provider->getTimetableParser($query);
 
-        $this->assertEquals(20, $timetable->getTrips()->count());
+        $this->assertEquals(20, $parser->getTrips()->count());
     }
 
     /**
