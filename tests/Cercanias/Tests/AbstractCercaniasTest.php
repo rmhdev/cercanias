@@ -2,10 +2,6 @@
 
 namespace Cercanias\Tests\Cercanias;
 
-use Cercanias\Cercanias;
-use Cercanias\Provider\RouteQuery;
-use Cercanias\Provider\TimetableQuery;
-
 use Cercanias\Entity\Route;
 use Cercanias\Provider\RouteParserInterface;
 use Cercanias\Provider\RouteQueryInterface;
@@ -13,53 +9,8 @@ use Cercanias\Provider\TimetableParserInterface;
 use Cercanias\Provider\TimetableQueryInterface;
 use Cercanias\Provider\ProviderInterface;
 
-class CercaniasTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractCercaniasTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @dataProvider getInvalidRouteProvider
-     * @expectedException \Cercanias\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid routeId
-     */
-    public function testGetRouteForNullId($route)
-    {
-        $provider = new MockProvider("default");
-        $cercanias = new Cercanias($provider);
-        $cercanias->getRoute($route);
-    }
-
-    public function getInvalidRouteProvider()
-    {
-        return array(
-            array(null),
-            array(""),
-            array(new RouteQuery()),
-        );
-    }
-
-    public function testGetRoute()
-    {
-        $provider = $this->getMockProviderReturnsRouteParser();
-        $cercanias = new Cercanias($provider);
-        $route = $cercanias->getRoute(1);
-
-        $this->assertInstanceOf('\Cercanias\Entity\Route', $route);
-        $this->assertEquals(1, $route->getId());
-    }
-
-    public function testGetTimetable()
-    {
-        $query = new TimetableQuery();
-        $query
-            ->setRoute(1)
-            ->setDeparture("123")
-            ->setDestination("456");
-
-        $provider = $this->getMockProviderReturnsTimetableParser();
-        $cercanias = new Cercanias($provider);
-
-        $this->assertInstanceOf('\Cercanias\Entity\Timetable', $cercanias->getTimetable($query));
-    }
-
     /**
      * @return ProviderInterface
      */
@@ -89,7 +40,7 @@ class CercaniasTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class MockProvider implements ProviderInterface
+class MockProviderddd implements ProviderInterface
 {
     public function __construct($name)
     {
@@ -122,7 +73,7 @@ class MockProvider implements ProviderInterface
     }
 }
 
-class MockRouteParser implements RouteParserInterface
+class MockRouteParserddd implements RouteParserInterface
 {
     /**
      * Parse html and create a Route object
@@ -130,7 +81,7 @@ class MockRouteParser implements RouteParserInterface
      */
     public function getRoute()
     {
-
+        // TODO: Implement getRoute() method.
     }
 
     /**
@@ -158,7 +109,7 @@ class MockRouteParser implements RouteParserInterface
     }
 }
 
-class MockTimetableParser implements TimetableParserInterface
+class MockTimetableParserddd implements TimetableParserInterface
 {
     public function getDate()
     {
