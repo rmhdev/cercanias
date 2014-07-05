@@ -54,7 +54,7 @@ use Cercanias\Cercanias;
 $httpAdapter  = new CurlHttpAdapter();          // 1. HttpAdapter
 $provider     = new Provider($httpAdapter);     // 2. Provider
 $cercanias    = new Cercanias($provider);       // 3. Cercanias
-$route        = $provider->getRoute(Provider::ROUTE_SAN_SEBASTIAN);
+$route        = $cercanias->getRoute(Provider::ROUTE_SAN_SEBASTIAN);
 ```
 
 If you want to know all the trips from *Brinkola* to *Irun* for *tomorrow*:
