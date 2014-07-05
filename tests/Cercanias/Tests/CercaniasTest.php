@@ -4,6 +4,7 @@ namespace Cercanias\Tests\Cercanias;
 
 use Cercanias\Cercanias;
 use Cercanias\Provider\ProviderInterface;
+use Cercanias\Provider\RouteQueryInterface;
 use Cercanias\Provider\TimetableQueryInterface;
 use Cercanias\Provider\RouteQuery;
 
@@ -68,6 +69,16 @@ class MockProvider implements ProviderInterface
     }
 
     public function getTimetable(TimetableQueryInterface $query)
+    {
+
+    }
+
+    public function generateRouteUrl(RouteQueryInterface $query)
+    {
+
+    }
+
+    public function generateTimetableUrl(TimetableQueryInterface $query)
     {
 
     }
