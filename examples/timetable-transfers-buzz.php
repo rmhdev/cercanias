@@ -2,7 +2,8 @@
 
 require __DIR__ . '/..' . '/vendor/autoload.php';
 
-use \Cercanias\Provider\Web\TimetableQuery;
+use Cercanias\Cercanias;
+use \Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
 use Cercanias\Entity\Trip;
@@ -16,7 +17,8 @@ $query
 
 $httpAdapter  = new BuzzHttpAdapter();
 $provider     = new Provider($httpAdapter);
-$timetable    = $provider->getTimetable($query);
+$cercanias    = new Cercanias($provider);
+$timetable    = $cercanias->getTimetable($query);
 
 echo "Timetable 'Barcelona': \n";
 echo sprintf(" - departure:     '%s'\n", $timetable->getDeparture()->getName());

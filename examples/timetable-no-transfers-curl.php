@@ -4,7 +4,8 @@ require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
 use Cercanias\Provider\Web\Provider;
-use Cercanias\Provider\Web\TimetableQuery;
+use Cercanias\Provider\TimetableQuery;
+use Cercanias\Cercanias;
 use Cercanias\Entity\Trip;
 
 $query = new TimetableQuery();
@@ -16,7 +17,8 @@ $query
 
 $httpAdapter  = new CurlHttpAdapter();
 $provider     = new Provider($httpAdapter);
-$timetable    = $provider->getTimetable($query);
+$cercanias    = new Cercanias($provider);
+$timetable    = $cercanias->getTimetable($query);
 
 echo "Timetable 'San Sebastián': \n";
 echo sprintf(" - departure:     '%s'\n", $timetable->getDeparture()->getName());
