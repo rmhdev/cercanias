@@ -3,7 +3,7 @@
 require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\Cercanias;
-use \Cercanias\Provider\TimetableQuery;
+use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
 use Cercanias\Entity\Trip;
@@ -46,12 +46,12 @@ foreach ($timetable->getTrips() as $trip) {
 function prepareResults(Trip $trip)
 {
     $result = array(
-        "line" => $trip->getDepartureTrain()->getLine(),
-        "departure" => $trip->getDepartureTrain()->getDepartureTime()->format("H:i"),
-        "arrival" => $trip->getDepartureTrain()->getArrivalTime()->format("H:i"),
-        "transfer_departure" => "",
-        "transfer_arrival" => "",
-        "transfer_line" => "",
+        "line"                => $trip->getDepartureTrain()->getLine(),
+        "departure"           => $trip->getDepartureTrain()->getDepartureTime()->format("H:i"),
+        "arrival"             => $trip->getDepartureTrain()->getArrivalTime()->format("H:i"),
+        "transfer_departure"  => "",
+        "transfer_arrival"    => "",
+        "transfer_line"       => "",
     );
     $transfers = array();
     if ($trip->hasTransfer()) {
@@ -60,17 +60,17 @@ function prepareResults(Trip $trip)
             /* @var Train $transfer */
             if ($i == 0) {
                 $result["transfer_departure"] = $transfer->getDepartureTime()->format("H:i");
-                $result["transfer_arrival"] = $transfer->getArrivalTime()->format("H:i");
-                $result["transfer_line"] = $transfer->getLine();
+                $result["transfer_arrival"]   = $transfer->getArrivalTime()->format("H:i");
+                $result["transfer_line"]      = $transfer->getLine();
                 $i += 1;
             } else {
                 $transfers[] = array(
-                    "line" => "",
-                    "departure" => "",
-                    "arrival" => "",
-                    "transfer_departure" => $transfer->getDepartureTime()->format("H:i"),
-                    "transfer_arrival" => $transfer->getArrivalTime()->format("H:i"),
-                    "transfer_line" => $transfer->getLine(),
+                    "line"                => "",
+                    "departure"           => "",
+                    "arrival"             => "",
+                    "transfer_departure"  => $transfer->getDepartureTime()->format("H:i"),
+                    "transfer_arrival"    => $transfer->getArrivalTime()->format("H:i"),
+                    "transfer_line"       => $transfer->getLine(),
                 );
             }
         }
