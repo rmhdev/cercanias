@@ -9,7 +9,6 @@ use Cercanias\Provider\RouteParserInterface;
 use Cercanias\Provider\RouteQueryInterface;
 use Cercanias\Provider\TimetableQueryInterface;
 use Cercanias\Provider\RouteQuery;
-use Cercanias\HttpAdapter\HttpAdapterInterface;
 
 class CercaniasTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +38,7 @@ class CercaniasTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRouteReturnsValidInstance($route)
     {
-        $provider = new MockProvider("default");
+        $provider = $this->getMockProviderReturnsRouteParser();
         $cercanias = new Cercanias($provider);
         $route = $cercanias->getRoute($route);
 
@@ -55,7 +54,6 @@ class CercaniasTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRoute()
     {
-        $this->markTestSkipped("not completed");
         $provider = $this->getMockProviderReturnsRouteParser();
         $cercanias = new Cercanias($provider);
         $route = $cercanias->getRoute(1);
@@ -106,6 +104,11 @@ class MockProvider implements ProviderInterface
     }
 
     public function generateTimetableUrl(TimetableQueryInterface $query)
+    {
+
+    }
+
+    public function getRouteParser(RouteQueryInterface $query)
     {
 
     }

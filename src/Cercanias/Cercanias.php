@@ -18,16 +18,15 @@ class Cercanias
 
     public function getRoute($routeId)
     {
-        $query = $this->prepareRouteQuery($routeId);
+        $routeParser = $this->getProvider()->getRouteParser(
+            $this->prepareRouteQuery($routeId)
+        );
+        $route = new Route($routeParser->getRouteId(), $routeParser->getRouteName());
+        foreach ($routeParser->getStations() as $station) {
+            $route->addStation($station);
+        }
 
-        return new Route(123, "test");
-    }
-
-    public function getRouteParser($routeId)
-    {
-        $query = $this->prepareRouteQuery($routeId);
-
-        return $this->provider->getRouteParser($query);
+        return $route;
     }
 
     protected function prepareRouteQuery($routeId)
@@ -39,5 +38,10 @@ class Cercanias
         $query->setRoute($routeId);
 
         return $query;
+    }
+
+    protected function getProvider()
+    {
+        return $this->provider;
     }
 }
