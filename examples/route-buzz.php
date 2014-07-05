@@ -3,7 +3,7 @@
 require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\Cercanias;
-use Cercanias\Provider\Web\Provider;
+use Cercanias\Provider\HorariosRenfeCom\Provider;
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
 use Cercanias\Entity\Station;
 

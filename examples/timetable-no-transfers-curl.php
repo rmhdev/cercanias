@@ -3,7 +3,7 @@
 require __DIR__ . '/..' . '/vendor/autoload.php';
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
-use Cercanias\Provider\Web\Provider;
+use Cercanias\Provider\HorariosRenfeCom\Provider;
 use Cercanias\Provider\TimetableQuery;
 use Cercanias\Cercanias;
 use Cercanias\Entity\Trip;
