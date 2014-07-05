@@ -4,6 +4,8 @@ Retrieve Renfe's *Cercanías*[1] information easily.
 
 [1]: Spain's commuter trains service.
 
+[![Build Status](https://travis-ci.org/rmhdev/cercanias.svg?branch=master)](https://travis-ci.org/rmhdev/cercanias)
+
 **THIS PROJECT IS IN ALPHA STAGE**. Please use it carefully.
 
 ## Requirements
