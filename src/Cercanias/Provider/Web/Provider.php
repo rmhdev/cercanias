@@ -64,6 +64,9 @@ class Provider extends AbstractProvider implements ProviderInterface
         return $parser->getTimetable();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function generateRouteUrl(RouteQueryInterface $query)
     {
         return $this->generateUrl($this->getBaseRouteUrl(), $this->getRouteUrlParameters($query));
@@ -93,6 +96,9 @@ class Provider extends AbstractProvider implements ProviderInterface
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function generateTimetableUrl(TimetableQueryInterface $query)
     {
         return $this->generateUrl($this->getBaseTimetableUrl(), $this->getTimetableUrlParameters($query));
