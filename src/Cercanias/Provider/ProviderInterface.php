@@ -42,4 +42,10 @@ interface ProviderInterface
      * @return string
      */
     public function generateTimetableUrl(TimetableQueryInterface $query);
+
+    /**
+     * @param RouteQueryInterface $query
+     * @return RouteParserInterface
+     */
+    public function getRouteParser(RouteQueryInterface $query);
 }

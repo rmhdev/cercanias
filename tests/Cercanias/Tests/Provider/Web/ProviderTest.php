@@ -158,4 +158,29 @@ class ProviderTest extends AbstractProviderTest
             )
         );
     }
+
+    /**
+     * @expectedException \Cercanias\Exception\InvalidArgumentException
+     * @expectedExceptionMessage RouteQuery is not valid
+     */
+    public function testGetRouteParserForNonValidQuery()
+    {
+        $provider = new Provider($this->getMockAdapter($this->never()));
+        $query = new RouteQuery();
+        $provider->getRouteParser($query);
+    }
+
+    public function testGetRouteParser()
+    {
+        $mockAdapter = $this->getMockAdapterReturnsFixtureContent("route-sansebastian.html");
+        $provider = new Provider($mockAdapter);
+        $query = new RouteQuery();
+        $query->setRoute(Provider::ROUTE_SAN_SEBASTIAN);
+        $routeParser = $provider->getRouteParser($query);
+
+        $this->assertInstanceOf('\Cercanias\Provider\Web\RouteParser', $routeParser);
+        $this->assertEquals(61, $routeParser->getRouteId());
+        $this->assertEquals("San Sebastián", $routeParser->getRouteName());
+        $this->assertEquals(30, $routeParser->getStations()->count());
+    }
 }

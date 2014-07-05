@@ -55,6 +55,7 @@ class CercaniasTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRoute()
     {
+        $this->markTestSkipped("not completed");
         $provider = $this->getMockProviderReturnsRouteParser();
         $cercanias = new Cercanias($provider);
         $route = $cercanias->getRoute(1);

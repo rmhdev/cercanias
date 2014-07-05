@@ -123,4 +123,17 @@ class Provider extends AbstractProvider implements ProviderInterface
             "TXTInfo"   => ""
         );
     }
+
+    public function getRouteParser(RouteQueryInterface $query)
+    {
+        if (!$query->isValid()) {
+            throw new InvalidArgumentException("RouteQuery is not valid");
+        }
+
+        return new RouteParser(
+            $this->getHttpAdapter()->getContent(
+                $this->generateRouteUrl($query)
+            )
+        );
+    }
 }
