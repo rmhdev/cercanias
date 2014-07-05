@@ -2,6 +2,7 @@
 
 namespace Cercanias\Tests\Provider\Web;
 
+use Cercanias\Entity\Route;
 use Cercanias\Provider\Web\RouteQuery;
 use Cercanias\Provider\Web\TimetableQuery;
 use Cercanias\Provider\Web\Provider;
@@ -95,5 +96,29 @@ class ProviderTest extends AbstractProviderTest
         $query = new TimetableQuery();
         $query->setRoute(1);
         $provider->getTimetable($query);
+    }
+
+    /**
+     * @dataProvider getGenerateUrlProvider
+     */
+    public function testGenerateUrl($expectedUrl, $route)
+    {
+        $query = new RouteQuery();
+        $query->setRoute($route);
+        $provider = new Provider($this->getMockAdapter($this->never()));
+
+        $this->assertEquals($expectedUrl, $provider->generateRouteUrl($query));
+    }
+
+    public function getGenerateUrlProvider()
+    {
+        $url = "http://horarios.renfe.com";
+        $url .= "/cer/hjcer300.jsp?NUCLEO=%s&CP=NO&I=s";
+        $route = new Route(60, "Default route");
+
+        return array(
+            array(sprintf($url, 123), 123),
+            array(sprintf($url, 60), $route)
+        );
     }
 }
