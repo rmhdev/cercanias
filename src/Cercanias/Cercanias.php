@@ -23,11 +23,10 @@ final class Cercanias implements CercaniasInterface
      */
     public function getRoute($routeId)
     {
-        $routeParser = $this->getProvider()->getRouteParser(
-            $this->prepareRouteQuery($routeId)
-        );
-        $route = new Route($routeParser->getRouteId(), $routeParser->getRouteName());
-        foreach ($routeParser->getStations() as $station) {
+        $query  = $this->prepareRouteQuery($routeId);
+        $parser = $this->getProvider()->getRouteParser($query);
+        $route  = new Route($parser->getRouteId(), $parser->getRouteName());
+        foreach ($parser->getStations() as $station) {
             $route->addStation($station);
         }
 
