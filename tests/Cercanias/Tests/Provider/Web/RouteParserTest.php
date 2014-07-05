@@ -28,9 +28,9 @@ class RouteParserTest extends AbstractRouteParserTest
         $this->assertEquals(61, $routeParser->getRouteId());
         $this->assertEquals("San Sebastián", $routeParser->getRouteName());
 
-//        $stations = $this->getSanSebastianStations();
-//        $this->assertEquals(sizeof($stations), $routeParser->countStations());
-//
+        $stations = $this->getSanSebastianStations();
+        $this->assertEquals(sizeof($stations), $routeParser->getStations()->count());
+
 //        foreach ($stations as $stationId => $stationName) {
 //            $this->assertTrue($route->hasStation($stationId));
 //            $station = $route->getStation($stationId);
