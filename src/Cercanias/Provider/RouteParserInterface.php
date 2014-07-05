@@ -11,4 +11,19 @@ interface RouteParserInterface
      * @return Route
      */
     public function getRoute();
+
+    /**
+     * @return int
+     */
+    public function getRouteId();
+
+    /**
+     * @return string
+     */
+    public function getRouteName();
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getStations();
 }

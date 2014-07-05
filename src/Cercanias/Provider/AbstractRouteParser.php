@@ -8,9 +8,9 @@ use Cercanias\Entity\Station;
 abstract class AbstractRouteParser
 {
     protected $route;
-    protected $routeId;
-    protected $routeName;
-    protected $stations;
+    private $routeId;
+    private $routeName;
+    private $stations;
 
     public function __construct($html)
     {
