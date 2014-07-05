@@ -54,7 +54,7 @@ final class TimetableQuery implements TimetableQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getDepartureStationId()
+    public function getDepartureId()
     {
         return $this->departureStation ? $this->departureStation->getId() : null;
     }
@@ -75,7 +75,7 @@ final class TimetableQuery implements TimetableQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getDestinationStationId()
+    public function getDestinationId()
     {
         return $this->destinationStation ? $this->destinationStation->getId() : null;
     }
@@ -105,8 +105,8 @@ final class TimetableQuery implements TimetableQueryInterface
     {
         return (
             $this->getRouteId() &&
-            $this->getDepartureStationId() &&
-            $this->getDestinationStationId()
+            $this->getDepartureId() &&
+            $this->getDestinationId()
         );
     }
 }

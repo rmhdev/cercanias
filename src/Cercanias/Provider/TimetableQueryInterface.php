@@ -27,7 +27,7 @@ interface TimetableQueryInterface extends QueryInterface
     /**
      * @return string
      */
-    public function getDepartureStationId();
+    public function getDepartureId();
 
     /**
      * @param Station|string $station
@@ -38,7 +38,7 @@ interface TimetableQueryInterface extends QueryInterface
     /**
      * @return string
      */
-    public function getDestinationStationId();
+    public function getDestinationId();
 
     /**
      * @param \DateTime $date

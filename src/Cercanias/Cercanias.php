@@ -57,12 +57,12 @@ final class Cercanias implements CercaniasInterface
         $parser = $this->getProvider()->getTimetableParser($query);
         $timetable = new Timetable(
             new Station(
-                $query->getDepartureStationId(),
+                $query->getDepartureId(),
                 $parser->getDepartureName(),
                 $query->getRouteId()
             ),
             new Station(
-                $query->getDestinationStationId(),
+                $query->getDestinationId(),
                 $parser->getDestinationName(),
                 $query->getRouteId()
             ),
