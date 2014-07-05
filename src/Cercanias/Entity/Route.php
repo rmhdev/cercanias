@@ -12,6 +12,10 @@ class Route
     protected $name;
     protected $stations;
 
+    /**
+     * @param int $id
+     * @param string $name
+     */
     public function __construct($id, $name)
     {
         $this->setId($id);
@@ -46,21 +50,34 @@ class Route
         return (!is_string($name) || strlen($name) === 0);
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function countStations()
     {
         return sizeof($this->stations);
     }
 
+    /**
+     * @param Station $station
+     * @throws \Cercanias\Exception\DuplicateKeyException
+     */
     public function addStation(Station $station)
     {
         if ($this->hasStation($station->getId())) {
@@ -69,11 +86,18 @@ class Route
         $this->stations[$station->getId()] = $station;
     }
 
+    /**
+     * @return \ArrayIterator
+     */
     public function getStations()
     {
         return new \ArrayIterator($this->stations);
     }
 
+    /**
+     * @param $stationId
+     * @return bool
+     */
     public function hasStation($stationId)
     {
         return isset($this->stations[$stationId]);
@@ -82,7 +106,7 @@ class Route
     /**
      * @param $stationId
      * @return Station
-     * @throws NotFoundException
+     * @throws \Cercanias\Exception\NotFoundException
      */
     public function getStation($stationId)
     {

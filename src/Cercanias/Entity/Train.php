@@ -10,6 +10,12 @@ class Train
     protected $departureTime;
     protected $arrivalTime;
 
+    /**
+     * @param string $line
+     * @param \DateTime $departureTime
+     * @param \DateTime $arrivalTime
+     * @throws \Cercanias\Exception\OutOfBoundsException
+     */
     public function __construct($line, \DateTime $departureTime, \DateTime $arrivalTime = null)
     {
         $this->setLine($line);
@@ -30,27 +36,43 @@ class Train
         return ($this->getArrivalTime() < $this->getDepartureTime());
     }
 
+    /**
+     * @return string
+     */
     public function getLine()
     {
         return $this->line;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getDepartureTime()
     {
         return $this->departureTime;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getArrivalTime()
     {
         return is_null($this->arrivalTime) ?
             $this->getDepartureTime() : $this->arrivalTime;
     }
 
+    /**
+     * @return bool|\DateInterval
+     */
     public function getDuration()
     {
         return $this->getDepartureTime()->diff($this->getArrivalTime());
     }
 
+    /**
+     * @param Train $train
+     * @return int
+     */
     public function compareWith(Train $train)
     {
         if ($this->isDepartureTimeEqual($train)) {

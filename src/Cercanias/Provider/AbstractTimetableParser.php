@@ -4,7 +4,7 @@ namespace Cercanias\Provider;
 
 use Cercanias\Entity\Trip;
 
-abstract class AbstractTimetableParser
+abstract class AbstractTimetableParser implements TimetableParserInterface
 {
     private $date;
     private $trips;

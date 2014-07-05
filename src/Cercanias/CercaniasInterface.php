@@ -10,14 +10,14 @@ use Cercanias\Entity\Timetable;
 interface CercaniasInterface
 {
     /**
-     * Generate a Route object
+     * Retrieve a Route
      * @param int|RouteQueryInterface $routeId
      * @return Route
      */
     public function getRoute($routeId);
 
     /**
-     * Generate a Timetable object
+     * Retrieve a Timetable
      * @param TimetableQueryInterface $query
      * @return Timetable
      */

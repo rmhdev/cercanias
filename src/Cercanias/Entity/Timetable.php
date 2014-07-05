@@ -12,6 +12,12 @@ class Timetable
     protected $transferName;
     protected $hasTransfer;
 
+    /**
+     * @param Station $departure
+     * @param Station $destination
+     * @param null $transfer
+     * @throws \Cercanias\Exception\InvalidArgumentException
+     */
     public function __construct(Station $departure, Station $destination, $transfer = null)
     {
         if ($departure->getRouteId() != $destination->getRouteId()) {
@@ -38,21 +44,34 @@ class Timetable
         $this->transferName = $transfer;
     }
 
+    /**
+     * @return Station
+     */
     public function getDeparture()
     {
         return $this->departure;
     }
 
+    /**
+     * @return Station
+     */
     public function getDestination()
     {
         return $this->destination;
     }
 
+    /**
+     * @return string
+     */
     public function getTransferName()
     {
         return $this->transferName;
     }
 
+    /**
+     * List of trips, ordered by departure time
+     * @return \ArrayIterator
+     */
     public function getTrips()
     {
         $trips = $this->trips;
@@ -63,6 +82,9 @@ class Timetable
         return new \ArrayIterator($trips);
     }
 
+    /**
+     * @param Trip $trip
+     */
     public function addTrip(Trip $trip)
     {
         $this->trips[] = $trip;
@@ -90,6 +112,10 @@ class Timetable
         return $results;
     }
 
+    /**
+     * @param \DateTime $dateTime
+     * @return Trip|null
+     */
     public function nextTrip(\DateTime $dateTime)
     {
         $nextDepartures = new NextTripsFilterIterator($this->getTrips(), $dateTime);
@@ -100,6 +126,9 @@ class Timetable
         return null;
     }
 
+    /**
+     * @return bool
+     */
     public function hasTransfer()
     {
         return $this->hasTransfer;

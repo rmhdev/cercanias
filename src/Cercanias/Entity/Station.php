@@ -10,6 +10,11 @@ class Station
     protected $name;
     protected $routeId;
 
+    /**
+     * @param string $id
+     * @param string $name
+     * @param int $routeId
+     */
     public function __construct($id, $name, $routeId)
     {
         $this->setId($id);
@@ -52,16 +57,25 @@ class Station
         $this->routeId = $routeId;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function getRouteId()
     {
         return $this->routeId;

@@ -4,7 +4,7 @@ namespace Cercanias\Provider;
 
 use Cercanias\Entity\Station;
 
-abstract class AbstractRouteParser
+abstract class AbstractRouteParser implements RouteParserInterface
 {
     private $routeId;
     private $routeName;
@@ -23,6 +23,9 @@ abstract class AbstractRouteParser
         $this->routeId = $routeId;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRouteId()
     {
         return $this->routeId;
@@ -33,6 +36,9 @@ abstract class AbstractRouteParser
         $this->routeName = $routeName;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRouteName()
     {
         return $this->routeName;
@@ -44,7 +50,7 @@ abstract class AbstractRouteParser
     }
 
     /**
-     * @return \ArrayIterator
+     * {@inheritDoc}
      */
     public function getStations()
     {
