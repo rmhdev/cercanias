@@ -2,7 +2,7 @@
     "name": "rmhdev/cercanias",
     "type": "library",
     "description": "Retrieve Renfe's Cercanías information easily",
-    "keywords": ["renfe", "cercanias", "train", "spain", "commuter", "route", "timetable"],
+    "keywords": ["renfe", "cercanias", "train", "spain", "commuter"],
     "homepage": "https://github.com/rmhdev/cercanias",
     "license": "MIT",
     "authors": [
