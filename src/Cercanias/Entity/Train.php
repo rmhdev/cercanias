@@ -15,11 +15,11 @@ use Cercanias\Exception\OutOfBoundsException;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class Train
+final class Train
 {
-    protected $line;
-    protected $departureTime;
-    protected $arrivalTime;
+    private $line;
+    private $departureTime;
+    private $arrivalTime;
 
     /**
      * @param string $line

@@ -20,7 +20,7 @@ use Cercanias\Entity\Trip;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TimetableParser extends AbstractTimetableParser implements TimetableParserInterface
+final class TimetableParser extends AbstractTimetableParser implements TimetableParserInterface
 {
     protected function processHTML($html)
     {

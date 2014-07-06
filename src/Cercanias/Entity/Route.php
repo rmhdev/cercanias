@@ -17,11 +17,11 @@ use Cercanias\Exception\NotFoundException;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class Route
+final class Route
 {
-    protected $id;
-    protected $name;
-    protected $stations;
+    private $id;
+    private $name;
+    private $stations;
 
     /**
      * @param int $id

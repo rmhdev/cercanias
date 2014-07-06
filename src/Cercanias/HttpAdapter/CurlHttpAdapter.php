@@ -16,7 +16,7 @@ use Cercanias\Exception\ExtensionNotLoadedException;
  * Based on https://github.com/geocoder-php/Geocoder
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class CurlHttpAdapter implements HttpAdapterInterface
+final class CurlHttpAdapter implements HttpAdapterInterface
 {
     private $curlOptions;
 

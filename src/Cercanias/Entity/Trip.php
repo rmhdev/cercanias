@@ -15,10 +15,10 @@ use Cercanias\Exception\OutOfBoundsException;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class Trip
+final class Trip
 {
-    protected $departureTrain;
-    protected $transferTrains;
+    private $departureTrain;
+    private $transferTrains;
 
     /**
      * @param Train $departureTrain
@@ -49,7 +49,7 @@ class Trip
         if ($this->getDepartureTrain()->getArrivalTime() > $train->getDepartureTime()) {
             throw new OutOfBoundsException("Transfer train departs before first train arrives");
         }
-        $this->transferTrains->append($train);
+        $this->getTransferTrains()->append($train);
     }
 
     /**

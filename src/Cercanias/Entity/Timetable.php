@@ -15,13 +15,13 @@ use Cercanias\Exception\InvalidArgumentException;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class Timetable
+final class Timetable
 {
-    protected $departure;
-    protected $destination;
-    protected $trips;
-    protected $transferName;
-    protected $hasTransfer;
+    private $departure;
+    private $destination;
+    private $trips;
+    private $transferName;
+    private $hasTransfer;
 
     /**
      * @param Station $departure

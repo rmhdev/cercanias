@@ -15,11 +15,11 @@ use Cercanias\Exception\InvalidArgumentException;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class Station
+final class Station
 {
-    protected $id;
-    protected $name;
-    protected $routeId;
+    private $id;
+    private $name;
+    private $routeId;
 
     /**
      * @param string $id

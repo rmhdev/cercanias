@@ -18,7 +18,7 @@ use Cercanias\Provider\RouteParserInterface;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class RouteParser extends AbstractRouteParser implements RouteParserInterface
+final class RouteParser extends AbstractRouteParser implements RouteParserInterface
 {
     /**
      * {@inheritDoc}

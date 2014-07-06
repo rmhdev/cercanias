@@ -16,7 +16,7 @@ use Buzz\Browser;
  * Based on https://github.com/geocoder-php/Geocoder
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class BuzzHttpAdapter implements HttpAdapterInterface
+final class BuzzHttpAdapter implements HttpAdapterInterface
 {
     private $browser;
 

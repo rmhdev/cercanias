@@ -19,7 +19,7 @@ use Cercanias\Provider\TimetableQueryInterface;
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class Provider extends AbstractProvider implements ProviderInterface
+final class Provider extends AbstractProvider implements ProviderInterface
 {
     const URL_ROUTE     = "http://horarios.renfe.com/cer/hjcer300.jsp";
     const URL_TIMETABLE = "http://horarios.renfe.com/cer/hjcer310.jsp";
