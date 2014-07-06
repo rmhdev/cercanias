@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This file is part of the Cercanias package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
+
 namespace Cercanias\Provider\HorariosRenfeCom;
 
 use Cercanias\Entity\Station;
@@ -7,6 +15,9 @@ use Cercanias\Exception\NotFoundException;
 use Cercanias\Provider\AbstractRouteParser;
 use Cercanias\Provider\RouteParserInterface;
 
+/**
+ * @author Rober Martín H <rmh.dev@gmail.com>
+ */
 class RouteParser extends AbstractRouteParser implements RouteParserInterface
 {
     /**

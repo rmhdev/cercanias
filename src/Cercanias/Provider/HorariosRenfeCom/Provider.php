@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This file is part of the Cercanias package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
+
 namespace Cercanias\Provider\HorariosRenfeCom;
 
 use Cercanias\Exception\InvalidArgumentException;
@@ -8,6 +16,9 @@ use Cercanias\Provider\ProviderInterface;
 use Cercanias\Provider\RouteQueryInterface;
 use Cercanias\Provider\TimetableQueryInterface;
 
+/**
+ * @author Rober Martín H <rmh.dev@gmail.com>
+ */
 class Provider extends AbstractProvider implements ProviderInterface
 {
     const URL_ROUTE     = "http://horarios.renfe.com/cer/hjcer300.jsp";

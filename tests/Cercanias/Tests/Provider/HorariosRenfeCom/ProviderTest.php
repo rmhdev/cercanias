@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This file is part of the Cercanias package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
+
 namespace Cercanias\Tests\Provider\HorariosRenfeCom;
 
 use Cercanias\Entity\Route;
@@ -8,6 +16,9 @@ use Cercanias\Provider\TimetableQuery;
 use Cercanias\Provider\HorariosRenfeCom\Provider;
 use Cercanias\Tests\Provider\AbstractProviderTest;
 
+/**
+ * @author Rober Martín H <rmh.dev@gmail.com>
+ */
 class ProviderTest extends AbstractProviderTest
 {
 
