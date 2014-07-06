@@ -6,8 +6,6 @@ Retrieve Renfe's *Cercanías*[1] information easily.
 
 [![Build Status](https://travis-ci.org/rmhdev/cercanias.svg?branch=master)](https://travis-ci.org/rmhdev/cercanias)
 
-**THIS PROJECT IS IN ALPHA STAGE**. Please use it carefully.
-
 ## Requirements
 
 The `Cercanias` library has the following requirements:
@@ -21,9 +19,19 @@ Depending on the chosen `HttpAdapter`, you may need:
 
 ## Installation
 
-Clone the repo: `git clone https://github.com/rmhdev/cercanias.git`
+The recommended way to install `Cercanias` is through [Composer][].
 
-Install `Composer`:
+Create a `composer.json` file:
+
+``` json
+{
+    "require": {
+        "rmhdev/cercanias": "0.1.*"
+    }
+}
+```
+
+Then install `Composer`:
 
 ``` bash
 $ curl -sS https://getcomposer.org/installer | php
@@ -119,6 +127,7 @@ Indicates where is the information taken. Available providers:
 * `0.0.4` (June 29, 2014): fix bugs, improve naming and parsing.
 * `0.0.5` (July 01, 2014): improve queries generation.
 * `0.0.6` (July 06, 2014): add `Cercanias` class to simplify usage.
+* `0.1.0` (July 06, 2014): add library to [Packagist][].
 
 ## Copyright and license
 
@@ -132,6 +141,8 @@ Part of the project is based on [William Durand]'s [Geocoder][].
 
 My name is [Rober Martín H][] ([@rmhdev][]). I'm a developer from Donostia / San Sebastián.
 
+[Composer]: https://getcomposer.org/
+[Packagist]: https://packagist.org/
 [Buzz]: https://github.com/kriswallsmith/Buzz
 [default web page]: http://www.renfe.com/viajeros/cercanias/
 [Creative Commons CC BY 4.0]: http://creativecommons.org/licenses/by/4.0/
