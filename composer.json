@@ -1,7 +1,7 @@
 {
     "name": "rmhdev/cercanias",
-    "description": "Retrieve train timetables",
-    "minimum-stability": "stable",
+    "description": "Retrieve Renfe's Cercanías information easily",
+    "keywords": ["renfe", "cercanias", "train", "spain", "commuter", "route", "timetable"],
     "license": "MIT",
     "authors": [
         {
