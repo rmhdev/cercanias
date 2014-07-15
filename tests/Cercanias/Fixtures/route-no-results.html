@@ -3,9 +3,9 @@
 /******************************************************************************
   * FICHERO: hjcer300.jsp
   * ****************************************************************************
-  * Fecha         	Responsable     	 DescripciÃ³n
+  * Fecha         	Responsable     	 Descripción
   * --------     	------------         -----------------
-  * 28/11/2011		INDRA.SCCID73	 	 44622 (INC000000293596): Horarios de CataluÃ±a
+  * 28/11/2011		INDRA.SCCID73	 	 44622 (INC000000293596): Horarios de Cataluña
   *****************************************************************************/
 -->
 
@@ -22,7 +22,7 @@
 <HTML>
 <HEAD>
 
-<title>Renfe: CercanÃ­as  </title>
+<title>Renfe: Cercanías  </title>
 
 
 
@@ -72,7 +72,7 @@ function creardias(){
 
     objeto.length=0;
     // @INC000000273294@INDRA.SCFID89.SDC@03/10/2011@INICIO
-    // INICIO 41620 CERRF001: Corregir fecha bÃºsqueda para que no muestre 00 como dÃ­a anterior los dÃ­as 01 de cada mees
+    // INICIO 41620 CERRF001: Corregir fecha búsqueda para que no muestre 00 como día anterior los días 01 de cada mees
     // scexueu: 19/07/2013 Se modifica bucle para resolver prolema de fecha debido a que no se mostraba la fecha actual
     // scexueu: 19/07/2013 Se cambia el parametro del bucle "i = dia_act-1" por "i = dia_act"
     for (i = dia_act; i <= dia_act + dif_dias; i++){
@@ -89,7 +89,7 @@ function creardias(){
             objeto[x].value = ano_act + mes_act_cad + z ;
 
         }else{
-            // Es el primer dÃ­a del mes, se debe mostrar en la lista desplegable el dÃ­a anterior, el Ãºltimo dÃ­a del mes anterior
+            // Es el primer día del mes, se debe mostrar en la lista desplegable el día anterior, el último día del mes anterior
             if (mes_act != 1){
                 // Es un mes distinto a Enero
                 i = dias_mes(ano_act, mes_act-1);
@@ -103,7 +103,7 @@ function creardias(){
                 objeto[x].value = ano_act + mes_act_cad + z ;
 
             }else{
-                // Es el primer dÃ­a del mes de enero, se debe mostrar el dÃ­a anterior del mes anterior del aÃ±o anterior
+                // Es el primer día del mes de enero, se debe mostrar el día anterior del mes anterior del año anterior
                 anio_ant = ano_act-1;
                 i = dias_mes(anio_ant, 12);
                 objeto.length++;
@@ -142,7 +142,7 @@ function creardias(){
         objeto[x].text  = z + '/' + mes_sig_cad + '/' + ano_sig;
         objeto[x].value = ano_sig + mes_sig_cad + z ;
     }
-    //por si se da que se tienen que rellenar mÃ¡s de 2 meses
+    //por si se da que se tienen que rellenar más de 2 meses
     if((dif_dias==0 && mas_dias != 0) || mas_dias>dias_mes_sig){
         mes_sig=(mes_sig==12) ?           1 : mes_sig + 1 ;
         ano_sig=(mes_sig==12) ? ano_act + 1 : ano_act     ;
@@ -160,7 +160,7 @@ function creardias(){
 
         }
     }
-    //RNF09-CER001 RQ CERRF001 Introducir i18n en cercanÃ­as.
+    //RNF09-CER001 RQ CERRF001 Introducir i18n en cercanías.
 
     //FIN RNF09-CER001 RQ CERRF001
 
@@ -181,21 +181,21 @@ function validar(){
         if(ho>hd)
             alert('La Hora Salida debe ser menor que la Hora LLegada');
         if(o==d)
-            alert('Elija EstaciÃ³n Origen y EstaciÃ³n Destino distintas');
+            alert('Elija Estación Origen y Estación Destino distintas');
         else
         if(o=='?')
-            alert('Elija alguna EstaciÃ³n Origen');
+            alert('Elija alguna Estación Origen');
         else
         if(d=='?')
-            alert('Elija alguna EstaciÃ³n Destino ');
+            alert('Elija alguna Estación Destino ');
         return 'n';
     }
 }
 
-//Funciones de BÃºsqueda segÃºn se teclea en una SELECT
+//Funciones de Búsqueda según se teclea en una SELECT
 var digitos=20 //cantidad de digitos buscados
 var puntero=0
-var buffer=new Array(digitos) //declaraciÃ³n del array Buffer
+var buffer=new Array(digitos) //declaración del array Buffer
 var cadena=""
 
 //Para Navegadores distintos de Internet Explorer
@@ -204,7 +204,7 @@ var cadena=""
  document.captureEvents(event.KEYDOWN) ;
 
 
- //FunciÃ³n para recoger la tecla para navegadores distintos de Internet Explorer
+ //Función para recoger la tecla para navegadores distintos de Internet Explorer
  function TeclaPulsada (tecla)
  {
  if(navigator.appName.substr(0,1)!='M'){
@@ -213,7 +213,7 @@ var cadena=""
  }
  }*/
 
-//FunciÃ³n implementada para Explorer, ya que en los demÃ¡s funciona de forma automÃ¡tica
+//Función implementada para Explorer, ya que en los demás funciona de forma automática
 function buscar_op(obj,objfoco){
 
     if(navigator.appName.substr(0,1)=='M'){
@@ -246,7 +246,7 @@ function buscar_op(obj,objfoco){
             }//Fin(2)
         }//Final(1)
         if(navigator.appName.substr(0,1)=='M')
-            event.returnValue = false; //invalida la acciÃ³n de pulsado de tecla para evitar busqueda del primer caracter
+            event.returnValue = false; //invalida la acción de pulsado de tecla para evitar busqueda del primer caracter
 
 //    event.preventDefault();
 //   else
@@ -272,7 +272,7 @@ function comparar(){
         if ((valorORG == '13507' || valorORG == '13509' || valorORG == '13508' || valorORG == '13506' || valorORG == '13505' || valorORG == '13504') ||
                 (valorDEST == '13507' || valorDEST == '13509' || valorDEST == '13508' || valorDEST== '13506' || valorDEST == '13505' || valorDEST == '13504')){
 
-            //RNF09-CER001 RQ CERRF001 Introducir i18n en cercanÃ­as.
+            //RNF09-CER001 RQ CERRF001 Introducir i18n en cercanías.
             document.getElementById("TXTInfo").value = bundle.getString("texto.para.este.dia")
                     + "(" + txtFecha+ ")" + bundle.getString("texto.alteraciones.previstas");
             //FIN RNF09-CER001 RQ CERRF001
@@ -579,22 +579,22 @@ function borrar_buffer(){
         <h1>
             <label for="origen" class="titulo_rojo">Origen : </label>
             &nbsp;&nbsp;<SELECT name="o" class="caja_texto1" onkeypress="buscar_op(this)" onBlur="borrar_buffer()" onclick="borrar_buffer()">
-            <OPTION selected value="?">Seleccione EstaciÃ³n  </OPTION>
+            <OPTION selected value="?">Seleccione Estación  </OPTION>
         </SELECT>
             <br><br>
             <label for="destino" class="titulo_rojo">Destino  : </label>
             <SELECT	name="d" class="caja_texto1" onkeypress="buscar_op(this)" onBlur="borrar_buffer()" onclick="borrar_buffer()">
-                <OPTION selected value="?">Seleccione EstaciÃ³n  </OPTION>
+                <OPTION selected value="?">Seleccione Estación  </OPTION>
             </SELECT>
 
             <br><br>
             <label for="fecha" class="titulo_rojo">
-                <!--RNF09-CER001 RQ CERRF001 Introducir i18n en cercanÃ­as.-->
+                <!--RNF09-CER001 RQ CERRF001 Introducir i18n en cercanías.-->
                 Fecha :
                 <!--FIN RNF09-CER001 RQ CERRF001.-->
             </label>
             &nbsp;&nbsp;<SELECT id="df" name="df" class="caja_texto1">
-            <!--RNF09-CER001 RQ CERRF001 Introducir i18n en cercanÃ­as.-->
+            <!--RNF09-CER001 RQ CERRF001 Introducir i18n en cercanías.-->
             <OPTION value="">Seleccione fecha</OPTION>
             <!--RNF09-CER001 RQ CERRF001.-->
             <OPTION value="X">XXXXXXXXXX</OPTION>
@@ -659,7 +659,7 @@ function borrar_buffer(){
             </SELECT>
         </h2>
         <!-- @INC000000273299@INDRA.SCFID89.SDC@03/10/2011@INICIO
-             INICIO 41625 CERRF001: Cambiar botÃ³n Buscar para accesibilidad invidentes -->
+             INICIO 41625 CERRF001: Cambiar botón Buscar para accesibilidad invidentes -->
 
 
         <div style="padding-right:30px;width:auto" align="right">
@@ -678,8 +678,8 @@ function borrar_buffer(){
         <div id="fondo_caja">
 
             <div id="parte-dchag" align="right"><img src="/cer/gif/ico_pda.gif" alt="" width="11" height="25">
-                <!--RNF09-CER001 RQ CERRF001 Introducir i18n en cercanÃ­as.-->
-                InformaciÃ³n disponible en renfe.mobi
+                <!--RNF09-CER001 RQ CERRF001 Introducir i18n en cercanías.-->
+                Información disponible en renfe.mobi
                 <!--FIN RNF09-CER001 RQ CERRF001.-->
                 <br>
             </div>

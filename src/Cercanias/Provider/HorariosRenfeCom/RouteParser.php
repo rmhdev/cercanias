@@ -63,7 +63,7 @@ final class RouteParser extends AbstractRouteParser implements RouteParserInterf
         $title = $titles->item(0)->textContent;
         $titleParts = explode("  ", $title);
 
-        return utf8_decode($titleParts[1]);
+        return trim($titleParts[1]);
     }
 
     protected function parseStations(\DOMXPath $path)
