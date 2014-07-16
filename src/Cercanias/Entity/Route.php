@@ -98,7 +98,7 @@ final class Route
     }
 
     /**
-     * @return \ArrayIterator
+     * @return \ArrayIterator|Station[]
      */
     public function getStations()
     {

@@ -81,7 +81,7 @@ final class Timetable
 
     /**
      * List of trips, ordered by departure time
-     * @return \ArrayIterator
+     * @return \ArrayIterator|Trip[]
      */
     public function getTrips()
     {
@@ -105,7 +105,7 @@ final class Timetable
     /**
      * @param \DateTime $dateTime
      * @param int $limit
-     * @return \ArrayIterator
+     * @return \ArrayIterator|Trip[]
      */
     public function nextTrips(\DateTime $dateTime, $limit = 0)
     {

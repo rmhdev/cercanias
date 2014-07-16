@@ -86,7 +86,7 @@ final class Trip
     }
 
     /**
-     * @return \ArrayIterator
+     * @return \ArrayIterator|Train[]
      */
     public function getTransferTrains()
     {
