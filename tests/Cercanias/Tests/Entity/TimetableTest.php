@@ -233,4 +233,24 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
         $transfer = new Station(3, "Transfer", 20);
         $timetable = new Timetable($departure, $destination, $transfer);
     }
+
+    public function testGetDate()
+    {
+        $departure = new Station(1, "From", 61);
+        $destination = new Station(2, "To", 61);
+        $timetable = new Timetable($departure, $destination);
+        $this->assertNull($timetable->getDate());
+
+        $timetable->addTrip(
+            new Trip(
+                new Train(
+                    "c1",
+                    new \DateTime("2014-07-15 12:00:00"),
+                    new \DateTime("2014-07-15 12:45:00")
+                )
+            )
+        );
+        $expectedDate = new \DateTime("2014-07-15 00:00:00");
+        $this->assertEquals($expectedDate, $timetable->getDate());
+    }
 }

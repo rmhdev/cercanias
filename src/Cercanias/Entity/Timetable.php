@@ -151,6 +151,18 @@ final class Timetable
             $this->hasTransfer = $hasTransfer;
         }
     }
+
+    public function getDate()
+    {
+        $date = null;
+        foreach ($this->getTrips() as $trip) {
+            $date = clone $trip->getDepartureTime();
+            $date->setTime(0, 0, 0);
+            break;
+        }
+
+        return $date;
+    }
 }
 
 
