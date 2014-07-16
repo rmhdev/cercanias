@@ -11,6 +11,7 @@
 namespace Cercanias\Tests\Provider;
 
 use Cercanias\HttpAdapter\HttpAdapterInterface;
+use Cercanias\Provider\AbstractProvider;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
@@ -48,5 +49,13 @@ abstract class AbstractProviderTest extends \PHPUnit_Framework_TestCase
         ;
 
         return $mock;
+    }
+
+    public function testGetRoutes()
+    {
+        $routes = AbstractProvider::getRoutes();
+        $this->assertEquals(12, sizeof($routes));
+        $values = array_values($routes);
+        $this->assertInternalType("string", $values[0]);
     }
 }

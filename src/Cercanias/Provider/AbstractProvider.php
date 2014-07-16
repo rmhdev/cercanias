@@ -46,4 +46,22 @@ abstract class AbstractProvider
     {
         return $this->httpAdapter;
     }
+
+    public static function getRoutes()
+    {
+        return array(
+            self::ROUTE_ASTURIAS        => "Asturias",
+            self::ROUTE_BARCELONA       => "Barcelona",
+            self::ROUTE_BILBAO          => "Bilbao",
+            self::ROUTE_CADIZ           => "Cádiz",
+            self::ROUTE_MADRID          => "Madrid",
+            self::ROUTE_MALAGA          => "Málaga",
+            self::ROUTE_MURCIA_ALICANTE => "Murcia-Alicante",
+            self::ROUTE_SAN_SEBASTIAN   => "San Sebastián",
+            self::ROUTE_SANTANDER       => "Santander",
+            self::ROUTE_SEVILLA         => "Sevilla",
+            self::ROUTE_VALENCIA        => "Valencia",
+            self::ROUTE_ZARAGOZA        => "Zaragoza",
+        );
+    }
 }
