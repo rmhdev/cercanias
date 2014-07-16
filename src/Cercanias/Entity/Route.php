@@ -39,7 +39,7 @@ final class Route
         if ($this->isInvalidId($id)) {
             throw new InvalidArgumentException("Invalid routeId");
         }
-        $this->id = $id;
+        $this->id = (string) $id;
     }
 
     protected function setName($name)
@@ -53,7 +53,7 @@ final class Route
 
     protected function isInvalidId($id)
     {
-        return (!is_integer($id) || $id <= 0);
+        return (is_null($id) || (!$id) || (is_int($id) && ($id <= 0)));
     }
 
     protected function isInvalidName($name)

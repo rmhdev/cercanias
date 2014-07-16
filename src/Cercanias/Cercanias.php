@@ -49,8 +49,8 @@ final class Cercanias implements CercaniasInterface
         $query = $routeId;
         if (!$query instanceof RouteQuery) {
             $query = new RouteQuery();
+            $query->setRoute($routeId);
         }
-        $query->setRoute($routeId);
 
         return $query;
     }

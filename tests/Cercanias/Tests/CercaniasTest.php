@@ -36,7 +36,6 @@ class CercaniasTest extends AbstractCercaniasTest
         return array(
             array(null),
             array(""),
-            array(new RouteQuery()),
         );
     }
 
@@ -45,6 +44,18 @@ class CercaniasTest extends AbstractCercaniasTest
         $provider = $this->getMockProviderReturnsRouteParser();
         $cercanias = new Cercanias($provider);
         $route = $cercanias->getRoute(1);
+
+        $this->assertInstanceOf('\Cercanias\Entity\Route', $route);
+        $this->assertEquals(1, $route->getId());
+    }
+
+    public function testGetRouteWithQuery()
+    {
+        $provider = $this->getMockProviderReturnsRouteParser();
+        $cercanias = new Cercanias($provider);
+        $query = new RouteQuery();
+        $query->setRoute(1);
+        $route = $cercanias->getRoute($query);
 
         $this->assertInstanceOf('\Cercanias\Entity\Route', $route);
         $this->assertEquals(1, $route->getId());

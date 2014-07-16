@@ -18,12 +18,12 @@ use Cercanias\Entity\Route;
 interface RouteQueryInterface extends QueryInterface
 {
     /**
-     * @param Route|int $route
+     * @param Route|string $route
      */
     public function setRoute($route);
 
     /**
-     * @return int
+     * @return string
      */
     public function getRouteId();
 }

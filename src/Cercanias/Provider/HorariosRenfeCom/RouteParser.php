@@ -54,7 +54,7 @@ final class RouteParser extends AbstractRouteParser implements RouteParserInterf
         $inputs = $path->query('//input[@name="nucleo"]');
         $value = $inputs->item(0)->attributes->getNamedItem("value")->textContent;
 
-        return (int) $value;
+        return $value;
     }
 
     protected function parseRouteName(\DOMXPath $path)

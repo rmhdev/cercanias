@@ -16,7 +16,7 @@ namespace Cercanias\Provider;
 interface RouteParserInterface
 {
     /**
-     * @return int
+     * @return string
      */
     public function getRouteId();
 

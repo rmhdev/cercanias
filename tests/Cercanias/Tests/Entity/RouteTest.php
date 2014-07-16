@@ -33,7 +33,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(61),
-            array(10),
+            array("10"),
         );
     }
 
@@ -51,7 +51,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         return array(
             array(-1),
             array(0),
-            array("123"),
+            array(""),
         );
     }
 

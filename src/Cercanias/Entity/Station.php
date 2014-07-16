@@ -24,7 +24,7 @@ final class Station
     /**
      * @param string $id
      * @param string $name
-     * @param int $routeId
+     * @param string $routeId
      */
     public function __construct($id, $name, $routeId)
     {

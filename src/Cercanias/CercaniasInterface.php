@@ -22,7 +22,7 @@ interface CercaniasInterface
 {
     /**
      * Retrieve a Route
-     * @param int|RouteQueryInterface $routeId
+     * @param string|RouteQueryInterface $routeId
      * @return Route
      */
     public function getRoute($routeId);

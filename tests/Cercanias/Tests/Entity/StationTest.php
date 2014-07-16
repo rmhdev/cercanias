@@ -23,7 +23,7 @@ class StationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetId($id)
     {
-        $station = new Station($id, "Irún", 61);
+        $station = new Station($id, "Irún", "61");
 
         $this->assertEquals($id, $station->getId());
     }
@@ -43,7 +43,7 @@ class StationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidId($invalidId)
     {
-        new Station($invalidId, "Irún", 61);
+        new Station($invalidId, "Irún", "61");
     }
 
     public function getInvalidIdProvider()
@@ -59,7 +59,7 @@ class StationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName($name, $expected)
     {
-        $city = new Station(1, $name, 61);
+        $city = new Station(1, $name, "61");
 
         $this->assertEquals($expected, $city->getName());
     }
@@ -78,13 +78,14 @@ class StationTest extends \PHPUnit_Framework_TestCase
      */
     public function testNameShouldNotBeAnEmptyString()
     {
-        new Station(1, "", 61);
+        new Station(1, "", "61");
     }
 
     public function testGetRouteId()
     {
-        $station = new Station(1, "Irun", 61);
-        $this->assertEquals(61, $station->getRouteId());
+        $station = new Station(1, "Irun", "61");
+        $this->assertEquals("61", $station->getRouteId());
+        $this->assertInternalType("string", $station->getRouteId());
     }
 
     /**

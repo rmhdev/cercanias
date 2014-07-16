@@ -37,12 +37,12 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
 
     protected function createDepartureStation()
     {
-        return new Station(1, "My departure", 61);
+        return new Station(1, "My departure", "61");
     }
 
     protected function createDestinationStation()
     {
-        return new Station(2, "My destination", 61);
+        return new Station(2, "My destination", "61");
     }
 
     public function testGetDestination()
@@ -156,8 +156,8 @@ class TimetableTest extends \PHPUnit_Framework_TestCase
      */
     public function testStationsMustHaveSameRouteId()
     {
-        $departure = new Station(1, "Irun", 61);
-        $arrival = new Station(2, "Brincola", 20);
+        $departure = new Station(1, "Irun", "61");
+        $arrival = new Station(2, "Brincola", "20");
         new Timetable($departure, $arrival);
     }
 

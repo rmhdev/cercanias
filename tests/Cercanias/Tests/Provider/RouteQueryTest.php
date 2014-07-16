@@ -31,10 +31,11 @@ class RouteQueryTest extends \PHPUnit_Framework_TestCase
 
     public function routeProvider()
     {
-        $route = new Route(456, "Default");
+        $route = new Route("456", "Default");
         return array(
-            array(1, 1),
-            array(456, $route),
+            array("1", "1"),
+            array("0123", "0123"),
+            array("456", $route),
         );
     }
 
@@ -44,6 +45,9 @@ class RouteQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($query->isValid());
 
         $query->setRoute(123);
+        $this->assertTrue($query->isValid());
+
+        $query->setRoute("123");
         $this->assertTrue($query->isValid());
     }
 }

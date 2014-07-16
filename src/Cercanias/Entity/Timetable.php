@@ -31,7 +31,7 @@ final class Timetable
      */
     public function __construct(Station $departure, Station $destination, $transfer = null)
     {
-        if ($departure->getRouteId() != $destination->getRouteId()) {
+        if ($departure->getRouteId() !== $destination->getRouteId()) {
             throw new InvalidArgumentException("Stations must have the same RouteId");
         }
         $this->departure = $departure;

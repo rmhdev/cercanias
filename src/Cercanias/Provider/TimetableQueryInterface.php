@@ -19,13 +19,13 @@ use Cercanias\Entity\Station;
 interface TimetableQueryInterface extends QueryInterface
 {
     /**
-     * @param Route|int $route
+     * @param Route|string $route
      * @return self
      */
     public function setRoute($route);
 
     /**
-     * @return int
+     * @return string
      */
     public function getRouteId();
 

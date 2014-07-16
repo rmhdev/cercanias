@@ -107,11 +107,11 @@ class ProviderTest extends AbstractProviderTest
         return array(
             array(
                 sprintf($url, "123", "808", "909", "20140701"),
-                array("route" => 123, "from" => "808", "to" => "909", "date" => new \DateTime("2014-07-01"))
+                array("route" => "123", "from" => "808", "to" => "909", "date" => new \DateTime("2014-07-01"))
             ),
             array(
                 sprintf($url, "123", "abc", "def", $today->format("Ymd")),
-                array("route" => 123, "from" => "abc", "to" => "def", "date" => null)
+                array("route" => "123", "from" => "abc", "to" => "def", "date" => null)
             )
         );
     }
@@ -136,7 +136,7 @@ class ProviderTest extends AbstractProviderTest
         $routeParser = $provider->getRouteParser($query);
 
         $this->assertInstanceOf('\Cercanias\Provider\HorariosRenfeCom\RouteParser', $routeParser);
-        $this->assertEquals(61, $routeParser->getRouteId());
+        $this->assertEquals("61", $routeParser->getRouteId());
         $this->assertEquals("San Sebastián", $routeParser->getRouteName());
         $this->assertEquals(30, $routeParser->getStations()->count());
     }
