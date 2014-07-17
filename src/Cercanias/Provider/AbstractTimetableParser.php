@@ -47,8 +47,10 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
 
     protected function setDate(\DateTime $dateTime)
     {
-        $dateTime->setTime(0, 0, 0);
-        $this->date = $dateTime;
+        $date = clone $dateTime;
+        $date->setTime(0, 0, 0);
+        $date->setTimezone(new \DateTimeZone("Europe/Madrid"));
+        $this->date = $date;
     }
 
     /**

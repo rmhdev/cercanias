@@ -23,9 +23,11 @@ class TimetableParserTest extends AbstractTimetableParserTest
     public function testGetDate()
     {
         $parser = $this->createTimetableParserSanSebastian();
-        $expected = new \DateTime("2014-02-10 00:00:00");
+        $expected = new \DateTime("2014-02-10T00:00:00+01:00");
+        $date = $parser->getDate();
 
-        $this->assertEquals($expected, $parser->getDate());
+        $this->assertEquals($expected, $date);
+        $this->assertEquals(new \DateTimeZone("Europe/Madrid"), $date->getTimezone());
     }
 
     protected function createTimetableParserSanSebastian()
