@@ -59,12 +59,12 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
 
     protected function updateDate(\DOMXPath $path)
     {
-        $date = \DateTime::createFromFormat(
-            "d-m-Y",
-            $this->retrieveDateString($path),
-            $this->getDateTimeZone()
+        $this->setDate(
+            $this->createDateFromFormat(
+                "d-m-Y",
+                $this->retrieveDateString($path)
+            )
         );
-        $this->setDate($date);
     }
 
     protected function retrieveDateString(\DOMXPath $path)

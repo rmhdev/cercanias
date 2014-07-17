@@ -52,6 +52,15 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
         $this->date = $date;
     }
 
+    protected function createDateFromFormat($format, $time)
+    {
+        return \DateTime::createFromFormat(
+            $format,
+            $time,
+            $this->getDateTimeZone()
+        );
+    }
+
     protected function getDateTimeZone()
     {
         return new \DateTimeZone("Europe/Madrid");
