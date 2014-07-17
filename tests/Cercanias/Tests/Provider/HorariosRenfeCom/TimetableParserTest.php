@@ -23,6 +23,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
     public function testGetDate()
     {
         $parser = $this->createTimetableParserSanSebastian();
+        // +01:00, Date without DST (february):
         $expected = new \DateTime("2014-02-10T00:00:00+01:00");
         $date = $parser->getDate();
 
@@ -73,8 +74,12 @@ class TimetableParserTest extends AbstractTimetableParserTest
         $trips = $parser->getTrips();
         $trips->seek(34 - 1);
         $lastTrip = $trips->current();
-        $train = new Train("c1", new \DateTime("2014-06-22 22:58"), new \DateTime("2014-06-22 23:10"));
-        $transferTrain = new Train("c3", new \DateTime("2014-06-22 23:37"), new \DateTime("2014-06-23 00:35"));
+        $train = new Train("c1", new \DateTime("2014-06-22T22:58+02:00"), new \DateTime("2014-06-22T23:10+02:00"));
+        $transferTrain = new Train(
+            "c3",
+            new \DateTime("2014-06-22T23:37+02:00"),
+            new \DateTime("2014-06-23T00:35+02:00")
+        );
         $expectedTrip = new Trip($train, $transferTrain);
 
         $this->assertEquals($expectedTrip, $lastTrip, "Last trip arrives after midnight");
@@ -88,10 +93,10 @@ class TimetableParserTest extends AbstractTimetableParserTest
         $trips = $parser->getTrips();
         $trips->seek(31 - 1);
         $trip = $trips->current();
-        $train = new Train("r1", new \DateTime("2014-06-15 21:03"), new \DateTime("2014-06-15 21:49"));
+        $train = new Train("r1", new \DateTime("2014-06-15T21:03+02:00"), new \DateTime("2014-06-15T21:49+02:00"));
         $transferTrains = array(
-            new Train("r2", new \DateTime("2014-06-15 21:56"), new \DateTime("2014-06-15 22:01")),
-            new Train("r2", new \DateTime("2014-06-15 22:09"), new \DateTime("2014-06-15 22:14"))
+            new Train("r2", new \DateTime("2014-06-15T21:56+02:00"), new \DateTime("2014-06-15T22:01+02:00")),
+            new Train("r2", new \DateTime("2014-06-15T22:09+02:00"), new \DateTime("2014-06-15T22:14+02:00"))
         );
         $expectedTrip = new Trip($train, $transferTrains);
         $this->assertEquals($expectedTrip, $trip, "Trips #30 has two transfers");
