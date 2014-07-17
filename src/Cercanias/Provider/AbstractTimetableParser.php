@@ -49,8 +49,12 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
     {
         $date = clone $dateTime;
         $date->setTime(0, 0, 0);
-        $date->setTimezone(new \DateTimeZone("Europe/Madrid"));
         $this->date = $date;
+    }
+
+    protected function getDateTimeZone()
+    {
+        return new \DateTimeZone("Europe/Madrid");
     }
 
     /**

@@ -61,7 +61,8 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
     {
         $date = \DateTime::createFromFormat(
             "d-m-Y",
-            $this->retrieveDateString($path)
+            $this->retrieveDateString($path),
+            $this->getDateTimeZone()
         );
         $this->setDate($date);
     }
