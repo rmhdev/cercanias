@@ -26,7 +26,7 @@ Create a `composer.json` file:
 ``` json
 {
     "require": {
-        "rmhdev/cercanias": "0.1.*"
+        "rmhdev/cercanias": "0.2.*"
     }
 }
 ```
@@ -128,6 +128,7 @@ Indicates where is the information taken. Available providers:
 * `0.0.5` (July 01, 2014): improve queries generation.
 * `0.0.6` (July 06, 2014): add `Cercanias` class to simplify usage.
 * `0.1.0` (July 06, 2014): add library to [Packagist][].
+* `0.2.0` (July 28, 2014): fix a couple of bugs.
 
 ## Copyright and license
 
