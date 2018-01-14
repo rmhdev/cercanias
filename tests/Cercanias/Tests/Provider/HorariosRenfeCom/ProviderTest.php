@@ -30,7 +30,9 @@ class ProviderTest extends AbstractProviderTest
 
     public function testGetTimetableParserSanSebastian()
     {
-        $provider = new Provider($this->getMockAdapterReturnsFixtureContent("timetable-sansebastian.html"));
+        $provider = new Provider(
+            $this->getMockAdapterReturnsFixtureContent("HorariosRenfeCom/timetable-sansebastian.html")
+        );
         $query = new TimetableQuery();
         $query
             ->setRoute(1)
@@ -129,7 +131,7 @@ class ProviderTest extends AbstractProviderTest
 
     public function testGetRouteParser()
     {
-        $mockAdapter = $this->getMockAdapterReturnsFixtureContent("route-sansebastian.html");
+        $mockAdapter = $this->getMockAdapterReturnsFixtureContent("HorariosRenfeCom/route-sansebastian.html");
         $provider = new Provider($mockAdapter);
         $query = new RouteQuery();
         $query->setRoute(Provider::ROUTE_SAN_SEBASTIAN);

@@ -20,7 +20,7 @@ class RouteParserTest extends AbstractRouteParserTest
 {
     public function testParseSanSebastian()
     {
-        $routeParser = $this->getRouteParser("route-sansebastian.html");
+        $routeParser = $this->getRouteParser("HorariosRenfeCom/route-sansebastian.html");
 
         //$route = $routeParser->getRoute();
         $this->assertEquals("61", $routeParser->getRouteId());
@@ -84,7 +84,7 @@ class RouteParserTest extends AbstractRouteParserTest
 
     public function testParseMadrid()
     {
-        $routeParser = $this->getRouteParser("route-madrid.html");
+        $routeParser = $this->getRouteParser("HorariosRenfeCom/route-madrid.html");
 
         $this->assertEquals("10", $routeParser->getRouteId());
         $this->assertEquals("Madrid", $routeParser->getRouteName());
@@ -97,6 +97,6 @@ class RouteParserTest extends AbstractRouteParserTest
      */
     public function testParseNoResults()
     {
-        $this->getRouteParser("route-no-results.html");
+        $this->getRouteParser("HorariosRenfeCom/route-no-results.html");
     }
 }
