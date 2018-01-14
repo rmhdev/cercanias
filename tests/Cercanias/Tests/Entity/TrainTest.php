@@ -78,8 +78,11 @@ class TrainTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDuration()
     {
-        $departureTime = new \DateTime("+1 day 5 hours");
-        $arrivalTime = new \DateTime("+1 day 6 hours");
+        $base = (new \DateTime("today +1 day"))->setTime(12, 0, 0);
+        $departureTime = clone $base;
+        $departureTime = $departureTime->modify("+5 hours");
+        $arrivalTime = clone $base;
+        $arrivalTime = $arrivalTime->modify("+6 hours");
         $train = new Train("C1", $departureTime, $arrivalTime);
         $duration = new \DateInterval("PT1H");
 
