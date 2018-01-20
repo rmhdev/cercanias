@@ -10,7 +10,7 @@
 
 namespace Cercanias\Provider\HorariosRenfeCom\Parser;
 
-class StationNameParser
+class TimetableStationNameParser
 {
     private $departureName;
 
