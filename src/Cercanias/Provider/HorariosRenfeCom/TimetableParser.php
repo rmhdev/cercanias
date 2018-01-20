@@ -179,7 +179,6 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
     protected function createDateTime($string)
     {
         $date = clone $this->getDate();
-        print_r($string); die();
         list($hour, $minute) = explode(".", trim($string));
         $date->setTime((int) $hour, (int) $minute, 0);
         if ($this->isHourInNextDay($hour, $minute)) {
