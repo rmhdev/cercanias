@@ -43,11 +43,19 @@ class TimetableTripsParser
             throw new ParseException("Timetable has no rows");
         }
 
+        // sometimes table has a thead:
+        $tripsStartAtRow = 1;
+        $thead = $path->query('//table/thead');
+        if ($thead && $thead->length > 0) {
+            $tripsStartAtRow = 0;
+        }
+
         $headerTds = $allRows->item(0)->getElementsByTagName("td");
         if (self::TIMETABLE_WITHOUT_TRANSFER_COLS == $headerTds->length) {
-            $trips = $this->parseNoTransferTrips($allRows);
+            $trips = $this->parseNoTransferTrips($allRows, $tripsStartAtRow);
         } elseif (self::TIMETABLE_WITH_TRANSFER_COLS == $headerTds->length) {
-            $transferStationName = $this->parseTransferStationName($allRows->item(1));
+            $rowWithTransferName = $allRows->item(1);
+            $transferStationName = $this->parseTransferStationName($rowWithTransferName);
             $trips = $this->parseTransferTrips($allRows);
         } else {
             throw new ParseException(sprintf(
@@ -55,18 +63,14 @@ class TimetableTripsParser
                 $headerTds->length
             ));
         }
-
-
-
         $this->trips = $trips;
         $this->transferStationName = $transferStationName;
     }
 
-    private function parseNoTransferTrips(\DOMNodeList $rows)
+    private function parseNoTransferTrips(\DOMNodeList $rows, $startFromRow = 1)
     {
         $trips = array();
-        // The first 2 tr are headers and have no trip data.
-        for ($i = 1; $i < $rows->length; $i += 1) {
+        for ($i = $startFromRow; $i < $rows->length; $i += 1) {
             $trips[] = $this->parseNoTransferTrip(
                 $rows->item($i)->getElementsByTagName("td")
             );
@@ -80,17 +84,28 @@ class TimetableTripsParser
         return array(
             "line"          => trim($list->item(0)->textContent),
             "description"   => trim($list->item(1)->textContent),
-            "departure"     => trim($this->createTime($list->item(2)->textContent)),
-            "arrival"       => trim($this->createTime($list->item(3)->textContent)),
-            "duration"      => trim($this->createTime($list->item(4)->textContent)),
+            "departure"     => $this->createTime($list->item(2)->textContent),
+            "arrival"       => $this->createTime($list->item(3)->textContent),
+            "duration"      => $this->createDuration($list->item(4)->textContent),
         );
     }
 
     private function createTime($string)
     {
-        list($hour, $minute) = explode(".", trim($string));
+        return str_replace(".", ":", trim($string));
+    }
 
-        return sprintf("%s:%s", $hour, $minute);
+    private function createDuration($string)
+    {
+        $result = preg_match_all('/\d+/', $string, $matches);
+        if (false === $result) {
+            return "";
+        }
+        if (!$matches) {
+            return "";
+        }
+
+        return implode(":", $matches[0]);
     }
 
 
@@ -131,8 +146,8 @@ class TimetableTripsParser
         $values = array(
             "line" => $line,
             "description" => trim($tds->item(1)->textContent),
-            "departure"     => trim($this->createTime($tds->item(2)->textContent)),
-            "arrival"       => trim($this->createTime($tds->item(3)->textContent)),
+            "departure"     => $this->createTime($tds->item(2)->textContent),
+            "arrival"       => $this->createTime($tds->item(3)->textContent),
             "transfers"     => array(),
         );
 
@@ -140,8 +155,8 @@ class TimetableTripsParser
             "departure"     => trim($this->createTime($tds->item(4)->textContent)),
             "line"          => trim($tds->item(5)->textContent),
             "description"   => trim($tds->item(6)->textContent),
-            "arrival"       => trim($this->createTime($tds->item(7)->textContent)),
-            "duration"      => trim($this->createTime($tds->item(8)->textContent)),
+            "arrival"       => $this->createTime($tds->item(7)->textContent),
+            "duration"      => $this->createDuration($tds->item(8)->textContent),
         );
 
         $pos = $i;

@@ -368,4 +368,48 @@ HTML;
             ),
         );
     }
+
+    public function testItParsesTimetableWithDifferentTimeFormats()
+    {
+        $parser = new TimetableTripsParser($this->getSimpleTimetableWithDifferentTimeFormats());
+
+        $expected = array(
+            "line" => "R3",
+            "description" => "",
+            "departure" => "07:14",
+            "arrival" => "09:40",
+            "duration" => "2:26",
+        );
+        $trips = $parser->trips();
+
+        $this->assertEquals($expected, $trips[0]);
+    }
+
+    public function getSimpleTimetableWithDifferentTimeFormats()
+    {
+        return <<<HTML
+<table id="tablaHorarios" width="95%" align="center" class="horarios" border="0" cellspacing="1" cellpadding="1">
+    <thead>
+        <tr>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Línea</td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> </td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Time of Departure</td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Time of Arrival</td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Time of travel</td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+    </thead>
+    <tbody>
+        <tr class="par">
+            <td align="center" name="codLinea" class="linea-cercanias _50R3">R3</td>
+            <td align="center"> </td>
+            <td align="center">07:14</td>
+            <td align="center">09:40</td>
+            <td align="center">2h 26min.</td>
+        </tr>
+    </tbody>
+</table>
+HTML;
+    }
 }
