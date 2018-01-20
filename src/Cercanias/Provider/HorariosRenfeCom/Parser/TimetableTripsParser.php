@@ -68,7 +68,6 @@ class TimetableTripsParser
         // The first 2 tr are headers and have no trip data.
         for ($i = 1; $i < $rows->length; $i += 1) {
             $trips[] = $this->parseNoTransferTrip(
-                //$path->query(".//td", $rows->item($i))
                 $rows->item($i)->getElementsByTagName("td")
             );
         }
@@ -110,7 +109,70 @@ class TimetableTripsParser
 
     private function parseTransferTrips(\DOMNodeList $rows)
     {
-        return array();
+        $trips = array();
+        // The first 3 tr are headers and have no trip data.
+        for ($i = 3; $i < $rows->length; $i += 1) {
+            $trip = $this->parseTransferTrip($rows, $i);
+            if ($trip) {
+                $trips[] = $trip;
+            }
+        }
+
+        return $trips;
+    }
+
+    private function parseTransferTrip(\DOMNodeList $rows, $i)
+    {
+        $tds = $rows->item($i)->getElementsByTagName("td");
+        $line = trim($tds->item(0)->textContent);
+        if (!strlen($line)) {
+            return array();
+        }
+        $values = array(
+            "line" => $line,
+            "description" => trim($tds->item(1)->textContent),
+            "departure"     => trim($this->createTime($tds->item(2)->textContent)),
+            "arrival"       => trim($this->createTime($tds->item(3)->textContent)),
+            "transfers"     => array(),
+        );
+
+        $values["transfers"][] = array(
+            "departure"     => trim($this->createTime($tds->item(4)->textContent)),
+            "line"          => trim($tds->item(5)->textContent),
+            "description"   => trim($tds->item(6)->textContent),
+            "arrival"       => trim($this->createTime($tds->item(7)->textContent)),
+            "duration"      => trim($this->createTime($tds->item(8)->textContent)),
+        );
+
+        $pos = $i;
+        while (true) {
+            $pos += 1;
+            if (!$rows->item($pos)) {
+                break;
+            }
+            $transferTds = $rows->item($pos)->getElementsByTagName("td");
+            if (!$transferTds) {
+                break;
+            }
+
+            $transferLine = trim($transferTds->item(0)->textContent);
+            if (strlen($transferLine) > 0) {
+                break;
+            }
+            $values["transfers"][] = array(
+                "departure"     => trim($this->createTime($transferTds->item(4)->textContent)),
+                "line"          => trim($transferTds->item(5)->textContent),
+                "description"   => trim($transferTds->item(6)->textContent),
+                "arrival"       => trim($this->createTime($transferTds->item(7)->textContent)),
+                "duration"      => trim($this->createTime($transferTds->item(8)->textContent)),
+            );
+            if (($pos - $i) >= 15) {
+                // just is case...
+                break;
+            }
+        }
+
+        return $values;
     }
 
     public function trips()

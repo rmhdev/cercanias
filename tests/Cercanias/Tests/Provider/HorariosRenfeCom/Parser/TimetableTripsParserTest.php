@@ -38,22 +38,6 @@ class TimetableTripsParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("CIVIS", $trips[1]["description"]);
     }
 
-    public function testItParsesTimetableWithTransfer()
-    {
-        $parser = new TimetableTripsParser($this->getTimetableWithTransferData());
-        $this->assertTrue($parser->hasTransfer());
-        $this->assertEquals("Chamartin", $parser->transferStationName());
-    }
-
-    /**
-     * @dataProvider getIncorrectHeaderDataProvider
-     * @expectedException \Cercanias\Exception\ParseException
-     */
-    public function testItThrowsExceptionWhenTimetableHasIncorrectHeader($header, $comments)
-    {
-        new TimetableTripsParser($header);
-    }
-
     public function getSimpleTimetableData()
     {
         return <<<HTML
@@ -102,6 +86,64 @@ class TimetableTripsParserTest extends \PHPUnit_Framework_TestCase
 		</tbody>		  
 	</table>
 HTML;
+    }
+
+    public function testItParsesTimetableWithMultiTransfer()
+    {
+        $parser = new TimetableTripsParser($this->getTimetableWithTransferData());
+        $this->assertTrue($parser->hasTransfer());
+        $this->assertEquals("Chamartin", $parser->transferStationName());
+        $trips = $parser->trips();
+        $multiTransferTrip = $trips[0];
+
+        $this->assertEquals("C1", $multiTransferTrip["line"]);
+        $this->assertEquals("", $multiTransferTrip["description"]);
+        $this->assertEquals("05:56", $multiTransferTrip["departure"]);
+        $this->assertEquals("06:11", $multiTransferTrip["arrival"]);
+
+        $transfers = $multiTransferTrip["transfers"];
+        $this->assertEquals(3, sizeof($transfers));
+
+        $this->assertEquals("06:14", $transfers[0]["departure"]);
+        $this->assertEquals("C4B", $transfers[0]["line"]);
+        $this->assertEquals("", $transfers[0]["description"]);
+        $this->assertEquals("06:19", $transfers[0]["arrival"]);
+        $this->assertEquals("0:23", $transfers[0]["duration"]);
+
+        $this->assertEquals("06:25", $transfers[1]["departure"]);
+        $this->assertEquals("C4A", $transfers[1]["line"]);
+        $this->assertEquals("", $transfers[1]["description"]);
+        $this->assertEquals("06:30", $transfers[1]["arrival"]);
+        $this->assertEquals("0:34", $transfers[1]["duration"]);
+
+        $this->assertEquals("06:31", $transfers[2]["departure"]);
+        $this->assertEquals("C4Z", $transfers[2]["line"]);
+        $this->assertEquals("", $transfers[2]["description"]);
+        $this->assertEquals("06:36", $transfers[2]["arrival"]);
+        $this->assertEquals("0:40", $transfers[2]["duration"]);
+    }
+
+    public function testItParsesTimetableWithSingleTransfer()
+    {
+        $parser = new TimetableTripsParser($this->getTimetableWithTransferData());
+        $this->assertTrue($parser->hasTransfer());
+        $this->assertEquals("Chamartin", $parser->transferStationName());
+        $trips = $parser->trips();
+
+        $singleTransferTrip = $trips[1];
+
+        $this->assertEquals("C10", $singleTransferTrip["line"]);
+        $this->assertEquals("", $singleTransferTrip["description"]);
+        $this->assertEquals("09:16", $singleTransferTrip["departure"]);
+        $this->assertEquals("09:31", $singleTransferTrip["arrival"]);
+
+        $transfers = $singleTransferTrip["transfers"];
+        $this->assertEquals(1, sizeof($transfers));
+
+        $this->assertEquals("09:38", $transfers[0]["departure"]);
+        $this->assertEquals("C4B", $transfers[0]["line"]);
+        $this->assertEquals("", $transfers[0]["description"]);
+        $this->assertEquals("0:27", $transfers[0]["duration"]);
     }
 
     public function getTimetableWithTransferData()
@@ -182,6 +224,34 @@ HTML;
 			            
 			            <td class="" align="center"> 06.30</td>            
 			            <td class="" align="center"> 0.34 </td>
+		          	</tr>
+		          	
+		          	<tr class="impar">
+		            	<td class="linea-cercanias _10" align="center" name="codLinea"> 
+		            		   
+		            	</td>
+		            	
+			 			<td align="center">
+			 				<span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+		            	<td class="" align="center">  </td>
+						
+			            	<td class="" align="center"> </td>
+			            	<td class="" align="center"> 06.31 </td>
+			 				
+			 			<td class="linea-cercanias _10C4A" align="center" name="codLinea"> 
+			 				 C4Z   
+			 			</td>
+			 			
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 06.36</td>            
+			            <td class="" align="center"> 0.40 </td>
 		          	</tr>
 	          	
 		          	<tr class="par">
@@ -270,6 +340,15 @@ HTML;
 		</tbody>		  
 	</table>
 HTML;
+    }
+
+    /**
+     * @dataProvider getIncorrectHeaderDataProvider
+     * @expectedException \Cercanias\Exception\ParseException
+     */
+    public function testItThrowsExceptionWhenTimetableHasIncorrectHeader($header, $comments)
+    {
+        new TimetableTripsParser($header);
     }
 
     public function getIncorrectHeaderDataProvider()
