@@ -369,7 +369,7 @@ HTML;
         );
     }
 
-    public function testItParsesTimetableWithDifferentTimeFormats()
+    public function testItParsesSimpleTimetableHavingDifferentTimeFormats()
     {
         $parser = new TimetableTripsParser($this->getSimpleTimetableWithDifferentTimeFormats());
 
@@ -411,5 +411,62 @@ HTML;
     </tbody>
 </table>
 HTML;
+    }
+
+    public function testItParsesTimetableWithTransfersHavingDifferentTimeFormats()
+    {
+        $parser = new TimetableTripsParser($this->getTimetableWithTransfersHavingDiferentTimeFormats());
+        $this->assertEquals("BARCELONA-SANTS", $parser->transferStationName());
+
+        $trips = $parser->trips();
+        $trip = $trips[0];
+
+        $this->assertEquals("05:42", $trip["departure"]);
+        $this->assertEquals("Tren accesible", $trip["description"]);
+    }
+
+    public function getTimetableWithTransfersHavingDiferentTimeFormats()
+    {
+        return <<<HTML
+<table id="tablaHorarios" width="95%" align="center" class="horarios" border="0" cellspacing="1" cellpadding="1">
+    <thead>
+        <tr>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Línea</td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> </td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Salida Origen</td>
+            <td valign="center" align="center" class="cabe" colspan="2"> Transbordo en</td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Línea</td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> </td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Llegada Destino</td>
+            <td valign="center" align="center" class="cabe" rowspan="3"> Time of travel</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center" class="cabe">BARCELONA-SANTS</td>
+        </tr>
+        <tr>
+            <td align="center" class="cabe">Llegada</td>
+            <td align="center" class="cabe">Salida</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="par">
+            <td align="center" name="codLinea" class="linea-cercanias _50R2N">R2N</td>
+            <td align="center">
+                <img src="/cer/img/ab18x18.jpg" style="vertical-align:middle;" alt="Tren accesible">
+            </td>
+            <td align="center">05:42</td>
+            <td align="center">05:58</td>
+            <td align="center">06:12</td>
+            <td align="center" class="linea-cercanias _50R1">R1</td>
+            <td align="center">
+                <img src="/cer/img/ab18x18.jpg" style="vertical-align:middle;" alt="Tren accesible"> 
+            </td>
+            <td align="center">07:16</td>
+            <td align="center">1h 34min.</td>
+        </tr>   
+    </tbody>
+</table>
+HTML;
+
     }
 }

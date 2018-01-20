@@ -43,20 +43,24 @@ class TimetableTripsParser
             throw new ParseException("Timetable has no rows");
         }
 
+        $headerTds = $allRows->item(0)->getElementsByTagName("td");
         // sometimes table has a thead:
         $tripsStartAtRow = 1;
-        $thead = $path->query('//table/thead');
-        if ($thead && $thead->length > 0) {
+        $tripsWithTransferStartAtRow = 3;
+        $theadRows = $path->query('//table/thead/tr');
+
+        if ($theadRows && $theadRows->length > 0) {
             $tripsStartAtRow = 0;
+            $tripsWithTransferStartAtRow = 0;
+            $headerTds = $theadRows->item(0)->getElementsByTagName("td");
         }
 
-        $headerTds = $allRows->item(0)->getElementsByTagName("td");
         if (self::TIMETABLE_WITHOUT_TRANSFER_COLS == $headerTds->length) {
             $trips = $this->parseNoTransferTrips($allRows, $tripsStartAtRow);
         } elseif (self::TIMETABLE_WITH_TRANSFER_COLS == $headerTds->length) {
-            $rowWithTransferName = $allRows->item(1);
+            $rowWithTransferName = ($theadRows && $theadRows->length > 0) ? $theadRows->item(1) : $allRows->item(1);
             $transferStationName = $this->parseTransferStationName($rowWithTransferName);
-            $trips = $this->parseTransferTrips($allRows);
+            $trips = $this->parseTransferTrips($allRows, $tripsWithTransferStartAtRow);
         } else {
             throw new ParseException(sprintf(
                 'Number of columns in timetable header is unexpected: "%d"',
@@ -83,19 +87,19 @@ class TimetableTripsParser
     {
         return array(
             "line"          => trim($list->item(0)->textContent),
-            "description"   => trim($list->item(1)->textContent),
-            "departure"     => $this->createTime($list->item(2)->textContent),
-            "arrival"       => $this->createTime($list->item(3)->textContent),
-            "duration"      => $this->createDuration($list->item(4)->textContent),
+            "description"   => $this->parseDescription($list->item(1)),
+            "departure"     => $this->parseTime($list->item(2)->textContent),
+            "arrival"       => $this->parseTime($list->item(3)->textContent),
+            "duration"      => $this->parseDuration($list->item(4)->textContent),
         );
     }
 
-    private function createTime($string)
+    private function parseTime($string)
     {
         return str_replace(".", ":", trim($string));
     }
 
-    private function createDuration($string)
+    private function parseDuration($string)
     {
         $result = preg_match_all('/\d+/', $string, $matches);
         if (false === $result) {
@@ -106,6 +110,19 @@ class TimetableTripsParser
         }
 
         return implode(":", $matches[0]);
+    }
+
+    private function parseDescription(\DOMElement $raw)
+    {
+        $images = $raw->getElementsByTagName("img");
+        if ($images->length > 0) {
+            $alt = $images->item(0)->attributes->getNamedItem("alt");
+            if ($alt) {
+                return trim($alt->textContent);
+            }
+        }
+
+        return trim($raw->textContent);
     }
 
 
@@ -122,11 +139,10 @@ class TimetableTripsParser
         return trim($row->getElementsByTagName("td")->item(0)->textContent);
     }
 
-    private function parseTransferTrips(\DOMNodeList $rows)
+    private function parseTransferTrips(\DOMNodeList $rows, $startAtRow = 3)
     {
         $trips = array();
-        // The first 3 tr are headers and have no trip data.
-        for ($i = 3; $i < $rows->length; $i += 1) {
+        for ($i = $startAtRow; $i < $rows->length; $i += 1) {
             $trip = $this->parseTransferTrip($rows, $i);
             if ($trip) {
                 $trips[] = $trip;
@@ -145,18 +161,18 @@ class TimetableTripsParser
         }
         $values = array(
             "line" => $line,
-            "description" => trim($tds->item(1)->textContent),
-            "departure"     => $this->createTime($tds->item(2)->textContent),
-            "arrival"       => $this->createTime($tds->item(3)->textContent),
+            "description"   => $this->parseDescription($tds->item(1)),
+            "departure"     => $this->parseTime($tds->item(2)->textContent),
+            "arrival"       => $this->parseTime($tds->item(3)->textContent),
             "transfers"     => array(),
         );
 
         $values["transfers"][] = array(
-            "departure"     => trim($this->createTime($tds->item(4)->textContent)),
+            "departure"     => trim($this->parseTime($tds->item(4)->textContent)),
             "line"          => trim($tds->item(5)->textContent),
-            "description"   => trim($tds->item(6)->textContent),
-            "arrival"       => $this->createTime($tds->item(7)->textContent),
-            "duration"      => $this->createDuration($tds->item(8)->textContent),
+            "description"   => $this->parseDescription($tds->item(6)),
+            "arrival"       => $this->parseTime($tds->item(7)->textContent),
+            "duration"      => $this->parseDuration($tds->item(8)->textContent),
         );
 
         $pos = $i;
@@ -175,11 +191,11 @@ class TimetableTripsParser
                 break;
             }
             $values["transfers"][] = array(
-                "departure"     => trim($this->createTime($transferTds->item(4)->textContent)),
+                "departure"     => trim($this->parseTime($transferTds->item(4)->textContent)),
                 "line"          => trim($transferTds->item(5)->textContent),
-                "description"   => trim($transferTds->item(6)->textContent),
-                "arrival"       => trim($this->createTime($transferTds->item(7)->textContent)),
-                "duration"      => trim($this->createTime($transferTds->item(8)->textContent)),
+                "description"   => $this->parseDescription($transferTds->item(6)),
+                "arrival"       => trim($this->parseTime($transferTds->item(7)->textContent)),
+                "duration"      => trim($this->parseTime($transferTds->item(8)->textContent)),
             );
             if (($pos - $i) >= 15) {
                 // just is case...
