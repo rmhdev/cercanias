@@ -12,7 +12,7 @@
          bootstrap="tests/bootstrap.php"
         >
     <testsuites>
-        <testsuite name="Identicon Test Suite">
+        <testsuite name="Cercanias Test Suite">
             <directory>./tests/Cercanias/</directory>
         </testsuite>
     </testsuites>

@@ -10,6 +10,8 @@
 
 namespace Cercanias\Tests\Provider;
 
+use Cercanias\Provider\HorariosRenfeCom\TimetableParser;
+
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
@@ -21,6 +23,13 @@ abstract class AbstractTimetableParserTest extends \PHPUnit_Framework_TestCase
             file_get_contents(__DIR__ . "/../../Fixtures/" . $filename),
             'HTML-ENTITIES',
             "UTF-8"
+        );
+    }
+
+    protected function createTimetableParser($filename)
+    {
+        return new TimetableParser(
+            $this->getContentHtml($filename)
         );
     }
 }

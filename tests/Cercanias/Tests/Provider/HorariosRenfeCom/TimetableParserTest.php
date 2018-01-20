@@ -50,13 +50,6 @@ class TimetableParserTest extends AbstractTimetableParserTest
         $this->createTimetableParser("HorariosRenfeCom/timetable-no-results.html");
     }
 
-    protected function createTimetableParser($filename)
-    {
-        return new TimetableParser(
-            $this->getContentHtml($filename)
-        );
-    }
-
     /**
      * @expectedException \Cercanias\Exception\ServiceUnavailableException
      * @expectedExceptionMessage Servicio temporalmente no disponible.

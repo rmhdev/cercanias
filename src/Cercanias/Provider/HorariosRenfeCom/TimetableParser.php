@@ -85,12 +85,12 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
 
     protected function updateStationNames(\DOMXPath $path, $hasTransfer = false)
     {
-        $spans = $path->query('//span[@class="titulo_negro"]');
+        $stationNames = $path->query('//*[not(self::a)][@class="titulo_negro"]');
         $departureStationName = "";
         $arrivalStationName = "";
-        if ($spans->length) {
-            $departureStationName = $spans->item(0)->textContent;
-            $arrivalStationName = $spans->item(1)->textContent;
+        if ($stationNames->length) {
+            $departureStationName = $stationNames->item(0)->textContent;
+            $arrivalStationName = $stationNames->item(1)->textContent;
         }
         $this->setDepartureName($departureStationName);
         $this->setDestinationName($arrivalStationName);
@@ -179,6 +179,7 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
     protected function createDateTime($string)
     {
         $date = clone $this->getDate();
+        print_r($string); die();
         list($hour, $minute) = explode(".", trim($string));
         $date->setTime((int) $hour, (int) $minute, 0);
         if ($this->isHourInNextDay($hour, $minute)) {
