@@ -45,10 +45,19 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
             );
             $transfers = [];
             foreach ($tripData["transfers"] as $transferData) {
+                $linkTrain = null;
+                if ($transferData["link"]) {
+                    $linkTrain = new Train(
+                        $transferData["link"]["line"],
+                        $this->createDateFromTime($transferData["link"]["departure"]),
+                        $this->createDateFromTime($transferData["link"]["arrival"])
+                    );
+                }
                 $transfers[] = new Train(
                     $transferData["line"],
                     $this->createDateFromTime($transferData["departure"]),
-                    $this->createDateFromTime($transferData["arrival"])
+                    $this->createDateFromTime($transferData["arrival"]),
+                    $linkTrain
                 );
             }
             $this->addTrip(new Trip($train, $transfers));

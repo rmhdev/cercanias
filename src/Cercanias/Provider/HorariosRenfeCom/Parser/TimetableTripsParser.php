@@ -212,6 +212,7 @@ class TimetableTripsParser
             "description"   => $this->parseDescription($tds->item(6)),
             "arrival"       => $this->parseTime($tds->item(7)->textContent),
             "duration"      => $this->parseDuration($tds->item(8)->textContent),
+            "link"          => array(),
         );
 
         $pos = $i;
@@ -235,6 +236,7 @@ class TimetableTripsParser
                 "description"   => $this->parseDescription($transferTds->item(6)),
                 "arrival"       => trim($this->parseTime($transferTds->item(7)->textContent)),
                 "duration"      => trim($this->parseTime($transferTds->item(8)->textContent)),
+                "link"          => array(),
             );
             if (($pos - $i) >= 15) {
                 // just is case...
@@ -260,7 +262,70 @@ class TimetableTripsParser
 
     private function parseMultiTransferTrip(\DOMNodeList $rows, $i)
     {
-        return array();
+        $tds = $rows->item($i)->getElementsByTagName("td");
+        $line = trim($tds->item(0)->textContent);
+        if (!strlen($line)) {
+            return array();
+        }
+
+
+        $values = array(
+            "line" => $line,
+            "description"   => $this->parseDescription($tds->item(1), ""),
+            "departure"     => $this->parseTime($tds->item(2)->textContent),
+            "arrival"       => $this->parseTime($tds->item(3)->textContent),
+            "transfers"     => array(),
+        );
+
+        $values["transfers"][] = array(
+            "departure"     => trim($this->parseTime($tds->item(4)->textContent)),
+            "line"          => trim($tds->item(5)->textContent),
+            "description"   => $this->parseDescription($tds->item(6)),
+            "arrival"       => $this->parseTime($tds->item(7)->textContent),
+            "duration"      => "",
+            "link"          => array(
+                "departure"     => trim($this->parseTime($tds->item(8)->textContent)),
+                "line"          => trim($tds->item(9)->textContent),
+                "description"   => $this->parseDescription($tds->item(10)),
+                "arrival"       => $this->parseTime($tds->item(11)->textContent),
+            )
+        );
+
+        $pos = $i;
+        while (true) {
+            $pos += 1;
+            if (!$rows->item($pos)) {
+                break;
+            }
+            $transferTds = $rows->item($pos)->getElementsByTagName("td");
+            if (!$transferTds) {
+                break;
+            }
+
+            $transferLine = trim($transferTds->item(0)->textContent);
+            if (strlen($transferLine) > 0) {
+                break;
+            }
+            $values["transfers"][] = array(
+                "departure"     => trim($this->parseTime($transferTds->item(4)->textContent)),
+                "line"          => trim($transferTds->item(5)->textContent),
+                "description"   => $this->parseDescription($transferTds->item(6)),
+                "arrival"       => trim($this->parseTime($transferTds->item(7)->textContent)),
+                "duration"      => "",
+                "link"          => array(
+                    "departure"     => trim($this->parseTime($tds->item(8)->textContent)),
+                    "line"          => trim($tds->item(9)->textContent),
+                    "description"   => $this->parseDescription($tds->item(10)),
+                    "arrival"       => $this->parseTime($tds->item(11)->textContent),
+                )
+            );
+            if (($pos - $i) >= 15) {
+                // just is case...
+                break;
+            }
+        }
+
+        return $values;
     }
 
     public function trips()
@@ -287,7 +352,7 @@ class TimetableTripsParser
     /**
      * @return int
      */
-    public function numTransfers()
+    public function numTransferStations()
     {
         if (!$this->transferStationNames) {
             return 0;

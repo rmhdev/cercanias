@@ -600,10 +600,29 @@ HTML;
     {
         $parser = new TimetableTripsParser($this->getTimetableWithMultiTrainTransfer());
 
-        $this->assertEquals(2, $parser->numTransfers());
+        $this->assertEquals(2, $parser->numTransferStations());
         $this->assertEquals("Murcia del Carmen", $parser->transferStationName(0));
         $this->assertEquals("Alicante/Alacant Termino", $parser->transferStationName(1));
         $this->assertEquals("", $parser->transferStationName(2));
+
+        $trips = $parser->trips();
+        $this->assertEquals(1, sizeof($trips));
+        $trip = $trips[0];
+
+        $this->assertEquals("C2", $trip["line"]);
+        $this->assertEquals("06:40", $trip["departure"]);
+        $this->assertEquals("08:38", $trip["arrival"]);
+        $this->assertEquals(4, sizeof($trip["transfers"]));
+
+        $transfer = $trip["transfers"][0];
+        $this->assertEquals("C1", $transfer["line"]);
+        $this->assertEquals("08:50", $transfer["departure"]);
+        $this->assertEquals("10:16", $transfer["arrival"]);
+
+        $link = $transfer["link"];
+        $this->assertEquals("C3", $link["line"]);
+        $this->assertEquals("10:40", $link["departure"]);
+        $this->assertEquals("10:49", $link["arrival"]);
     }
 
     public function getTimetableWithMultiTrainTransfer()

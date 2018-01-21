@@ -122,4 +122,17 @@ class TimetableParserTest extends AbstractTimetableParserTest
             array("Barcelona-El Clot-Aragó", "HorariosRenfeCom/timetable-barcelona.html"),
         );
     }
+
+    public function testItParsesTimetablesWithLinkTrains()
+    {
+        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-murcia-alicante.html");
+
+        $trips = $parser->getTrips();
+        /* @var Trip $trip */
+        $trip = $trips->current();
+        /* @var Train $transferTrain */
+        $transferTrain = $trip->getTransferTrains()->current();
+
+        $this->assertNotNull($transferTrain->getLinkTrain());
+    }
 }
