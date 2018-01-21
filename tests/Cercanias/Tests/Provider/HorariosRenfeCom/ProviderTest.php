@@ -42,7 +42,7 @@ class ProviderTest extends AbstractProviderTest
         ;
         $parser = $provider->getTimetableParser($query);
 
-        $this->assertEquals(20, $parser->getTrips()->count());
+        $this->assertGreaterThan(0, $parser->getTrips()->count());
     }
 
     /**

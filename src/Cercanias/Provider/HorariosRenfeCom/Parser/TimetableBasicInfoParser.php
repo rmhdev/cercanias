@@ -21,7 +21,7 @@ class TimetableBasicInfoParser
     public function __construct($html)
     {
         $previousState = libxml_use_internal_errors(true);
-        $domDocument = new \DOMDocument("1.0", "utf-8");
+        $domDocument = new \DOMDocument("1.0", "ISO_8859-1");
         $domDocument->loadHTML($html);
         $path = new \DOMXPath($domDocument);
         $this->parse($path);

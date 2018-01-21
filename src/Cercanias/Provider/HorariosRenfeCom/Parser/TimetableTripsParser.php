@@ -237,6 +237,9 @@ class TimetableTripsParser
         return $this->trips;
     }
 
+    /**
+     * @return string
+     */
     public function transferStationName()
     {
         return $this->transferStationName;

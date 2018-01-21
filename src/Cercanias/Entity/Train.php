@@ -32,9 +32,7 @@ final class Train
         $this->setLine($line);
         $this->departureTime = $departureTime;
         $this->arrivalTime = $arrivalTime;
-        if ($this->isArrivalTimeOutOfBounds()) {
-            throw new OutOfBoundsException();
-        }
+        $this->assertArrivalTimeOutOfBounds();
     }
 
     protected function setLine($line)
@@ -42,9 +40,18 @@ final class Train
         $this->line = strtolower(trim($line));
     }
 
-    protected function isArrivalTimeOutOfBounds()
+    /**
+     * @throws OutOfBoundsException
+     */
+    protected function assertArrivalTimeOutOfBounds()
     {
-        return ($this->getArrivalTime() < $this->getDepartureTime());
+        if ($this->getArrivalTime() < $this->getDepartureTime()) {
+            throw new OutOfBoundsException(sprintf(
+                'Arrival time "%s" < departure time "%s"',
+                $this->getArrivalTime()->format(DATE_ISO8601),
+                $this->getDepartureTime()->format(DATE_ISO8601)
+            ));
+        }
     }
 
     /**
