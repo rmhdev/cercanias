@@ -174,4 +174,23 @@ class TrainTest extends TestCase
 
         $this->assertEquals(0, $train->compareWith($train));
     }
+
+    public function testItCanHaveALinkTrain()
+    {
+        $linkTrain = new Train(
+            "C1",
+            new \DateTime("2014-01-10 11:45:00"),
+            new \DateTime("2014-01-10 12:05:00")
+        );
+        $train = new Train(
+            "C1",
+            new \DateTime("2014-01-10 11:00:00"),
+            new \DateTime("2014-01-10 11:30:00"),
+            $linkTrain
+        );
+
+        $this->assertEquals($linkTrain, $train->getLinkTrain());
+        $this->assertFalse($linkTrain->hasLinkTrain());
+        $this->assertTrue($train->hasLinkTrain());
+    }
 }

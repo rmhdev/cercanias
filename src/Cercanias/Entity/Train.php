@@ -20,18 +20,21 @@ final class Train
     private $line;
     private $departureTime;
     private $arrivalTime;
+    private $linkTrain;
 
     /**
      * @param string $line
      * @param \DateTime $departureTime
      * @param \DateTime $arrivalTime
-     * @throws \Cercanias\Exception\OutOfBoundsException
+     * @param Train|null $linkTrain
+     * @throws OutOfBoundsException
      */
-    public function __construct($line, \DateTime $departureTime, \DateTime $arrivalTime = null)
+    public function __construct($line, \DateTime $departureTime, \DateTime $arrivalTime = null, Train $linkTrain = null)
     {
         $this->setLine($line);
         $this->departureTime = $departureTime;
         $this->arrivalTime = $arrivalTime;
+        $this->linkTrain = $linkTrain;
         $this->assertArrivalTimeOutOfBounds();
     }
 
@@ -85,6 +88,22 @@ final class Train
     public function getDuration()
     {
         return $this->getDepartureTime()->diff($this->getArrivalTime());
+    }
+
+    /**
+     * @return Train|null
+     */
+    public function getLinkTrain()
+    {
+        return $this->linkTrain;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasLinkTrain()
+    {
+        return !is_null($this->getLinkTrain());
     }
 
     /**
