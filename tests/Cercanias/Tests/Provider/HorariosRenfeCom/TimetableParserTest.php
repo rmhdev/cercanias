@@ -57,6 +57,15 @@ class TimetableParserTest extends AbstractTimetableParserTest
         $this->createTimetableParser("HorariosRenfeCom/service-unavailable.html");
     }
 
+    public function testItReturnsADateObjectThatCanNotBeModified()
+    {
+        $parser = $this->createTimetableParserSanSebastian();
+        $expectedDate = $parser->getDate();
+        $parser->getDate()->modify("+1 day");
+
+        $this->assertEquals($expectedDate, $parser->getDate());
+    }
+
     public function testItParsesDatesThatArriveAtDestinationAfterMidnight()
     {
         $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-madrid.html");
