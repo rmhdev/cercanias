@@ -112,17 +112,25 @@ class TimetableTripsParser
         return implode(":", $matches[0]);
     }
 
-    private function parseDescription(\DOMElement $raw)
+    private function parseDescription(\DOMElement $raw, $append = "")
     {
+        $description = trim($raw->textContent);
         $images = $raw->getElementsByTagName("img");
         if ($images->length > 0) {
             $alt = $images->item(0)->attributes->getNamedItem("alt");
             if ($alt) {
-                return trim($alt->textContent);
+                $description = trim($alt->textContent);
             }
         }
+        if (!strlen($description)) {
+            return $append;
+        }
+        if (!strlen($append)) {
+            return $description;
+        }
 
-        return trim($raw->textContent);
+
+        return implode(", ", array($description, $append));
     }
 
 
@@ -159,13 +167,31 @@ class TimetableTripsParser
         if (!strlen($line)) {
             return array();
         }
+
+        // Sometimes there are no transfers and the trip is direct.
+        $isDirect = false;
+        $arrivalTd = $tds->item(3);
+        $extraDescription = "";
+        if ($tds->item(3)->attributes) {
+            $colspan = $tds->item(3)->attributes->getNamedItem("colspan");
+            if ($colspan && $colspan->textContent == 2) {
+                $isDirect = true;
+                $arrivalTd = $tds->item(6);
+                $extraDescription = $this->parseDescription($tds->item(3));
+            }
+        }
+
         $values = array(
             "line" => $line,
-            "description"   => $this->parseDescription($tds->item(1)),
+            "description"   => $this->parseDescription($tds->item(1), $extraDescription),
             "departure"     => $this->parseTime($tds->item(2)->textContent),
-            "arrival"       => $this->parseTime($tds->item(3)->textContent),
+            "arrival"       => $this->parseTime($arrivalTd->textContent),
             "transfers"     => array(),
         );
+
+        if ($isDirect) {
+            return $values;
+        }
 
         $values["transfers"][] = array(
             "departure"     => trim($this->parseTime($tds->item(4)->textContent)),

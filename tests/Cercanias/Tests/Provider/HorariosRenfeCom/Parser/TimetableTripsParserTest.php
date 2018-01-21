@@ -469,4 +469,129 @@ HTML;
 HTML;
 
     }
+
+    public function testItParsesTimetablesWithTransfersHavingSomeDirectTrips()
+    {
+        $parser = new TimetableTripsParser($this->getTimetableWithTransfersHavingSomeDirectTrips());
+
+        $this->assertEquals("Lezo-Renteria", $parser->transferStationName());
+        $this->assertTrue($parser->hasTransfer());
+        $trips = $parser->trips();
+
+        $directTrip = $trips[1];
+        $this->assertEquals("Tren Directo", $directTrip["description"]);
+        $this->assertEquals(array(), $directTrip["transfers"]);
+    }
+
+    public function getTimetableWithTransfersHavingSomeDirectTrips()
+    {
+        return <<<HTML
+<table border="0" width="95%" cellpadding="1" cellspacing="1" align="center" id="tabla" class="horarios">
+		<tbody>
+			 
+		        	<tr>
+			            <td valign="center" class="cabe" align="center" rowspan="3">Línea</td>
+			             <td valign="center" class="cabe" align="center" rowspan="3"></td>  
+			            <td valign="center" class="cabe" align="center" rowspan="3">Salida<br>Origen </td>
+			            <td class="cabe" colspan="2" align="center">Transbordo en</td>
+			            <td valign="center" class="cabe" align="center" rowspan="3">Línea</td>
+			             <td valign="center" class="cabe" align="center" rowspan="3"></td>  
+			            <td valign="center" class="cabe" align="center" rowspan="3">Llegada<br>Destino </td>	           
+			            <td valign="center" class="cabe" align="center" rowspan="3">Tiempo de Viaje</td>
+		          	</tr>
+			        <tr>
+			            <td class="cabe" colspan="2" align="center">Lezo-Renteria                           </td>
+			        </tr>
+			        <tr>
+			            <td class="cabe" align="center">Llegada</td>
+			            <td class="cabe" align="center">Salida</td>
+			        </tr>
+	          	
+		          	<tr class="impar">
+		            	<td class="linea-cercanias _61C1" align="center" name="codLinea"> 
+		            		 C1    
+		            	</td>
+		            	
+			 			<td align="center">
+			 				<span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+		            	<td class="" align="center"> 12.02 </td>
+						
+			            	<td class="" align="center"> 13.28</td>
+			            	<td class="" align="center"> 13.46 </td>
+			 				
+			 			<td class="linea-cercanias _61C1" align="center" name="codLinea"> 
+			 				 C1    
+			 			</td>
+			 			
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 14.03</td>            
+			            <td class="" align="center"> 2.01 </td>
+		          	</tr>
+	          	
+		          	<tr class="par">
+		            	<td class="linea-cercanias _61" align="center" name="codLinea"> 
+		            		   
+		            	</td>
+		            	
+			 			<td align="center">
+			 				<span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+		            	<td class="" align="center">  </td>
+						
+			            	<td class="" align="center"> </td>
+			            	<td class="" align="center"> 13.58 </td>
+			 				
+			 			<td class="linea-cercanias _61C1" align="center" name="codLinea"> 
+			 				 C1    
+			 			</td>
+			 			
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 14.13</td>            
+			            <td class="" align="center"> 2.11 </td>
+		          	</tr>
+	          	
+		          	<tr class="impar">
+		            	<td class="linea-cercanias _61C1" align="center" name="codLinea"> 
+		            		 C1    
+		            	</td>
+		            	
+			 			<td align="center">
+			 				<span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+		            	<td class="" align="center"> 13.13 </td>
+						
+							<td colspan="2" class="" align="center"> Tren Directo </td>
+							
+			 			<td class="linea-cercanias _61C1" align="center" name="codLinea"> 
+			 				 C1    
+			 			</td>
+			 			
+			            <td align="center">
+			            <span class="rojo4"></span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 14.48</td>            
+			            <td class="" align="center"> 1.35 </td>
+		          	</tr>
+		</tbody>		  
+	</table>
+HTML;
+
+    }
 }
