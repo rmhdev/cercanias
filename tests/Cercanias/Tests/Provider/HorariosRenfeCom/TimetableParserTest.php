@@ -61,7 +61,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
 
     public function testGetTimetableWithSimpleTransfer()
     {
-        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-transfer-simple.html");
+        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-madrid.html");
         $this->assertEquals(34, $parser->getTrips()->count());
 
         $trips = $parser->getTrips();
@@ -80,7 +80,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
 
     public function testGetTimetableWithMultipleTransfers()
     {
-        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-transfer-complete.html");
+        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-barcelona.html");
         $this->assertEquals(33, $parser->getTrips()->count());
 
         $trips = $parser->getTrips();
@@ -105,7 +105,7 @@ class TimetableParserTest extends AbstractTimetableParserTest
 
     public function testStationNamesWithSpecialCharacters()
     {
-        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-transfer-complete.html");
+        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-barcelona.html");
 
         $this->assertEquals("Arenys de Mar", $parser->getDepartureName());
         $this->assertEquals("Barcelona-Passeig de Gràcia", $parser->getDestinationName());
@@ -126,8 +126,8 @@ class TimetableParserTest extends AbstractTimetableParserTest
     {
         return array(
             array("", "HorariosRenfeCom/timetable-sansebastian.html"),
-            array("Chamartin", "HorariosRenfeCom/timetable-transfer-simple.html"),
-            array("Barcelona-El Clot-Aragó", "HorariosRenfeCom/timetable-transfer-complete.html"),
+            array("Chamartin", "HorariosRenfeCom/timetable-madrid.html"),
+            array("Barcelona-El Clot-Aragó", "HorariosRenfeCom/timetable-barcelona.html"),
         );
     }
 }
