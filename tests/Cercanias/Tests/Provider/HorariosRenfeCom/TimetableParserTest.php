@@ -89,22 +89,6 @@ class TimetableParserTest extends AbstractTimetableParserTest
         );
     }
 
-    public function notestGetTimetableWithMultipleTransfers()
-    {
-        $parser = $this->createTimetableParser("HorariosRenfeCom/timetable-barcelona.html");
-        $this->assertGreaterThan(0, $parser->getTrips()->count());
-
-        $hasMultiTransfers = false;
-        foreach ($parser->getTrips() as $trip) {
-            /* @var Trip $trip */
-            if (1 < $trip->getTransferTrains()->count()) {
-                $hasMultiTransfers = true;
-                break;
-            }
-        }
-        $this->assertTrue($hasMultiTransfers);
-    }
-
     public function testStationNames()
     {
         $parser = $this->createTimetableParserSanSebastian();
