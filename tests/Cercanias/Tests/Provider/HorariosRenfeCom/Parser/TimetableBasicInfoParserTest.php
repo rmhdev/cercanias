@@ -10,19 +10,19 @@
 
 namespace Cercanias\Tests\Provider\HorariosRenfeCom\Parser;
 
-use Cercanias\Provider\HorariosRenfeCom\Parser\TimetableStationNameParser;
+use Cercanias\Provider\HorariosRenfeCom\Parser\TimetableBasicInfoParser;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TimetableStationNameParserTest extends \PHPUnit_Framework_TestCase
+class TimetableBasicInfoParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider timetableDataProvider
      */
     public function testItParsesDepartureAndDestinationStationNames($html, $departure, $arrival)
     {
-        $parser = new TimetableStationNameParser($html);
+        $parser = new TimetableBasicInfoParser($html);
 
         $this->assertEquals($departure, $parser->departureStationName());
         $this->assertEquals($arrival, $parser->arrivalStationName());
