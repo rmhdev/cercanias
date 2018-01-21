@@ -12,7 +12,6 @@ namespace Cercanias\Provider\HorariosRenfeCom;
 
 use Cercanias\Exception\NotFoundException;
 use Cercanias\Exception\ServiceUnavailableException;
-use Cercanias\Provider\HorariosRenfeCom\Parser\TimetableAssertParser;
 use Cercanias\Provider\TimetableParserInterface;
 use Cercanias\Provider\AbstractTimetableParser;
 use Cercanias\Entity\Train;
@@ -29,17 +28,21 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
         $domDocument = new \DOMDocument("1.0", "utf-8");
         $domDocument->loadHTML($html);
         $path = new \DOMXPath($domDocument);
-        $this->assertHasTimetable($html);
+        $this->checkContent($path);
         $this->parseValues($path);
         libxml_clear_errors();
         libxml_use_internal_errors($previousState);
     }
 
-    private function assertHasTimetable($html)
+    protected function checkContent(\DOMXPath $path)
     {
-        $parser = new TimetableAssertParser($html);
-
-        return $parser->hasTrips();
+        if ($path->query('//table')->length <= 0) {
+            $unavailable = $path->query('//div[@class="lista_cuadradorosa posicion_cuadrado"]');
+            if ($unavailable->length) {
+                throw new ServiceUnavailableException(trim($unavailable->item(0)->textContent));
+            }
+            throw new NotFoundException("HTML has no timetable results");
+        }
     }
 
     protected function parseValues(\DOMXPath $path)
