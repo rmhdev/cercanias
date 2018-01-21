@@ -16,6 +16,7 @@ class TimetableTripsParser
 {
     const TIMETABLE_WITHOUT_TRANSFER_COLS = 5;
     const TIMETABLE_WITH_TRANSFER_COLS = 8;
+    const TIMETABLE_WITH_MULTI_TRANSFER_COLS = 10;
 
     private $transferStationName;
     private $trips;
@@ -69,6 +70,11 @@ class TimetableTripsParser
         }
         $this->trips = $trips;
         $this->transferStationName = $transferStationName;
+    }
+
+    private function parseTrips(\DOMNodeList $rows, $transferStationNames = array())
+    {
+
     }
 
     private function parseNoTransferTrips(\DOMNodeList $rows, $startFromRow = 1)

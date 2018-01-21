@@ -595,4 +595,187 @@ HTML;
 HTML;
 
     }
+
+    public function notestItParsesTimetableWithMultiTrainTransfer()
+    {
+        $parser = new TimetableTripsParser($this->getTimetableWithMultiTrainTransfer());
+    }
+
+    public function getTimetableWithMultiTrainTransfer()
+    {
+        return <<<HTML
+<table border="0" width="95%" cellpadding="1" cellspacing="1" align="center" id="tabla" class="horarios">
+		<tbody>
+			 
+	          		<tr>
+			            <td valign="center" class="cabe" align="center" rowspan="3"> Línea</td>
+			             <td valign="center" class="cabe" align="center" rowspan="3"></td>   		
+			            <td valign="center" class="cabe" align="center" rowspan="3"> Salida <br> Origen </td>
+			            <td valign="center" class="cabe" colspan="2" align="center" style="width:30%"> Transbordo en</td>    
+			            <td valign="middle" class="cabe" align="center" rowspan="3"> Línea</td>           
+			             <td valign="center" class="cabe" align="center" rowspan="3"></td>       
+			            <td valign="center" class="cabe" colspan="2" align="center" style="width:30%"> Transbordo en</td>    
+			            <td valign="center" class="cabe" align="center" rowspan="3"> Línea </td> 
+			             <td valign="center" class="cabe" align="center" rowspan="3"></td> 
+			            <td valign="center" class="cabe" align="center" rowspan="3"> Llegada<br>Destino </td> 
+			        </tr>
+			        <tr> 
+			            <td class="cabe" colspan="2" align="center"><b>Murcia del Carmen                       </b></td>
+			            <td class="cabe" colspan="2" align="center"><b>Alicante/Alacant Termino                </b></td>
+			        </tr>         
+			        <tr>
+			            <td class="cabe" align="center">Llegada</td>
+			            <td class="cabe" align="center">Salida</td>      
+			            <td class="cabe" align="center">Llegada</td>
+			            <td class="cabe" align="center">Salida</td>
+			        </tr>
+	          	
+			        <tr class="par">
+			            <td class="linea-cercanias _41C2" align="center" name="codLinea"> 
+			            	 C2   
+			            </td>
+			            
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 06.40</td>
+			            <td class="" align="center"> 08.38</td>
+			            <td class="" align="center"> 08.50 </td>
+			           	<td class="linea-cercanias _41C1" align="center" name="codLinea"> 
+			           		 C1   
+			           	</td>
+			           	
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 10.16</td> 
+			            <td class="" align="center"> 10.40 </td>
+			            <td class="linea-cercanias _41C3" align="center" name="codLinea"> 
+			            	 C3   
+			             </td>	     
+						
+						<td align="center">
+						<span class="rojo4"> </span>
+			            	
+			            </td> 
+			            
+			            <td class="" align="center"> 10.49</td>	     
+			          </tr>
+	          	
+			        <tr class="impar">
+			            <td class="linea-cercanias _41" align="center" name="codLinea"> 
+			            	  
+			            </td>
+			            
+			            <td align="center">
+			            <span class="rojo4"></span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> </td>
+			            <td class="" align="center"> </td>
+			            <td class="" align="center"> 11.00 </td>
+			           	<td class="linea-cercanias _41C1" align="center" name="codLinea"> 
+			           		 C1   
+			           	</td>
+			           	
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 12.21</td> 
+			            <td class="" align="center"> 12.30 </td>
+			            <td class="linea-cercanias _41C3" align="center" name="codLinea"> 
+			            	 C3   
+			             </td>	     
+						
+						<td align="center">
+						<span class="rojo4"> </span>
+			            	
+			            </td> 
+			            
+			            <td class="" align="center"> 12.39</td>	     
+			          </tr>
+	          	
+			        <tr class="par">
+			            <td class="linea-cercanias _41" align="center" name="codLinea"> 
+			            	  
+			            </td>
+			            
+			            <td align="center">
+			            <span class="rojo4"></span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> </td>
+			            <td class="" align="center"> </td>
+			            <td class="" align="center"> 12.55 </td>
+			           	<td class="linea-cercanias _41C1" align="center" name="codLinea"> 
+			           		 C1   
+			           	</td>
+			           	
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 14.22</td> 
+			            <td class="" align="center"> 14.25 </td>
+			            <td class="linea-cercanias _41C3" align="center" name="codLinea"> 
+			            	 C3   
+			             </td>	     
+						
+						<td align="center">
+						<span class="rojo4"> </span>
+			            	
+			            </td> 
+			            
+			            <td class="" align="center"> 14.34</td>	     
+			          </tr>
+	          	
+			        <tr class="impar">
+			            <td class="linea-cercanias _41" align="center" name="codLinea"> 
+			            	  
+			            </td>
+			            
+			            <td align="center">
+			            <span class="rojo4"></span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> </td>
+			            <td class="" align="center"> </td>
+			            <td class="" align="center"> 14.31 </td>
+			           	<td class="linea-cercanias _41C1" align="center" name="codLinea"> 
+			           		 C1   
+			           	</td>
+			           	
+			            <td align="center">
+			            <span class="rojo4"> </span>
+			            	
+			            </td>
+			            
+			            <td class="" align="center"> 15.54</td> 
+			            <td class="" align="center"> 16.30 </td>
+			            <td class="linea-cercanias _41C3" align="center" name="codLinea"> 
+			            	 C3   
+			             </td>	     
+						
+						<td align="center">
+						<span class="rojo4"> </span>
+			            	
+			            </td> 
+			            
+			            <td class="" align="center"> 16.39</td>	     
+			          </tr>
+		</tbody>		  
+	</table>
+HTML;
+
+    }
 }
