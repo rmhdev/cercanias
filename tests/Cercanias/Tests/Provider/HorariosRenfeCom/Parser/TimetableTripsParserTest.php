@@ -596,9 +596,14 @@ HTML;
 
     }
 
-    public function notestItParsesTimetableWithMultiTrainTransfer()
+    public function testItParsesTimetableWithMultiTrainTransfer()
     {
         $parser = new TimetableTripsParser($this->getTimetableWithMultiTrainTransfer());
+
+        $this->assertEquals(2, $parser->numTransfers());
+        $this->assertEquals("Murcia del Carmen", $parser->transferStationName(0));
+        $this->assertEquals("Alicante/Alacant Termino", $parser->transferStationName(1));
+        $this->assertEquals("", $parser->transferStationName(2));
     }
 
     public function getTimetableWithMultiTrainTransfer()

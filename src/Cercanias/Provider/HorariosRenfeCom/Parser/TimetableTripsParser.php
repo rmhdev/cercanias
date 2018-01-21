@@ -18,7 +18,7 @@ class TimetableTripsParser
     const TIMETABLE_WITH_TRANSFER_COLS = 8;
     const TIMETABLE_WITH_MULTI_TRANSFER_COLS = 10;
 
-    private $transferStationName;
+    private $transferStationNames;
     private $trips;
 
     public function __construct($html)
@@ -38,7 +38,7 @@ class TimetableTripsParser
      */
     protected function parse(\DOMXPath $path)
     {
-        $transferStationName = "";
+        $transferStationNames = array();
         $allRows = $path->query('//table/tbody/tr');
         if ($allRows->length <= 0) {
             throw new ParseException("Timetable has no rows");
@@ -60,8 +60,15 @@ class TimetableTripsParser
             $trips = $this->parseNoTransferTrips($allRows, $tripsStartAtRow);
         } elseif (self::TIMETABLE_WITH_TRANSFER_COLS == $headerTds->length) {
             $rowWithTransferName = ($theadRows && $theadRows->length > 0) ? $theadRows->item(1) : $allRows->item(1);
-            $transferStationName = $this->parseTransferStationName($rowWithTransferName);
+            $transferStationNames = array($this->parseTransferStationName($rowWithTransferName));
             $trips = $this->parseTransferTrips($allRows, $tripsWithTransferStartAtRow);
+        } elseif (self::TIMETABLE_WITH_MULTI_TRANSFER_COLS == $headerTds->length) {
+            $tds = $allRows->item(1)->getElementsByTagName("td");
+            $totalTransfers = $tds->length;
+            for ($i = 0; $i < $totalTransfers; $i += 1) {
+                $transferStationNames[] = trim($tds->item($i)->textContent);
+            }
+            $trips = $this->parseMultiTransferTrips($allRows, $tripsWithTransferStartAtRow);
         } else {
             throw new ParseException(sprintf(
                 'Number of columns in timetable header is unexpected: "%d"',
@@ -69,7 +76,7 @@ class TimetableTripsParser
             ));
         }
         $this->trips = $trips;
-        $this->transferStationName = $transferStationName;
+        $this->transferStationNames = $transferStationNames;
     }
 
     private function parseTrips(\DOMNodeList $rows, $transferStationNames = array())
@@ -238,16 +245,54 @@ class TimetableTripsParser
         return $values;
     }
 
+    private function parseMultiTransferTrips(\DOMNodeList $rows, $startAtRow = 3)
+    {
+        $trips = array();
+        for ($i = $startAtRow; $i < $rows->length; $i += 1) {
+            $trip = $this->parseMultiTransferTrip($rows, $i);
+            if ($trip) {
+                $trips[] = $trip;
+            }
+        }
+
+        return $trips;
+    }
+
+    private function parseMultiTransferTrip(\DOMNodeList $rows, $i)
+    {
+        return array();
+    }
+
     public function trips()
     {
         return $this->trips;
     }
 
     /**
+     * @param int $transferNumber
      * @return string
      */
-    public function transferStationName()
+    public function transferStationName($transferNumber = 0)
     {
-        return $this->transferStationName;
+        if (0 == sizeof($this->transferStationNames)) {
+            return "";
+        }
+        if ($transferNumber >= sizeof($this->transferStationNames)) {
+            return "";
+        }
+
+        return $this->transferStationNames[$transferNumber];
+    }
+
+    /**
+     * @return int
+     */
+    public function numTransfers()
+    {
+        if (!$this->transferStationNames) {
+            return 0;
+        }
+
+        return sizeof($this->transferStationNames);
     }
 }
