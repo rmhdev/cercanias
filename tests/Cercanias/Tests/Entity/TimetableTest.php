@@ -254,4 +254,15 @@ class TimetableTest extends TestCase
         $expectedDate = new \DateTime("2014-07-15 00:00:00");
         $this->assertEquals($expectedDate, $timetable->getDate());
     }
+
+    public function testItCanHaveMultipleTransferStationNames()
+    {
+        $departure = new Station(1, "From", 61);
+        $destination = new Station(2, "To", 61);
+        $timetable = new Timetable($departure, $destination, array("Transfer A", "Transfer B"));
+
+        $this->assertEquals("Transfer A", $timetable->getTransferName(0));
+        $this->assertEquals("Transfer B", $timetable->getTransferName(1));
+        $this->assertEquals("", $timetable->getTransferName(2));
+    }
 }

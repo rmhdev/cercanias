@@ -20,7 +20,7 @@ final class Timetable
     private $departure;
     private $destination;
     private $trips;
-    private $transferName;
+    private $transferNames;
     private $hasTransfer;
 
     /**
@@ -36,12 +36,12 @@ final class Timetable
         }
         $this->departure = $departure;
         $this->destination = $destination;
-        $this->setTransfer($transfer);
+        $this->setTransferNames($transfer);
         $this->trips = array();
         $this->hasTransfer = false;
     }
 
-    protected function setTransfer($transfer = null)
+    private function setTransferNames($transfer = null)
     {
         if (is_object($transfer)) {
             if (!$transfer instanceof Station) {
@@ -52,7 +52,14 @@ final class Timetable
             }
             $transfer = $transfer->getName();
         }
-        $this->transferName = $transfer;
+        $this->transferNames = array();
+        if (is_string($transfer)) {
+            $this->transferNames[] = $transfer;
+        } elseif (is_array($transfer)) {
+            foreach ($transfer as $item) {
+                $this->transferNames[] = (string)$item;
+            }
+        }
     }
 
     /**
@@ -72,11 +79,18 @@ final class Timetable
     }
 
     /**
+     * @param int $transferNumber
      * @return string
      */
-    public function getTransferName()
+    public function getTransferName($transferNumber = 0)
     {
-        return $this->transferName;
+        if (0 == sizeof($this->transferNames)) {
+            return "";
+        }
+        if ($transferNumber >= sizeof($this->transferNames)) {
+            return "";
+        }
+        return $this->transferNames[$transferNumber];
     }
 
     /**
