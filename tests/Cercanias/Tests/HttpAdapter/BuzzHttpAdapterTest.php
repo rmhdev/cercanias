@@ -12,11 +12,12 @@ namespace Cercanias\Tests\HttpAdapter;
 
 use Cercanias\HttpAdapter\BuzzHttpAdapter;
 use Buzz\Browser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class BuzzHttpAdapterTest extends \PHPUnit_Framework_TestCase
+class BuzzHttpAdapterTest extends TestCase
 {
 
     /**
@@ -63,7 +64,7 @@ class BuzzHttpAdapterTest extends \PHPUnit_Framework_TestCase
      */
     protected function getBrowserMock($content)
     {
-        $mock = $this->getMock('Buzz\Browser');
+        $mock = $this->createMock('Buzz\Browser');
         $mock
             ->expects($this->once())
             ->method('get')
@@ -76,7 +77,7 @@ class BuzzHttpAdapterTest extends \PHPUnit_Framework_TestCase
 
     protected function getResponseMock($content)
     {
-        $mock = $this->getMock('Buzz\Message\Response');
+        $mock = $this->createMock('Buzz\Message\Response');
         $mock
             ->expects($this->once())
             ->method('getContent')

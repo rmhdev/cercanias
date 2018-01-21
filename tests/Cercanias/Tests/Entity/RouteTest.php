@@ -12,11 +12,12 @@ namespace Cercanias\Tests\Entity;
 
 use Cercanias\Entity\Route;
 use Cercanias\Entity\Station;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class RouteTest extends \PHPUnit_Framework_TestCase
+class RouteTest extends TestCase
 {
 
     /**

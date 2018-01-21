@@ -12,11 +12,12 @@ namespace Cercanias\Tests\Provider\Web;
 
 use Cercanias\Entity\Route;
 use Cercanias\Provider\RouteQuery;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class RouteQueryTest extends \PHPUnit_Framework_TestCase
+class RouteQueryTest extends TestCase
 {
     /**
      * @dataProvider routeProvider

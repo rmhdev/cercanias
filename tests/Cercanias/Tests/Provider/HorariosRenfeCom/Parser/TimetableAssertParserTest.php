@@ -11,11 +11,12 @@
 namespace Cercanias\Tests\Provider\HorariosRenfeCom\Parser;
 
 use Cercanias\Provider\HorariosRenfeCom\Parser\TimetableAssertParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TimetableAssertParserTest extends \PHPUnit_Framework_TestCase
+class TimetableAssertParserTest extends TestCase
 {
     /**
      * @expectedException \Cercanias\Exception\NotFoundException

@@ -13,11 +13,12 @@ namespace Cercanias\Tests\Provider\Web;
 use Cercanias\Provider\TimetableQuery;
 use Cercanias\Entity\Route;
 use Cercanias\Entity\Station;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TimetableQueryTest extends \PHPUnit_Framework_TestCase
+class TimetableQueryTest extends TestCase
 {
     /**
      * @dataProvider routeProvider

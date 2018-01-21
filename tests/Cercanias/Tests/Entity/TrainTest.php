@@ -11,11 +11,12 @@
 namespace Cercanias\Tests\Entity;
 
 use Cercanias\Entity\Train;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TrainTest extends \PHPUnit_Framework_TestCase
+class TrainTest extends TestCase
 {
     /**
      * @dataProvider getLineProvider

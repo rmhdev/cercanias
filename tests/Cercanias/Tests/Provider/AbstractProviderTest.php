@@ -12,11 +12,12 @@ namespace Cercanias\Tests\Provider;
 
 use Cercanias\HttpAdapter\HttpAdapterInterface;
 use Cercanias\Provider\AbstractProvider;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-abstract class AbstractProviderTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractProviderTest extends TestCase
 {
     /**
      * @param null $expects
@@ -27,7 +28,7 @@ abstract class AbstractProviderTest extends \PHPUnit_Framework_TestCase
         if (null === $expects) {
             $expects = $this->once();
         }
-        $mock = $this->getMock('Cercanias\HttpAdapter\HttpAdapterInterface');
+        $mock = $this->createMock('Cercanias\HttpAdapter\HttpAdapterInterface');
         $mock
             ->expects($expects)
             ->method('getContent')
@@ -42,7 +43,7 @@ abstract class AbstractProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockAdapterReturnsFixtureContent($filename)
     {
-        $mock = $this->getMock('Cercanias\HttpAdapter\HttpAdapterInterface');
+        $mock = $this->createMock('Cercanias\HttpAdapter\HttpAdapterInterface');
         $mock->expects($this->once())
             ->method('getContent')
             ->willReturn(file_get_contents(__DIR__ . "/../../Fixtures/" . $filename))

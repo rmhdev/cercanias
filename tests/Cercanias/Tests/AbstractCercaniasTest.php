@@ -16,18 +16,19 @@ use Cercanias\Provider\RouteQueryInterface;
 use Cercanias\Provider\TimetableParserInterface;
 use Cercanias\Provider\TimetableQueryInterface;
 use Cercanias\Provider\ProviderInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-abstract class AbstractCercaniasTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractCercaniasTest extends TestCase
 {
     /**
      * @return ProviderInterface
      */
     protected function getMockProviderReturnsRouteParser()
     {
-        $mock = $this->getMock('Cercanias\Provider\ProviderInterface');
+        $mock = $this->createMock('Cercanias\Provider\ProviderInterface');
         $mock->expects($this->once())
             ->method('getRouteParser')
             ->willReturn(new MockRouteParser())
@@ -41,7 +42,7 @@ abstract class AbstractCercaniasTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockProviderReturnsTimetableParser()
     {
-        $mock = $this->getMock('Cercanias\Provider\ProviderInterface');
+        $mock = $this->createMock('Cercanias\Provider\ProviderInterface');
         $mock->expects($this->once())
             ->method('getTimetableParser')
             ->willReturn(new MockTimetableParser())

@@ -10,10 +10,12 @@
 
 namespace Cercanias\Tests\Provider;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-abstract class AbstractRouteParserTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractRouteParserTest extends TestCase
 {
     protected function getContentHtml($filename)
     {

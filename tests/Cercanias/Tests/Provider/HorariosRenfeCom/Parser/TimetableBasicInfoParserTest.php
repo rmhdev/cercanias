@@ -11,11 +11,12 @@
 namespace Cercanias\Tests\Provider\HorariosRenfeCom\Parser;
 
 use Cercanias\Provider\HorariosRenfeCom\Parser\TimetableBasicInfoParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TimetableBasicInfoParserTest extends \PHPUnit_Framework_TestCase
+class TimetableBasicInfoParserTest extends TestCase
 {
     /**
      * @dataProvider timetableDataProvider

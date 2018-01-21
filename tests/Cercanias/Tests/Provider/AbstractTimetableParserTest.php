@@ -11,11 +11,12 @@
 namespace Cercanias\Tests\Provider;
 
 use Cercanias\Provider\HorariosRenfeCom\TimetableParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-abstract class AbstractTimetableParserTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractTimetableParserTest extends TestCase
 {
     protected function getContentHtml($filename)
     {

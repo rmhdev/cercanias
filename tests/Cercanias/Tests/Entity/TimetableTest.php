@@ -14,11 +14,12 @@ use Cercanias\Entity\Station;
 use Cercanias\Entity\Timetable;
 use Cercanias\Entity\Train;
 use Cercanias\Entity\Trip;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TimetableTest extends \PHPUnit_Framework_TestCase
+class TimetableTest extends TestCase
 {
     public function testGetDeparture()
     {

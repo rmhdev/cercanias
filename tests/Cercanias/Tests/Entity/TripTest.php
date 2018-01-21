@@ -12,11 +12,12 @@ namespace Cercanias\Tests\Entity;
 
 use Cercanias\Entity\Train;
 use Cercanias\Entity\Trip;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class TripTest extends \PHPUnit_Framework_TestCase
+class TripTest extends TestCase
 {
 
     public function testGetDepartureTrain()

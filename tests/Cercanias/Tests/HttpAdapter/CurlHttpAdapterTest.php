@@ -11,11 +11,12 @@
 namespace Cercanias\Tests\HttpAdapter;
 
 use Cercanias\HttpAdapter\CurlHttpAdapter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Rober Martín H <rmh.dev@gmail.com>
  */
-class CurlHttpAdapterTest extends \PHPUnit_Framework_TestCase
+class CurlHttpAdapterTest extends TestCase
 {
     /**
      * @var CurlHttpAdapter
