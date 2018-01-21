@@ -16,6 +16,8 @@ class TimetableBasicInfoParser
 
     private $arrivalName;
 
+    private $date;
+
     public function __construct($html)
     {
         $previousState = libxml_use_internal_errors(true);
@@ -36,20 +38,59 @@ class TimetableBasicInfoParser
             $departureStationName = trim($stationNames->item(0)->textContent);
             $arrivalStationName = trim($stationNames->item(1)->textContent);
         }
-
         $this->departureName = $departureStationName;
         $this->arrivalName = $arrivalStationName;
+
+        $this->date = $this->parseDate($path);
     }
 
+    private function parseDate(\DOMXPath $path)
+    {
+        $dateString = "";
+        $firstB = $path->query('//h4/b')->item(0);
+        if ($firstB instanceof \DOMNode) {
+            $dateString = $firstB->textContent;
+        } else {
+            $h4 = $path->query('//h4')->item(0)->textContent;
+            if (preg_match('/\((.*?)\)/', $h4, $matches)) {
+                $dateString = $matches[1];
+            }
+        }
+        $dateString = str_replace(
+            array(".", "/", "_", " "),
+            array("-", "-", "-", "-"),
+            trim($dateString)
+        );
+        $dateParts = explode("-", $dateString);
+        if (3 != sizeof($dateParts)) {
+            return $dateString;
+        }
+        $dateTime = new \DateTime("{$dateParts[2]}-{$dateParts[1]}-{$dateParts[0]} 00:00:00");
 
+        return $dateTime->format("Y-m-d");
+    }
 
+    /**
+     * @return string
+     */
     public function departureStationName()
     {
         return $this->departureName;
     }
 
+    /**
+     * @return string
+     */
     public function arrivalStationName()
     {
         return $this->arrivalName;
+    }
+
+    /**
+     * @return string
+     */
+    public function date()
+    {
+        return $this->date;
     }
 }

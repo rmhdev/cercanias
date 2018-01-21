@@ -126,4 +126,23 @@ EOL;
 EOL;
 
     }
+
+    /**
+     * @dataProvider timetableDayProvider
+     */
+    public function testItParsesQueryDay($html, $day)
+    {
+        $parser = new TimetableBasicInfoParser($html);
+
+        $this->assertEquals($day, $parser->date());
+        $this->assertEquals($day, $parser->date());
+    }
+
+    public function timetableDayProvider()
+    {
+        return array(
+            array($this->getDefaultData(), "2014-02-10"),
+            array($this->getData2018(), "2018-01-14"),
+        );
+    }
 }
