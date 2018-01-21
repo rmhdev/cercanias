@@ -38,7 +38,7 @@ final class CurlHttpAdapter implements HttpAdapterInterface
         $content = curl_exec($c);
         curl_close($c);
 
-        return (false === $content) ? null : $content;
+        return (false === $content) ? null : utf8_encode($content);
     }
 
     protected function prepareCurlOptions($url)
