@@ -34,6 +34,11 @@ final class TimetableParser extends AbstractTimetableParser implements Timetable
         libxml_use_internal_errors($previousState);
     }
 
+    private function assertHasTimetable($html)
+    {
+
+    }
+
     protected function checkContent(\DOMXPath $path)
     {
         if ($path->query('//table')->length <= 0) {
