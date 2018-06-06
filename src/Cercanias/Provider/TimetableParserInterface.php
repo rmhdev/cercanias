@@ -31,9 +31,10 @@ interface TimetableParserInterface
     public function getDestinationName();
 
     /**
+     * @param int $transferLinkNumer
      * @return string
      */
-    public function getTransferName();
+    public function getTransferName($transferLinkNumer = 0);
 
     /**
      * @return \ArrayIterator

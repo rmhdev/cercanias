@@ -138,7 +138,7 @@ class MockTimetableParser implements TimetableParserInterface
         return "Destination station";
     }
 
-    public function getTransferName()
+    public function getTransferName($linkTransferNumber = 0)
     {
         return "Transfer station";
     }

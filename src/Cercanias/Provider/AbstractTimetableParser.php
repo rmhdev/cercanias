@@ -69,7 +69,7 @@ abstract class AbstractTimetableParser implements TimetableParserInterface
     /**
      * {@inheritDoc}
      */
-    public function getTransferName()
+    public function getTransferName($linkTransferNumber = 0)
     {
         return $this->transferName;
     }
